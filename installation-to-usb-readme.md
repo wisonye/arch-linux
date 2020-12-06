@@ -523,7 +523,33 @@ shutdown -h now
 
 Login with your own user (not the `root` user) to finish all the steps below.
 
-## 1. Handle your WIFI connection
+## What is `Getty`
+
+After reboot, you will see a default terminal login prompt which prints with **tty1**, that's the `getty`.
+
+In Arch Linux, `agetty` is the default `getty`, it prompts for a login name and invokes the `/bin/login` command.
+
+You can press `Ctrl+Alt+F1 ~ F6` to switch between **tty1 ~ tty6**. If you press `Ctrl+Alt+F7` then that the `X` which means your `DE`(Desktop Environment) or `WM`(Window Manager).
+
+More information from [here](https://wiki.archlinux.org/index.php/getty)
+
+Tips:
+    
+- Sometimes, when you do a wrong configuration to your `DE` or `WM`, even the `DM` (Display Manager which works like a graphical login prompt),
+  then you can switch another **tty** and login to fix it, very handy.
+
+- How to change **tty** fonts:
+
+    ```bash
+    # All fonts stay in this folder
+    ls -lht /usr/share/kbd/consolefonts
+
+    # Set the TTY font
+    setfont FONT_FILE_NAME_HERE
+    ```
+
+
+## Handle your WIFI connection
 
 - Copy the WIFI config from example and named it as `wlan0-dhcp`
 
@@ -581,7 +607,7 @@ Login with your own user (not the `root` user) to finish all the steps below.
     #       channel 1 (2412 MHz), width: 20 MHz, center1: 2312 MHz
     ```
 
-## 2. Make your boot more faster
+## Make your boot more faster
 
 `sudo vim /etc/default/grub` to change some settings to reduce the timeout
 
@@ -599,45 +625,50 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 Now, reboot to take affect.
 
 
-## 3. Install `yay` to What is AUR?
+## Install `X` implementation
 
-**AUR** stands for Arch User Repository. It is a community-driven repository for Arch-based Linux distributions users.
-It contains package descriptions named **PKGBUILDs** that allow you to compile a package from source with `makepkg` and
-then install it via `pacman` (package manager in Arch Linux).
+What is `X`? It's the `X Window System` or (`X11`), it provides the basic framework for a GUI environment:
 
-How to enable **AUR** installation:
+- Drawing
+- Moving windows
+- Interact with mouse and keyboard
+
+
+It's `Client, Server` architecture
+
+How to install a `X` implementation? 
 
 ```bash
-mkdir ~/temp && cd ~/temp
-
-pacman -S --needed git base-devel
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-
-cd ~/temp && rm -rf yay
+sudo pacman -S xorg xorg-server
 ```
 
-If you want to change or add any mirror server to `/etc/pacman.d/mirrorlist`, you can go to [here](https://www.archlinux.org/mirrorlist/)
+More information from [here](https://en.wikipedia.org/wiki/X_Window_System)
 
-## 4. Install `lightdm` as the login UI
 
-**LightDM** is a cross-desktop **D**isplay **M**anager. Its key features are:
+## Install `lightdm` as the login UI
 
-- Cross-desktop - supports different desktop technologies.
-- Supports different display technologies (X, Mir, Wayland ...).
-- Lightweight - low memory usage and high performance.
-- Supports guest sessions.
-- Supports remote login (incoming - XDMCP, VNC, outgoing - XDMCP, pluggable).
-- Comprehensive test suite.
-- Low code complexity.
+- What is `Dislpay Manager`?
 
-[Here](https://wiki.archlinux.org/index.php/LightDM) has more detail information.
+    A display manager, or login manager, is typically a graphical user interface that is displayed at the end of the boot process in place of the default shell.
+
+- We will install one of the implementation which is called: **LightDM**
+
+    **LightDM** is a cross-desktop **D**isplay **M**anager (also known as a **L**ogin **M**anager). Its key features are:
+
+    - Cross-desktop - supports different desktop technologies.
+    - Supports different display technologies (X, Mir, Wayland ...).
+    - Lightweight - low memory usage and high performance.
+    - Supports guest sessions.
+    - Supports remote login (incoming - XDMCP, VNC, outgoing - XDMCP, pluggable).
+    - Comprehensive test suite.
+    - Low code complexity.
+
+    [Here](https://wiki.archlinux.org/index.php/LightDM) has more detail information.
 
 - Installation 
 
     ```bash
-    yay -S lightdm lightdm-gtk-greeter
+    sudo pacman -S lightdm lightdm-gtk-greeter
     ```
 
 - Change `greeter` which just like a login graphical prompt
@@ -671,3 +702,61 @@ Then reboot and you will see the new greeter UI.
 
 If it cann't load the `lightdm` (for example, you change to a non-exists greeter or you delete the greeter but didn't update the `/etc/lightdm/lightdm.conf`),
 then you can press `Ctrl+ALt+(Fn)F2` to switch to another `TTY` console, then login and fix the problem:)
+
+
+## Install `yay` to What is AUR?
+
+**AUR** stands for Arch User Repository. It is a community-driven repository for Arch-based Linux distributions users.
+It contains package descriptions named **PKGBUILDs** that allow you to compile a package from source with `makepkg` and
+then install it via `pacman` (package manager in Arch Linux).
+
+How to enable **AUR** installation:
+
+```bash
+mkdir ~/temp && cd ~/temp
+
+pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+cd ~/temp && rm -rf yay
+```
+
+If you want to change or add any mirror server to `/etc/pacman.d/mirrorlist`, you can go to [here](https://www.archlinux.org/mirrorlist/)
+
+
+## How to improve graphic performance
+
+- Identify your graphics card:
+
+    ```bash
+    lspci -v | grep -A1 -e VGA -e 3D
+
+    # It will print something like this:
+    #
+    # VGA compatible controller: Intel Corproation Crystal ell Integrated Grahpics Controller (rev 08) (prog-if 00 [VGA controller])
+    # Subsystem: Apple Inc. Device 0147
+
+    ```
+
+    So you can know that's a GPU integrated inside Intel CPU and 'Subsystem' show you the specific model for you to find the driver
+
+- Install the video driver
+
+    ```bash
+    # Driver - `xf86-video-BRAND_NAME_HERE`
+    # OpenGL - `lib32-mesa` if you needed
+    # OpenGL (multilib) - `mesa`
+    sudo pacman -S xf86-video-intel mesa
+    ```
+
+    [here](https://wiki.archlinux.org/index.php/xorg) is the full list
+
+## How to remove `pacmanc` cache
+
+After a while, `pacman` cache will be huge, it locates in `/var/cache/pacman/pgk`, you can remove all if you don't need it.
+
+```bash
+sudo pacman -Scc
+```
