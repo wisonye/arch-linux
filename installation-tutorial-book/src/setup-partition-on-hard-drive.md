@@ -1,6 +1,6 @@
-# Setup partitions on USB
+# Setup partitions on hard drive
 
-If you want to install the entire `Arch Linux` on a portable USB driver, please keep reading.
+If you want to install the entire `Arch Linux` on any computer hard drive, please keep reading.
 
 - List your installation target disk by running `fdisk -l`. The following example supposes that your disk is `/dev/sdX`, change the `X` to your own one!!!
 
@@ -26,8 +26,6 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
 
 - Follow the steps below to setup your Arch Linux partition:
 
-    We will setup a USB which compitlabe with both **`BIOS`** and ****`UEFI`****!!!
-
     - Run `fdisk /dev/sdX`
 
     - Delete all existing partitions
@@ -50,64 +48,40 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
         `g`
         ```
 
-    - Create `10MB` **MBR** partition
+    - Create `512MB` ESP (EFI System Partition) which will be mounted to `/boot` and hold the bootloader
 
         ```bash
         `n`
         `1` or just `Enter` to use partition no `1`
         `Enter` to use the default start sector
-        `+10M` to set this partition size to `10M`
-        # If success, you should see `Created a new partition 1 of type `Linux filesystem` and of size 10 MiB.
-        # If it asks you "Partition #X contains a YYYY signature, Do you want to remove the signature", then press 'Y' to remove the previous partition signature.
-
-        # We need to change the partition type from `Linux filesystem` to `BIOS BOOT`. Before that you can press `l` to list all supported partition types:
-        `t`
-        `4`, 
-
-        # Finally, press `p` to confirm the result, it should look like this
-        #
-        # /dev/sdX1   (ignore the sector numbers there) 10M BIOS boot
-        ```
-
-    - Create `512MB` ESP (EFI System Partition) which will be mounted to `/boot` and hold the bootloader
-
-        ```bash
-        `n`
-        `2` or just `Enter` to use partition no `2`
-        `Enter` to use the default start sector
         `+512M` to set this partition size to `512MB`
-        # If success, you should see `Created a new partition 2 of type `Linux filesystem` and of size 512 MiB.
-
-        # We need to change the partition type from `Linux filesystem` to `EFI System`. Before that you can press `l` to list all supported partition types:
-        `t`
-        `2` to make sure select the 512MB partition
-        `1` which means `EFI System`
-
-        # Finally, press `p` to confirm the result, it should look like this
-        #
-        # /dev/sdX1   (ignore the sector numbers there) 10M  BIOS boot
-        # /dev/sdX2   (ignore the sector numbers there) 512M EFI System
+        # If success, you should see `Created a new partition 1 of type `Linux filesystem` and of size 512 MiB.
         ```
 
-    - Finally, create the linux root partition which will be mounted to `/` and hold the entire Linux system
+
+    - Create SWAP partition:
+        ```bash
+        `n`
+        `3`, set this partition no to `3` rather than `2`, then when you print the partition table, it shows as the last partition which is more easy to read.
+        `Enter` to use the default start sector
+        `+8G` to use 8GB as SWAP, usually, should set to equal to your RAM amout or 1.5 time of  your RAM amount. 
+        # If success, you should see `Created a new partition 3 of type `Linux filesystem` and of size 8 MiB.
+        ```
+
+    - Finally, create the Linux root partition which will be mount to `/root`
 
         ```bash
         `n`
-        `3` or just `Enter` to use partition no `3`
+        `Enter` to use partition no `2`
         `Enter` to use the default start sector
         `Enter` to use all the left spaces
-        # If success, you should see `Created a new partition 3 of type `Linux filesystem` and of size XXXX GiB.
-
-        # Finally, press `p` to confirm the result, it should look like this
-        #
-        # /dev/sdX1   (ignore the sector numbers there) 10M  BIOS boot
-        # /dev/sdX2   (ignore the sector numbers there) 512M EFI System
-        # /dev/sdX3   (ignore the sector numbers there) XXXG Linux filesystem
+        # If success, you should see `Created a new partition 2 of type `Linux filesystem` and of size XXXX MiB.
         ```
+
+    - Then you can print the partition table by pressing `p` to have a look if you want
 
     - The last step is press `w` to write all changes into the disk!!!
         ```bash
-        `w`
+        w
         ```
-
 

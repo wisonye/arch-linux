@@ -627,6 +627,7 @@ Now, reboot to take affect.
 
 ## Install `X` implementation
 
+**`The`** X Window System (X11, or simply X) is a windowing system for bitmap displays, common on Unix-like operating systems.
 What is `X`? It's the `X Window System` or (`X11`), it provides the basic framework for a GUI environment:
 
 - Drawing
