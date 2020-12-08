@@ -548,6 +548,8 @@ Tips:
     setfont FONT_FILE_NAME_HERE
     ```
 
+## Install `vim` and enable the `clipboard` feature
+
 
 ## Handle your WIFI connection
 
@@ -669,10 +671,13 @@ More information from [here](https://en.wikipedia.org/wiki/X_Window_System)
 - Installation 
 
     ```bash
-    sudo pacman -S lightdm lightdm-gtk-greeter
+    # `lightdm-webkit2-greeter` is one of the lightdm greeter which will explain below
+    sudo pacman -S lightdm lightdm-webkit2-greeter
     ```
 
-- Change `greeter` which just like a login graphical prompt
+- Change the default `greeter`
+
+    A `greeter` just like a login graphical prompt, you can install any one you likekk
 
     By default, all `gretter` you installed are located in `/usr/share/xgreeters`
 
@@ -692,6 +697,20 @@ More information from [here](https://en.wikipedia.org/wiki/X_Window_System)
     # ...
 
     ```
+
+- Recommended `Webkit2` themes
+
+https://github.com/NoiSek/Aether
+
+https://github.com/manilarome/lightdm-webkit2-theme-glorious
+
+https://github.com/Litarvan/lightdm-webkit-theme-litarvan
+
+https://github.com/kasperrt/lightdm-webkit-ez
+
+To set the the webkit2 theme we will need to edit another configuration file.
+
+sudo nano /etc/lightdm/lightdm-webkit2-greeter.conf
 
 - Enable the `lightdm` service when booting
 
