@@ -53,5 +53,4 @@ And pay attention on that: Even the `Caps_Lock` key already mapped to `Escape`, 
 
 So always tap `Caps_Lock` twice to make sure it doesn't switch uppercase mode!!!:)
 
-
-</br><hr>
+</br>

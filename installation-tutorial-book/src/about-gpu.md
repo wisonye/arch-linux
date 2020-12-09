@@ -22,4 +22,4 @@
     # OpenGL (multilib) - `mesa` if that's Intel
     sudo pacman -S xf86-video-intel mesa
     ```
-    [here](https://wiki.archlinux.org/index.php/xorg) is the full list
+    [here](https://wiki.archlinux.org/index.php/xorg) is the full list for all GPU brands.

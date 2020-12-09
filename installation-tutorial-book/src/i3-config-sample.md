@@ -138,8 +138,9 @@ bindsym $mod+Shift+space floating toggle
 
 # change container layout (stacked, tabbed, toggle split)
 # bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
+bindsym $mod+e layout toggle tabbed split
 
 
 # ===========================================================================
@@ -188,9 +189,6 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # Program launch shortcuts
 # ===========================================================================
 
-# bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screensh
-bindsym --release Control+$mod+p exec --no-startup-id "import ~/Pictures/$(date +%F_%H:%M:%S.png)"
-
 # Terminal
 bindsym $mod+t exec alacritty
 
@@ -208,8 +206,8 @@ bindsym $mod+u exec "pamac-manager --updates"
 bindsym $mod+s exec pamac-manager
 
 # Take screenshot
-# bindsym $alt+$mod+p exec "scrot -s ~/Pictures/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
-# bindsym Control+$mod+p exec "scrot ~/Pictures/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym --release $alt+$mod+p exec "scrot -s ~/Desktop/Screenshots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym Control+$mod+p exec "scrot ~/Desktop/Screenshots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
 
 # start dmenu (a program launcher)
 #
