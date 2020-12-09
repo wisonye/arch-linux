@@ -25,6 +25,8 @@
     - [Prepare your preferred editor Configuration](./prepare-your-preferred-editor.md)
     - [WIFI Configuration](./wifi-configuration.md)
     - [Make your boot faster](./make-your-boot-faster.md)
+    - [Install `yay` to enable `AUR`](./install-yay-to-enable-aur.md)
     - [Install `X` implementation](./install-x-implementation.md)
     - [Install `ligthDM`](./install-lightdm.md)
+    - [Fix resolution issue](./fix-resolution-issue.md)
     - [Install `i3` Window Manager](./install-i3-wm.md)

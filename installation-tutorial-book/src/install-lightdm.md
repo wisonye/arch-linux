@@ -53,10 +53,42 @@
 
     ```bash
     sudo systemctl enable lightdm.service
+    ```
 
-    # After you change the greeter or another settings,
-    # you need to restart the service to take affect.
+- Restart the `lightdm` service when booting
+
+    After you change the greeter or another settings, you need to restart the service to take affect.
+    Pay attention that this command will logout the curernt session, 
+    make sure save all docs before you do that
+
+    ```
     sudo systemctl restart lightdm.service
     ```
 
-Then reboot and you will see the new greeter UI.
+    If you want to change setting very often and don't want to be foreced to logout, then you can open
+    another **`tty`** (Ctrl+Alt+F1 ~ F6) and run the command above, then back the **`lightdm`** will 
+    refresh in the **`tty7`** which more convenience. 
+
+- Install new theme for the `lightdm-webkit2-greeter`
+
+    It's super easy to add a different theme based on `lightdm-webkit2-greeter`, for example, install this one:
+
+    ```bash
+    yay -Sy lightdm-webkit-theme-aether
+    ```
+
+    After a theme be installed, it saves in `/usr/share/lightdm/themes`
+
+    ```bash
+    ls -lht /usr/share/lightdm/themes
+
+    # lightdm-webkit-theme-aether
+    ```
+
+    So, you need to change the theme name in `/etc/lightdm/lightdm-webkit2-greeter.conf` like below:
+
+    ```bash
+    webkit_theme = lightdm-webkit-theme-aether
+    ```
+
+    Save it and logout to take affect.

@@ -45,11 +45,20 @@ Right now, the newer `Arch Linux` can connect via **`ethernet`** NIC, but how ab
 
     If start fail, then run `sudo netctl status wlan0-dhcp` to read the detail error.
 
+- Connect to WIFI when computer boots
+
     You can create a `systemd` service to connect to WIFI automatic when computer boots
 
     ```bash
     sudo netctl reenable wlan0-dhcp
     ```
+    But this is not recommended if you're installing the `Arch Linux` to **USB**,
+    as not all computers always have the `wlan0`. In the case which doesn't have the `wlan0` NIC,
+    then the booting process will keep waiting before time out, it will waste a couple of seconds.
+
+    For solving this, you can add a script to start `wlan0-dhcp` profile into a script which will 
+    be added to **`lightdm`**, that will be perfect.
+
 
 Pay attention:
 

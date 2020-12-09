@@ -39,4 +39,10 @@ We will install a **`Tiling`** window manager which calls **`i3`**.
 
     What you need to do just add that `i3.desktop` to `/etc/lightdm/lightdm.conf` like below:
 
+    ```bash
+    user-session=i3
+
+    # Logout to take affect
+    i3exit logout
+    `````
 
