@@ -35,7 +35,7 @@ We will install a **`Tiling`** window manager which calls **`i3`**.
 
 - Let `lightdm` to start `i3`
 
-    After finishing install the `i3`, the new **`X`** sessions already been added to `/usr/share/xessions`.
+    After finishing install the `i3`, the new **`X`** session already been added to `/usr/share/xessions`.
 
     What you need to do just add that `i3.desktop` to `/etc/lightdm/lightdm.conf` like below:
 
@@ -46,3 +46,14 @@ We will install a **`Tiling`** window manager which calls **`i3`**.
     i3exit logout
     `````
 
+- How to run some scripts or programms when **`i3`** reload?
+
+    Add the setting below to your `~/.config/i3/config`
+
+    ```bash
+    # Run the command without delay
+    exec_always YOUR_COMMAND_HERE
+
+    # Sleep 1 second then run the command
+    exec_always sleep 1; YOUR_COMMAND_HERE
+    ```
