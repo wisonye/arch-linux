@@ -21,11 +21,15 @@ Let's make some requirements for the switching task below:
     set $alt Mod1
     ```
 
+</br>
+
 - **`Apple keybaord`**
 
     - Use `Super_L`(Left Command) key as the `i3` $Mod key
     - Use `Caps Lock` key as `Escape` key
     - Use `Alt_L`(Left Alt) key as Mod1
+
+</br>
 
 - **`Varmilo mechanical keybaord`**
 

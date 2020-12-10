@@ -14,6 +14,8 @@
 
     So you can know that's a GPU integrated inside Intel CPU and 'Subsystem' show you the specific model for you to find the driver
 
+</br>
+
 - Install the video driver
 
     ```bash

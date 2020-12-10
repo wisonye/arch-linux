@@ -33,6 +33,8 @@ We will install a **`Tiling`** window manager which calls **`i3`**.
 | `i3exit`  | A easy to do `shutdown`, `reboot`, `lock` in i3 environment. |
 
 
+</br>
+
 - Let `lightdm` to start `i3`
 
     After finishing install the `i3`, the new **`X`** session already been added to `/usr/share/xessions`.
@@ -45,6 +47,8 @@ We will install a **`Tiling`** window manager which calls **`i3`**.
     # Logout to take affect
     i3exit logout
     `````
+
+</br>
 
 - How to run some scripts or programms when **`i3`** reload?
 

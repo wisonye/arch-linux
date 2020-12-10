@@ -4,6 +4,8 @@ If you want to install the entire `Arch Linux` on any computer hard drive, pleas
 
 - List your installation target disk by running `fdisk -l`. The following example supposes that your disk is `/dev/sdX`, change the `X` to your own one!!!
 
+</br>
+
 - To confirm your `boot mode`:
 
     ```bash
@@ -12,6 +14,8 @@ If you want to install the entire `Arch Linux` on any computer hard drive, pleas
 
     If the command shows the directory without error, then the system is booted in **`UEFI`** mode.
     If the directory does not exist, the system may be booted in `BIOS` (or `CSM`) mode.
+
+</br>
 
 - Detail about **`BIOS`** and **`UEFI`**
 
@@ -23,6 +27,8 @@ If you want to install the entire `Arch Linux` on any computer hard drive, pleas
     If the motherboard is set to boot in **`UEFI`** mode only and the inserted boot media does not have the correct partition scheme for **`UEFI`**, the boot will fail; the same goes for an attempted **`BIOS`** boot. This is one place I believe some of the USB installation guides out there fail: they often only describe how to create a USB boot device that uses only one mode. It is possible, however, to setup a USB drive that will have a partition scheme allowing it to boot in both modes and still use the same persistent installation of Linux. This guide will setup such a scheme in the partitioning and formatting sections below.
 
     On most newer machines, you will be presented with the option to boot in either **`BIOS`** or **`UEFI`** mode from your bootable USB. This means the machine recognizes the **`UEFI`** boot media, but it does not always mean the machine is actually set to boot in **`UEFI`** mode, and selecting the **`UEFI`** boot option may fail. Selecting a mode that the motherboard is not set to boot in will not damage anything or touch any of the other drives on the machine, the boot will simply fail and one can reboot in the other mode. The USB stick created with this guide has been able to boot on every (about a dozen) desktop and laptop, new and old, **`BIOS`** and **`UEFI`**, machine that I have tried it on.
+
+</br>
 
 - Follow the steps below to setup your Arch Linux partition:
 

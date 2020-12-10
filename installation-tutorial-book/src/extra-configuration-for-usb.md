@@ -34,6 +34,7 @@
     mkinitcpio -p linux
     ```
 
+</br>
 
 - Network interface names
 
@@ -48,6 +49,8 @@
     # We're inside installed Arch
     ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
     ````
+
+</br>
 
 - Journal configuration
 
@@ -74,6 +77,8 @@
 
     # Save it and exit
     ```
+
+</br>
 
 - Mount options
 

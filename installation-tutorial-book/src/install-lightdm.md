@@ -4,6 +4,8 @@
 
     A display manager, or login manager, is typically a graphical user interface that is displayed at the end of the boot process in place of the default shell.
 
+</br>
+
 - We will install one of the implementation which is called: **LightDM**
 
     **LightDM** is a cross-desktop **D**isplay **M**anager (also known as a **L**ogin **M**anager). Its key features are:
@@ -18,12 +20,16 @@
 
     [Here](https://wiki.archlinux.org/index.php/LightDM) has more detail information.
 
+</br>
+
 - Installation 
 
     ```bash
     # `lightdm-webkit2-greeter` is one of the lightdm greeter which will explain below
     sudo pacman -S lightdm lightdm-webkit2-greeter
     ```
+
+</br>
 
 - Change the default `greeter`
 
@@ -49,11 +55,15 @@
 
     ```
 
+</br>
+
 - Enable the `lightdm` service when booting
 
     ```bash
     sudo systemctl enable lightdm.service
     ```
+
+</br>
 
 - Restart the `lightdm` service when booting
 
@@ -68,6 +78,8 @@
     If you want to change setting very often and don't want to be foreced to logout, then you can open
     another **`tty`** (Ctrl+Alt+F1 ~ F6) and run the command above, then back the **`lightdm`** will 
     refresh in the **`tty7`** which more convenience. 
+
+</br>
 
 - Install new theme for the `lightdm-webkit2-greeter`
 

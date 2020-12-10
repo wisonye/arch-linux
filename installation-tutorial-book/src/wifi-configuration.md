@@ -9,6 +9,8 @@ Right now, the newer `Arch Linux` can connect via **`ethernet`** NIC, but how ab
     sudo cp -rvf examples/wireless-wpa ./wlan0-dhcp
     ```
 
+</br>
+
 - Edit `wlan0-dhcp` to change your WIFI `SSID` and `KEY` (encrypted password in HEX string)
 
     ```bash
@@ -33,6 +35,8 @@ Right now, the newer `Arch Linux` can connect via **`ethernet`** NIC, but how ab
     # Then save and exit
     ```
 
+</br>
+
 - Start connecting to WIFI
 
     Any file located at `/etc/netctl` folder is call `profile`,
@@ -44,6 +48,8 @@ Right now, the newer `Arch Linux` can connect via **`ethernet`** NIC, but how ab
     ```
 
     If start fail, then run `sudo netctl status wlan0-dhcp` to read the detail error.
+
+</br>
 
 - Connect to WIFI when computer boots
 

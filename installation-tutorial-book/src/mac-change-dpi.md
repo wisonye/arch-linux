@@ -23,6 +23,8 @@ when you switch between `iMac` and `MacBookPro`.
         chmod + x~/scripts/change-dpi-for-imac.sh
         ```
 
+</br>
+
 - **`MacBookPro 2015`**
     
     - Create `~/scripts/Xresources-mbp-2015` with the following settings:
@@ -42,6 +44,8 @@ when you switch between `iMac` and `MacBookPro`.
         ```bash
         chmod + x~/scripts/change-dpi-for-mbp-2015.sh
         ```
+
+</br>
 
 - **`MacBookPro 2012`**
     

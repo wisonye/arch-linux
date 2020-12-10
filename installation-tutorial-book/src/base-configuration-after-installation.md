@@ -17,6 +17,8 @@ After running `arch-chroot` command, you will be inside the newly installed `Arc
     arch-chroot /mnt
     ```
 
+</br>
+
 - Choose timezone
 
     ```bash
@@ -26,11 +28,15 @@ After running `arch-chroot` command, you will be inside the newly installed `Arc
     ln -sf /usr/share/zoneinfo/Pacific/Auckland /etc/localtime
     ```
 
+</br>
+
 - Generate `/etc/adjtime`
 
     ```bash
     hwclock --systohc
     ```
+
+</br>
 
 - Localization
 
@@ -70,6 +76,8 @@ After running `arch-chroot` command, you will be inside the newly installed `Arc
     keycode 66 = Escape
     ```
 
+</br>
+
 - Hostname and host settings
     - `vim /mnt/etc/hostname`, set to your hostname.
     
@@ -80,6 +88,8 @@ After running `arch-chroot` command, you will be inside the newly installed `Arc
         ::1		localhost
         127.0.1.1	YOUR_HOSTNAME_HERE.localdomain	YOUR_HOSTNAME_HERE
         ```
+
+</br>
 
 - Change back into the new `Arch Linux` and set root password
 

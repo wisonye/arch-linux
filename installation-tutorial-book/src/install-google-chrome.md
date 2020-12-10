@@ -12,10 +12,14 @@
     yay -S google-chrome
     ```
 
+</br>
+
 - Apply the selected theme in `lxappearance`:
 
     - Open `chrome` with this url: `chrome://settings/?search=theme`
     - Then choose `Use GTK+`
+
+</br>
 
 - Install `xdg-utils` and set `Chrome` as the default browser
 
@@ -29,4 +33,4 @@
     xdg-settings get default-web-browser
     ```
 
-    The `Materia-dark` + `Source Code Pro` font would be nice chocie.
+Tips: All installed GUI application links located in `/usr/share/applications/`.

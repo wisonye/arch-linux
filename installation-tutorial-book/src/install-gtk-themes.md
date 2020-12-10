@@ -14,6 +14,8 @@ but it is now a very popular toolkit with bindings for many languages.
 
     After installing, all the themes are located in `/usr/share/themes/`
 
+</br>
+
 - Run the configuration tool to pick the theme you like
 
     ```bash
@@ -22,4 +24,6 @@ but it is now a very popular toolkit with bindings for many languages.
 
     Here is the `materia-gtk-theme` [preview](https://raw.githubusercontent.com/nana-4/materia-theme/images/widget-factory-dark.png).
 
-    You can find more GTK theme at [here](https://wiki.archlinux.org/index.php/GTK).
+    The `Materia-dark` + `Source Code Pro` font would be nice chocie.
+
+    You can find more GTK themes at [here](https://wiki.archlinux.org/index.php/GTK).

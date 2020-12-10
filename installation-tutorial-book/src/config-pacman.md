@@ -8,6 +8,8 @@
     # Search and enable `Color` line, save and exit
     ```
 
+</br>
+
 - Setup mirror
 
     Open [mirror list](https://www.archlinux.org/mirrors/) to search your native country and click on it, you should be able to see the **Mirror URL**.
