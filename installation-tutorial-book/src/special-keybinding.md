@@ -10,7 +10,7 @@ After that, run the commands below to generate a copy with the current `keyboard
 xmodmap -pke > ~/.Xmodmap
 ```
 
-Inside that file, it contains a the keybinding with the syntax like below:
+Inside that file, it contains the keybinding with the syntax like below:
 
 ```bash
 keycode   9 = Escape NoSymbol Escape
@@ -21,7 +21,7 @@ to different keyboard very often, then you should use `keycode` to set your own 
 
 How to know the `keycode`? Just run `xev` and press any key, it prints out the hardware `keycode`.
 
-Here is the usually `keycode`:
+Here is the some `keycode` you might interest in:
 
 ```bash
 133 - Left Super/Win key, Left Command key (Apple Keyboard)
@@ -31,9 +31,11 @@ Here is the usually `keycode`:
 9   - Escape
 ```
 
-### Here is the example for mapping `Caps_Lock` to `Escape`
+</br>
 
-`vim ~/.Xmodmap`
+### Let's do a real example for mapping **`Caps_Lock`** to **`Escape`**
+
+`vim ~/.Xmodmap` then find the `keycode 66` and replace the settings like below:
 
 ```bash
 keycode  66 = Escape NoSymbol Escape

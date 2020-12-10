@@ -33,6 +33,7 @@
     - [Install `Google Chrome`](./install-google-chrome.md)
     - [Install `i3` Window Manager](./install-i3-wm.md)
     - [Special keybinding](./special-keybinding.md)
+        - [Advanced keybinding](./advanced-keybinding.md)
         - [Switching keyboard](./switching-keyboard.md)
     - [About GPU](./about-gpu.md)
     - [Fix sound issue](./fix-sound-issue.md)

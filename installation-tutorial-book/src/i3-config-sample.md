@@ -52,8 +52,20 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Special key mapping
 # ===========================================================================
 
-# `CAPS_LOCK` to `ESCAPE`
-# bindcode --release 66 exec --no-startup-id xdotool key Escape
+# `cmd+c` -> `ctrl+c` (Copy)
+bindsym --release $mod+c exec --no-startup-id xdotool key --clearmodifiers ctrl+c
+
+# `cmd+v` -> `ctrl+v` (Paste)
+bindsym --release $mod+v exec --no-startup-id xdotool key --clearmodifiers ctrl+v
+
+# `cmd+f` -> `ctrl+f` (Find)
+bindsym --release $mod+f exec --no-startup-id xdotool key --clearmodifiers ctrl+f
+
+# `cmd+t` -> `ctrl+t` (Open new tab)
+bindsym --release $mod+t exec --no-startup-id xdotool key --clearmodifiers ctrl+t
+
+# `cmd+w` -> `ctrl+w` (Close current tab)
+bindsym --release $mod+w exec --no-startup-id xdotool key --clearmodifiers ctrl+w
 
 
 # ===========================================================================
@@ -190,7 +202,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # ===========================================================================
 
 # Terminal
-bindsym $mod+t exec alacritty
+bindsym $mod+Return exec alacritty
 
 # Browser
 set $browser google-chrome-stable
@@ -242,6 +254,7 @@ bar {
 # ===========================================================================
 
 # Thin border
+for_window [class="^.*"] border 1pixel
 new_window 1pixel
 
 # With gaps
