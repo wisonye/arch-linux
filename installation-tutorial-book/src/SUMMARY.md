@@ -29,6 +29,7 @@
     - [Install `X` implementation](./install-x-implementation.md)
     - [Install `ligthDM`](./install-lightdm.md)
     - [Fix resolution issue](./fix-resolution-issue.md)
+    - [Install `GTK` themes](./install-gtk-themes.md)
     - [Install `Google Chrome`](./install-google-chrome.md)
     - [Install `i3` Window Manager](./install-i3-wm.md)
     - [Special keybinding](./special-keybinding.md)

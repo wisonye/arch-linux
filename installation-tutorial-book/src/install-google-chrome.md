@@ -10,3 +10,10 @@ cd ~/temp && rm -rf yay
 
 yay -S google-chrome
 ```
+
+</br>
+
+Apply the selected theme in `lxappearance`:
+
+- Open `chrome` with this url: `chrome://settings/?search=theme`
+- Then choose `Use GTK+`
