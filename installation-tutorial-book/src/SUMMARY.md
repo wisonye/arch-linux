@@ -32,6 +32,7 @@
     - [Install `Google Chrome`](./install-google-chrome.md)
     - [Install `i3` Window Manager](./install-i3-wm.md)
     - [Special keybinding](./special-keybinding.md)
+        - [Switching keyboard](./switching-keyboard.md)
     - [About GPU](./about-gpu.md)
     - [Support chinese](./support-chinese.md)
     - [Configuration sample]()

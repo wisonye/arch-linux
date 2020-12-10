@@ -65,7 +65,7 @@ when you switch between `iMac` and `MacBookPro`.
 
 </br>
 
-After that, you change to any screen DPI at anytime you want in real-time.
+After that, you can change to any screen DPI at anytime you want in real-time.
 
 Pay attention: After you run the script, it will log you out to take affect!!!
 
