@@ -22,8 +22,8 @@ but it is now a very popular toolkit with bindings for many languages.
     lxappearance
     ```
 
-    Here is the `materia-gtk-theme` [preview](https://raw.githubusercontent.com/nana-4/materia-theme/images/widget-factory-dark.png).
+    ![window-theme-settings.png](./images/window-theme-settings.png)
 
-    The `Materia-dark` + `Source Code Pro` font would be nice chocie.
+    The `Materia-dark` + `Source Code Pro` font would be a nice chocie.
 
     You can find more GTK themes at [here](https://wiki.archlinux.org/index.php/GTK).
