@@ -56,3 +56,8 @@ sudo bash -c "echo 512 > /sys/class/backlight/intel_backlight/brightness"
         ```
 
     Of course, make sure your current linux account is in `wheel` group!!!
+
+    Reload `i3`, then press the screen brightness control key, it should work.
+    You can run the script manually like below to test it if it doesn't work.
+
+    ![mac-brightness-controller.png](./images/mac-brightness-controller.png)
