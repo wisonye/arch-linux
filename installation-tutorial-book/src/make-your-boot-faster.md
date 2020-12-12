@@ -19,7 +19,7 @@ Then run the command below to re-generate the grub configuration file:
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-Now, reboot to take affect.
+Now, reboot to take effect.
 
 </br>
 

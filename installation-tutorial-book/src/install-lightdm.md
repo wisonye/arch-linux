@@ -67,7 +67,7 @@
 
 - Restart the `lightdm` service when booting
 
-    After you change the greeter or another settings, you need to restart the service to take affect.
+    After you change the greeter or another settings, you need to restart the service to take effect.
     Pay attention that this command will logout the curernt session, 
     make sure save all docs before you do that
 
@@ -103,4 +103,4 @@
     webkit_theme = lightdm-webkit-theme-aether
     ```
 
-    Save it and logout to take affect.
+    Save it and logout to take effect.

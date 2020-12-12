@@ -40,6 +40,7 @@
     - [Support chinese](./support-chinese.md)
     - [Configuration sample]()
         - [`i3` config sample](./i3-config-sample.md)
+    - [Install `docker`](./install-docker.md)
     - [Mac extra configuration]()
         - [Change `DPI` by script](./mac-change-dpi.md)
         - [brightness control](./mac-brightness-control.md)

@@ -44,7 +44,7 @@ We will install a **`Tiling`** window manager which calls **`i3`**.
     ```bash
     user-session=i3
 
-    # Logout to take affect
+    # Logout to take effect
     i3exit logout
     `````
 

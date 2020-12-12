@@ -37,7 +37,7 @@
     exec_always fcitx
     ```
 
-    Make sure you reboot to take affect, or you can reboot after installing
+    Make sure you reboot to take effect, or you can reboot after installing
     chinese fonts below.
 
 </br>
@@ -53,7 +53,7 @@
         adobe-source-han-serif-cn-fonts
     ```
 
-    Your browser needs to restart to take affect.
+    Your browser needs to restart to take effect.
 
 </br>
 
