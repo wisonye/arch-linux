@@ -11,7 +11,7 @@ dust -d1 ~/.cache
 # Clean yay cache
 yay -Sc
 
-# Clean pacman cache
+# Clean pacman cache (it locates `/var/cache/pacman/pkg/`)
 sudo pacman -Scc
 
 # Clean yarn (if you installed)
