@@ -13,20 +13,20 @@ cat /sys/class/backlight/intel_backlight/max_brightness
 sudo bash -c "echo 512 > /sys/class/backlight/intel_backlight/brightness"
 ```
 
-### Build the `mac-brightness-controller`
+### Build the `mac-light-controller`
 
 - Pull from repo, build it
 
     ```bash
     # Go into any folder you want
-    git clone https://github.com/wisonye/mac-screen-brightness-controller.git
-    cd mac-screen-brightness-controller
+    git clone https://github.com/wisonye/mac-light-controller.git
+    cd mac-light-controller
     cargo clean && \
     cargo build --release && \
-    strip ./target/release/mac-screen-brightness-controller 
+    strip ./target/release/mac-light-controller 
 
     # Move to any folder you want `i3` to launch from there (Optional)
-    mv ./target/release/mac-screen-brightness-controller ~/scripts/
+    mv ./target/release/mac-light-controller ~/scripts/
     ```
 
 </br>
@@ -39,8 +39,10 @@ sudo bash -c "echo 512 > /sys/class/backlight/intel_backlight/brightness"
     # ===========================================================================
     # Screen brightness control
     # ===========================================================================
-    bindsym XF86MonBrightnessUp exec --no-startup-id ~/scripts/mac-screen-brightness-controller +
-    bindsym XF86MonBrightnessDown exec --no-startup-id ~/scripts/mac-screen-brightness-controller -
+    bindsym XF86MonBrightnessUp exec --no-startup-id ~/scripts/mac-light-controller Screen +
+    bindsym XF86MonBrightnessDown exec --no-startup-id ~/scripts/mac-light-controller Screen -
+    bindsym XF86KbdBrightnessUp exec --no-startup-id ~/scripts/mac-light-controller Keyboard +
+    bindsym XF86KbdBrightnessDown exec --no-startup-id ~/scripts/mac-light-controller Keyboard -
     ```
 
 </br>
@@ -51,8 +53,16 @@ sudo bash -c "echo 512 > /sys/class/backlight/intel_backlight/brightness"
 
         ```bash
         SUBSYSTEM=="backlight", ACTION=="add", \
-        RUN+="/bin/chgrp wheel /sys/class/backlight/%k/brightness", \
-        RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+            RUN+="/bin/chgrp wheel /sys/class/backlight/%k/brightness", \
+            RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+        ```
+
+    - `sudo vim /etc/udev/rules.d/91-leds.rules` and add the following settings:
+
+        ```bash
+        SUBSYSTEM=="leds", ACTION=="add", \
+            RUN+="/bin/chgrp wheel /sys/class/leds/%k/brightness", \
+            RUN+="/bin/chmod g+w /sys/class/leds/%k/brightness"
         ```
 
     Of course, make sure your current linux account is in `wheel` group!!!
