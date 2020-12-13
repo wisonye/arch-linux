@@ -41,6 +41,7 @@
     - [Configuration sample]()
         - [`i3` config sample](./i3-config-sample.md)
     - [Install `docker`](./install-docker.md)
+    - [Running `wechat` in docker](./running-wechat-in-docker.md)
     - [About cleaning cache](./about-cleaning-cache.md)
     - [Mac extra configuration]()
         - [Change `DPI` by script](./mac-change-dpi.md)
