@@ -27,3 +27,11 @@ folder and open it your browser.
 How do I export the book into **`PDF`** format?
 
 Thta's pretty easy, in the browser, click on the print icon on the right-top to save as **`PDF`**.
+
+`i3` customization UI preview:
+
+![preview-1.png](./installation-tutorial-book/src/images/preview-1.png)
+
+![preview-2.png](./installation-tutorial-book/src/images/preview-2.png)
+
+![preview-3.png](./installation-tutorial-book/src/images/preview-3.png)
