@@ -32,6 +32,12 @@ Thta's pretty easy, in the browser, click on the print icon on the right-top to 
 
 ![preview-1.png](./installation-tutorial-book/src/images/preview-1.png)
 
+[Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-1.png)
+
 ![preview-2.png](./installation-tutorial-book/src/images/preview-2.png)
 
+[Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-2.png)
+
 ![preview-3.png](./installation-tutorial-book/src/images/preview-3.png)
+
+[Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-3.png)
