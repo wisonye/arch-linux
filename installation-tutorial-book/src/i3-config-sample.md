@@ -14,7 +14,7 @@ set $alt Mod1
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 # font pango:DejaVu Sans Mono 8
 # ===========================================================================
-font pango:monospace 14
+font pango:SourceCodePro 11
 
 # ===========================================================================
 # Start up programs
@@ -37,6 +37,9 @@ exec_always compton
 # Load chinese input method
 exec_always fcitx
 
+# Load wallpaper
+exec_always feh --bg-fill ~/Photos/wallpaper/6.png
+
 # ===========================================================================
 # Audio and volume control
 # ===========================================================================
@@ -46,6 +49,15 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+    
+# ===========================================================================
+# Screen brightness control
+# ===========================================================================
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/scripts/mac-light-controller Screen +
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/scripts/mac-light-controller Screen -
+bindsym XF86KbdBrightnessUp exec --no-startup-id ~/scripts/mac-light-controller Keyboard +
+bindsym XF86KbdBrightnessDown exec --no-startup-id ~/scripts/mac-light-controller Keyboard -
 
 
 # ===========================================================================
@@ -155,6 +167,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+e layout toggle tabbed split
 
 
+
 # ===========================================================================
 # Workspace control
 # ===========================================================================
@@ -218,8 +231,8 @@ bindsym $mod+u exec "pamac-manager --updates"
 bindsym $mod+s exec pamac-manager
 
 # Take screenshot
-bindsym --release $alt+$mod+p exec "scrot -s ~/Desktop/Screenshots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
-bindsym Control+$mod+p exec "scrot ~/Desktop/Screenshots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym --release $alt+$mod+p exec "scrot -s ~/Screenshots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym Control+$mod+p exec "scrot ~/Screenshots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
 
 # start dmenu (a program launcher)
 #
@@ -240,25 +253,102 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 
 # ===========================================================================
-# i3 status control
-#
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+# Force some launch programs open in floating mode
 # ===========================================================================
-bar {
-        status_command i3status
-}
+# for_window [title="google-chrome"] floating enable
+# for_window [title="File Transfer*"] floating enable
+# for_window [class="Galculator"] floating enable border pixel 1
+# for_window [class="Skype"] floating enable border normal
+# for_window [class="Timeset-gui"] floating enable border normal
+# for_window [class="(?i)virtualbox"] floating enable border normal
+
 
 # ===========================================================================
 # Display styles control
 # ===========================================================================
 
 # Thin border
-for_window [class="^.*"] border 1pixel
-new_window 1pixel
+# for_window [class="^.*"] border 1pixel
+# new_window 1pixel
 
 # With gaps
 gaps inner 10
+
+# Window colors
+set $bg_color           #E66B17
+set $ibg_color          #551E22
+set $border_color       #E66B17
+set $text_color         #FFFFFF
+set $itext_color        #000000
+set $ubg_color          #000000
+
+#                       border          background          text            indicator
+client.focused          $border_color   $bg_color           $text_color     $bg_color
+client.focused_inactive $ibg_color      $ibg_color          $itext_color    $ibg_color
+client.unfocused        $ibg_color      $ibg_color          $itext_color    $ibg_color
+client.urgent           $ubg_color      $ubg_color          $text_color     $ubg_color
+# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+
+# ===========================================================================
+# i3 status control
+#
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+# ===========================================================================
+set $bar_bg_color           #1C1C1CD9
+set $bar_text_color         #FFFFFFCC
+set $bar_itext_color        #616161
+set $bar_ws_bg_color        #551E22
+set $bar_ws_bg_color_2      #E66B17
+set $bar_separator_color    #E66B17
+
+bar {
+    # Run the `i3status` command and get back the standard output as the bar content
+    status_command  i3status --config ~/.config/i3/i3status.conf
+
+    # Bar transparent effect
+    # Even enabled this flag, you still need to apply the "transparency hex" value to 
+    # the bar color for getting the real transparency effect. You can find the hex code
+    # from here:
+    # https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
+    i3bar_command i3bar --transparency
+
+    # Stay on the top/bottom
+    position    top
+
+    # Render to the primary screen only
+    output  primary
+
+    # Hide the appliation icon tray area (which always stay on the most-right)
+    tray_output none
+    # tray_output primary
+
+    #
+    font pango:SourceCodePro 10
+    # font pango:monospace 10
+
+    # The separator
+    # separator_symbol    "|"
+    separator_symbol    "  "
+
+    # Workspace
+    workspace_buttons   yes
+    workspace_min_width 25
+    # strip_workspace_numbers yes
+    # binding_mode_indicator no
+    colors {
+        background  $bar_bg_color
+        statusline  $bar_text_color
+        separator   $bar_separator_color
+
+        focused_workspace  $bar_ws_bg_color_2   $bar_ws_bg_color_2  $bar_text_color     $bar_ws_bg_color_2
+        active_workspace   $bar_ws_bg_color_2   $bar_ws_bg_color_2  $bar_itext_color    $bar_ws_bg_color_2
+        inactive_workspace $bar_ws_bg_color     $bar_ws_bg_color    $bar_itext_color    $bar_ws_bg_color
+        urgent_workspace   $bar_ws_bg_color     $bar_ws_bg_color    $bar_text_color     $bar_ws_bg_color
+    }
+}
+
 
 # ===========================================================================
 # System control

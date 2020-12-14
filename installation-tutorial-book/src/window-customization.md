@@ -15,9 +15,9 @@
     and assign to the `i3` configuration file to apply the window customization:
 
     ```bash
-    for_window [title="google-chrome"] floating enable
-    # for_window [class="google-chrome"] floating enable border pixel 1
-    # for_window [class="google-chrome"] floating enable border normal
+    for_window [class="(?i)google-chrome"] border pixel 1
+    # for_window [class="Skype"] floating enable border normal
+    # for_window [class="(?i)virtualbox"] floating enable border normal
     ```
 
 </br>
