@@ -255,11 +255,14 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # ===========================================================================
 # Force some launch programs open in floating mode
 # ===========================================================================
+
+# Make sure dialog window not outside of screen!
+floating_maximum_size 1920 x 1080
+
+for_window [class="(?i)google-chrome"] border pixel 1
+# for_window [window_type="dialog"] floating enbale border pixel 1
 # for_window [title="google-chrome"] floating enable
-# for_window [title="File Transfer*"] floating enable
-# for_window [class="Galculator"] floating enable border pixel 1
 # for_window [class="Skype"] floating enable border normal
-# for_window [class="Timeset-gui"] floating enable border normal
 # for_window [class="(?i)virtualbox"] floating enable border normal
 
 
