@@ -1,5 +1,9 @@
 # bar customization
 
+Preview:
+
+![i3status-bar-sample.png](./images/i3status-bar-sample.png)
+
 - Copy the template to your home folder like below:
 
     ```bash
@@ -29,52 +33,55 @@
             # `false` to use the bar color by default
             colors = false
             # All commands refresh interval in seconds
-            interval = 1
+            interval = 2
     }
     
-    # This `order` list controls the display order from left to right
     order += "wireless _first_"
     order += "ethernet _first_"
-    order += "battery all"
+    order += "battery 0"
     order += "disk /"
     order += "memory"
+    order += "volume master"
     order += "tztime local"
     
     wireless _first_ {
-            # Display content when WIFI is on and connected
             format_up = " %essid"
-
-            # Display content when WIFI is down 
             format_down = ""
     }
     
     ethernet _first_ {
-            # Display content when ethernet is on and connected
             format_up = "d(%speed)"
-            
-            # Display content when ethernet is down
             format_down = ""
     }
     
-    battery all {
-            # Battery
-            format = " %percentage"
+    battery 0 {
+            format = " %status %percentage"
+            format_down = ""
+            status_bat = ""
+            status_chr = ""
+            status_full = " "
     }
     
     disk "/" {
-            # Free disk space
-            format = " %avail"
+            # format = " %avail"
+            format = " [ %free / %total ]"
+            prefix_type = "custom"
     }
     
     memory {
-            # Memory usage
-            format = "%used / %available"
-            threshold_degraded = "1G"
-            format_degraded = "MEMORY < %available"
+            format = " %used / %total"
+            memory_used_method = "memavailable"
+    }
+    
+    volume master {
+        format = " %volume"
+        format_muted = ""
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
     }
     
     tztime local {
-            # Datetime
             format = " %Y-%m-%d %H:%M:%S "
     }
     ```
