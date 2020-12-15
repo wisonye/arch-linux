@@ -42,6 +42,7 @@
     - [Special keybinding](./special-keybinding.md)
         - [Advanced keybinding](./advanced-keybinding.md)
         - [Switching keyboard](./switching-keyboard.md)
+    - [Install `Ranger`](./install-ranger.md)
     - [About GPU](./about-gpu.md)
     - [Fix sound issue](./fix-sound-issue.md)
     - [Support chinese](./support-chinese.md)
