@@ -18,6 +18,9 @@ sudo pacman -Scc
 # Clean yarn (if you installed)
 yarn cache clean
 
+# Clean google-chrome cache (sometimes, this folder is huge!)
+rm -rf ~/.cache/google-chrome/Default
+
 # After that, calculate again, it should get big improved.
 dust -d1 ~/.cache
 ```
