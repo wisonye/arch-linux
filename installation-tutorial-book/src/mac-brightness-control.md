@@ -13,7 +13,32 @@ cat /sys/class/backlight/intel_backlight/max_brightness
 sudo bash -c "echo 512 > /sys/class/backlight/intel_backlight/brightness"
 ```
 
-### Build the `mac-light-controller`
+### For the `iMac`
+
+Sometimes `acpi` doesn't work very well on `iMac`, for the case I met, the `iMar 5K`
+screen is very bright by default and can't control via the `/sys/class/backlight` 
+file system path.
+
+Even you can't control the brightness, but it's reduce the default brightness
+(at least not 100% brightness). For that purpose, you can disable the `acpi` 
+brightness control for the `iMac` via the steps below:
+
+-  `sudo vim /etc/default/grub` and add the `acpi_backlight=none` settings like below:
+
+    ```bash
+    # Assume `loglevel=3 quiet` is your original settings
+    GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet acpi_backlight=none"
+    ```
+
+- Then re-generate the `GRUB` based on your new settings
+
+    ```bash
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+    ```
+
+</br>
+
+### Build the `mac-light-controller` (it only work for `MacBookPro`)
 
 - Pull from repo, build it
 
