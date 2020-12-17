@@ -22,6 +22,19 @@
     # Driver - `xf86-video-BRAND_NAME_HERE`
     # OpenGL - `lib32-mesa` if that's Intel
     # OpenGL (multilib) - `mesa` if that's Intel
-    sudo pacman -S xf86-video-intel mesa
+    sudo pacman -S xf86-video-intel mesa mesa-demos
+    sudo pacman -Sy 
     ```
     [here](https://wiki.archlinux.org/index.php/xorg) is the full list for all GPU brands.
+
+
+    After that, you can run the utilities below to check your OpenGL ability:
+
+    ```
+    # Check the OpenGL version
+    glxinfo | grep "OpenGL version"""
+
+    # Test the OpenGL render framerate
+    glxgears
+    ```
+
