@@ -49,6 +49,7 @@
     - [Install `docker`](./install-docker.md)
     - [Running `wechat` in docker](./running-wechat-in-docker.md)
     - [About cleaning cache](./about-cleaning-cache.md)
+    - [Backup and restore](./backup-and-restore.md)
     - [Mac extra configuration]()
         - [Change `DPI` by script](./mac-change-dpi.md)
         - [brightness control](./mac-brightness-control.md)
