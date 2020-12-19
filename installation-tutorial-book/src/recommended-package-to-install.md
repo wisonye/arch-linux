@@ -29,10 +29,22 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
     Enable network time synchronization:
     ```bash
     systemctl enable systemd-timesyncd.service
+
+    # You can check you time setting by command `timedatectl`
+    timedatectl
+    #    Local time: Wed 2014-09-24 21:19:26 CST
+    #  Universal time: Wed 2014-09-24 13:19:26 UTC
+    #        RTC time: Wed 2014-09-24 13:19:26
+    #        Timezone: Asia/Shanghai (CST, +0800) // time zone you setted
+    #     NTP enabled: yes // if you enable systemd-timesysncd success here will be yes, otherwise you need use `systemctl status systemd-timesyncd.service` to check it
+    #NTP synchronized: yes
+    # RTC in local TZ: no
+    #      DST active: n/a
     ```
 
-    For the `WIFI` configuration, please go to `Configuration` chapter.
 
+    For the `WIFI` configuration, please go to `Configuration` chapter.
+    
     </br>
 
 - Video drivers
@@ -73,7 +85,7 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
     
 - Build tools if you needed
 
-    ```
+    ```bash
     pacman -S base-devel man
     ```
 
@@ -81,6 +93,16 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
 
 - Basic editor and shell if you needed
 
-    ```
+    ```bash
     pacman -S vim fish
     ```
+    
+    </br>
+
+- Basic ssh tool if you needed
+
+  ```bash
+  pacman -S openssh
+  ```
+
+  
