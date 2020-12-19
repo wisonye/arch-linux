@@ -55,3 +55,4 @@
         - [brightness control](./mac-brightness-control.md)
         - [Trackpad support](./trackpad-support.md)
         - [Bluetooth support](./bluetooth-support.md)
+    - [Use Wechat in Wine](./wine-wechat.md)
