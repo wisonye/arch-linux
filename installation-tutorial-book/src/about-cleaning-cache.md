@@ -8,14 +8,18 @@ clean your cache. Usually, it will save over **`GB`** disk space:)
 # Show how much your cache hold the disk space
 dust -d1 ~/.cache
 
-# Clean yay cache
+# Clean yay cache and unneeded dependencies
 yay -Sc
+yay -Yc
 
 # Clean pacman cache (it locates `/var/cache/pacman/pkg/`)
 sudo pacman -Scc
 
 # Clean yarn (if you installed)
 yarn cache clean
+
+# Clean google-chrome cache (sometimes, this folder is huge!)
+rm -rf ~/.cache/google-chrome/Default
 
 # After that, calculate again, it should get big improved.
 dust -d1 ~/.cache

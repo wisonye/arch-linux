@@ -39,31 +39,27 @@ grep -e "Using input driver 'libinput'" /var/log/Xorg.0.log
 [  5734.927] (II) Using input driver 'libinput' for 'Broadcom Corp. Bluetooth USB Host Controller'""
 ```
 
-https://wiki.archlinux.org/index.php/Libinput#Via_Xorg_configuration_file
+That proves your trackpad is using the `libinput` driver. So you can add the following setting to 
+improve your trackpad experiences:
 
-Section "InputClass"
-   Identifier "mytouchpad"
-   Driver "libinput"
-   MatchIsTouchpad "on"
-   NaturalScrolling "true"
-EndSection
+- Same scrolling experience within **`MacOS`**
 
-https://github.com/theniceboy/scripts/blob/master/inverse-scroll.sh
+    `sudo vim /etc/X11/xorg.conf.d/40-libinput.conf`, then add the following settings to 
+    `libinput touchpad catchall` section. 
 
-https://github.com/theniceboy/scripts/blob/master/tap-to-click.sh
+    - `Option "NaturalScrolling" "true"` - Reverse the scrolling direction
+    - `Option "Tapping" "on"` - Tap to click
 
-# i3 config "The nice boy"
-https://github.com/theniceboy/.config/blob/master/i3/config
-https://github.com/theniceboy/.config/blob/master/i3status/config
-https://github.com/theniceboy/.config/tree/master/polybar
+    Finally, it looks like this:
 
+    ```bash
+    Section "InputClass"
+            Identifier "libinput touchpad catchall"
+            MatchIsTouchpad "on"
+            MatchDevicePath "/dev/input/event*"
+            Driver "libinput"
+    	    Option "NaturalScrolling" "true"
+            Option "Tapping" "on"
+    EndSection
+    ```
 
-# Vimrc auto install everything for the first time
-" ===
-" === Auto load for first time uses
-" ===
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
