@@ -39,14 +39,15 @@ exec_always fcitx
 
 # Load wallpaper
 exec_always feh --bg-fill ~/Photos/wallpaper/6.png
+# exec_always feh --bg-fill ~/Photos/wallpaper/8.png
 
 # ===========================================================================
 # Audio and volume control
 # ===========================================================================
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -139,12 +140,11 @@ mode "resize" {
         bindsym $up         resize shrink height $resize_unit px or $resize_unit ppt
         bindsym $right      resize grow width $resize_unit px or $resize_unit ppt
 
-        # back to normal: Enter or Escape or $mod+r
+        # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym Shift+$mod+r mode "resize"
 
 
 # ===========================================================================
@@ -222,13 +222,10 @@ set $browser google-chrome-stable
 bindsym $mod+b exec $browser
 
 # Open file manager
-bindsym $mod+f exec "pcmanfm --new-win $(pwd) &"
+# bindsym $mod+f exec "pcmanfm --new-win $(pwd) &"
 
-# Updates manager
-bindsym $mod+u exec "pamac-manager --updates"
-
-# Software manager
-bindsym $mod+s exec pamac-manager
+# Open ranger
+bindsym $mod+r exec alacritty --command ranger
 
 # Take screenshot
 bindsym --release $alt+$mod+p exec "scrot -s ~/Screenshots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
@@ -251,17 +248,26 @@ bindsym $alt+space exec --no-startup-id i3-dmenu-desktop
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+# Toggle `screenkey`
+bindsym $mod+s exec --no-startup-id ~/scripts/toggle-screenkey.sh
+
+# Launch WxWork
+bindsym $mod+w exec --no-startup-id ~/scripts/wechat_work.sh
+
 
 # ===========================================================================
-# Force some launch programs open in floating mode
+# Force some launch programs open in floating mode or control window open style
 # ===========================================================================
 
 # Make sure dialog window not outside of screen!
 floating_maximum_size 1920 x 1080
 
 for_window [class="(?i)google-chrome"] border pixel 1
+for_window [class="(?i)vlc"] border pixel 1
+for_window [title="SimpleScreenRecord"] floating enable border pixel 1
+for_window [class="wxwork.exe"] floating enable border pixel 1
+
 # for_window [window_type="dialog"] floating enbale border pixel 1
-# for_window [title="google-chrome"] floating enable
 # for_window [class="Skype"] floating enable border normal
 # for_window [class="(?i)virtualbox"] floating enable border normal
 
@@ -278,10 +284,19 @@ for_window [class="(?i)google-chrome"] border pixel 1
 gaps inner 10
 
 # Window colors
-set $bg_color           #E66B17
-set $ibg_color          #551E22
-set $border_color       #E66B17
-set $text_color         #FFFFFF
+
+# Orange and red theme
+# set $bg_color           #E66B17
+# set $ibg_color          #551E22
+
+# Green theme
+# set $bg_color           #5DAC81
+# set $ibg_color          #6A8372
+
+set $bg_color           #5DAC81
+set $ibg_color          #6A8372
+set $border_color       #5DAC81
+set $text_color         #1C1C1C
 set $itext_color        #000000
 set $ubg_color          #000000
 
@@ -302,13 +317,14 @@ client.urgent           $ubg_color      $ubg_color          $text_color     $ubg
 set $bar_bg_color           #1C1C1CD9
 set $bar_text_color         #FFFFFFCC
 set $bar_itext_color        #616161
-set $bar_ws_bg_color        #551E22
-set $bar_ws_bg_color_2      #E66B17
-set $bar_separator_color    #E66B17
+set $bar_ws_bg_color        #6A8372
+set $bar_ws_bg_color_2      #5DAC81
+set $bar_separator_color    #5DAC81
 
 bar {
-    # Run the `i3status` command and get back the standard output as the bar content
-    status_command  i3status --config ~/.config/i3/i3status.conf
+    # Run the `i3block` command and get back the standard output as the bar content
+    status_command i3status -c ~/.config/i3/i3status.conf
+    # status_command  i3blocks -c ~/.config/i3/i3blocks.conf
 
     # Bar transparent effect
     # Even enabled this flag, you still need to apply the "transparency hex" value to 
@@ -324,8 +340,8 @@ bar {
     output  primary
 
     # Hide the appliation icon tray area (which always stay on the most-right)
-    tray_output none
-    # tray_output primary
+    # tray_output none
+    tray_output primary
 
     #
     font pango:SourceCodePro 10
