@@ -47,6 +47,7 @@
     - [Fix sound issue](./fix-sound-issue.md)
     - [Support chinese](./support-chinese.md)
     - [Install `docker`](./install-docker.md)
+    - [Screen recording](./screen-recording.md)
     - [Running `wechat` in docker](./running-wechat-in-docker.md)
     - [About cleaning cache](./about-cleaning-cache.md)
     - [Backup and restore](./backup-and-restore.md)
