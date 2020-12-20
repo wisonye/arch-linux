@@ -49,6 +49,7 @@
     - [Install `docker`](./install-docker.md)
     - [Screen recording](./screen-recording.md)
     - [Running `wechat` in docker](./running-wechat-in-docker.md)
+    - [Use Wechat in Wine](./wine-wechat.md)
     - [About cleaning cache](./about-cleaning-cache.md)
     - [Backup and restore](./backup-and-restore.md)
     - [Mac extra configuration]()
@@ -56,4 +57,3 @@
         - [brightness control](./mac-brightness-control.md)
         - [Trackpad support](./trackpad-support.md)
         - [Bluetooth support](./bluetooth-support.md)
-    - [Use Wechat in Wine](./wine-wechat.md)
