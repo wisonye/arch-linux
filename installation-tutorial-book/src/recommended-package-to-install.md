@@ -11,7 +11,7 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
     - And the based WIFI support CLI.
 
     ```bash
-    pacman -S netctl ifplugd iw wpa_supplicant dialog dhcpcd
+    pacman -S netctl ifplugd iw wpa_supplicant dhcpcd
     ```
     
     Copy the example ethernet profile to `/etc/netctl/`:
@@ -19,12 +19,16 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
     ```bash
     cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/eth0-dhcp
     ```
+
+    ![36.png](./images/virtual-box-installation/36.png)
     
     Enable `ifplugd` to automatically connect to any available wired network:
 
     ```bash
     systemctl enable netctl-ifplugd@eth0.service
     ```
+
+    ![37.png](./images/virtual-box-installation/37.png)
     
     Enable network time synchronization:
     ```bash
@@ -54,6 +58,8 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
     ```bash
     pacman -S xf86-video-amdgpu xf86-video-ati xf86-video-intel xf86-video-nouveau xf86-video-vesa
     ```
+
+    ![38.png](./images/virtual-box-installation/38.png)
 
     </br>
     

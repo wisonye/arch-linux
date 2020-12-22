@@ -49,12 +49,15 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
 
         ```bash
         # As I confirmed my boot mode is **`UEFI`**, then I should use `GPT` partition.
-        # Press `g` to create a new empty `GPT` partition table, it will remove all your exists partitions.
+        # Press `g` to create a new empty `GPT` partition table, it will remove all 
+        # your exists partitions.
         # After pressing `g`, you should be able to see something like below:
         #
         # "Created a new GPT dislabel (GUID: xxxxxxxxx)."
         `g`
         ```
+
+        ![10.png](./images/virtual-box-installation/10.png)
 
     - Create `10MB` **MBR** partition
 
@@ -63,10 +66,16 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
         `1` or just `Enter` to use partition no `1`
         `Enter` to use the default start sector
         `+10M` to set this partition size to `10M`
-        # If success, you should see `Created a new partition 1 of type `Linux filesystem` and of size 10 MiB.
-        # If it asks you "Partition #X contains a YYYY signature, Do you want to remove the signature", then press 'Y' to remove the previous partition signature.
+        #
+        # If success, you should see `Created a new partition 1 of type 
+        # `Linux filesystem` and of size 10 MiB.
 
-        # We need to change the partition type from `Linux filesystem` to `BIOS BOOT`. Before that you can press `l` to list all supported partition types:
+        # If it asks you "Partition #X contains a YYYY signature, Do you want to
+        # remove the signature", then press 'Y' to remove the previous partition
+        # signature.
+        #
+        # We need to change the partition type from `Linux filesystem` to `BIOS BOOT`. 
+        # Before that you can press `l` to list all supported partition types:
         `t`
         `4`, 
 
@@ -75,6 +84,8 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
         # /dev/sdX1   (ignore the sector numbers there) 10M BIOS boot
         ```
 
+        ![11.png](./images/virtual-box-installation/11.png)
+
     - Create `512MB` ESP (EFI System Partition) which will be mounted to `/boot` and hold the bootloader
 
         ```bash
@@ -82,9 +93,13 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
         `2` or just `Enter` to use partition no `2`
         `Enter` to use the default start sector
         `+512M` to set this partition size to `512MB`
-        # If success, you should see `Created a new partition 2 of type `Linux filesystem` and of size 512 MiB.
+        # 
+        # If success, you should see `Created a new partition 2 of type 
+        # `Linux filesystem` and of size 512 MiB.
 
-        # We need to change the partition type from `Linux filesystem` to `EFI System`. Before that you can press `l` to list all supported partition types:
+        # We need to change the partition type from `Linux filesystem` to 
+        # `EFI System`. Before that you can press `l` to list all supported
+        # partition types:
         `t`
         `2` to make sure select the 512MB partition
         `1` which means `EFI System`
@@ -95,6 +110,8 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
         # /dev/sdX2   (ignore the sector numbers there) 512M EFI System
         ```
 
+        ![12.png](./images/virtual-box-installation/12.png)
+
     - Finally, create the linux root partition which will be mounted to `/` and hold the entire Linux system
 
         ```bash
@@ -102,7 +119,8 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
         `3` or just `Enter` to use partition no `3`
         `Enter` to use the default start sector
         `Enter` to use all the left spaces
-        # If success, you should see `Created a new partition 3 of type `Linux filesystem` and of size XXXX GiB.
+        # If success, you should see `Created a new partition 3 of type 
+        # `Linux filesystem` and of size XXXX GiB.
 
         # Finally, press `p` to confirm the result, it should look like this
         #
@@ -110,6 +128,8 @@ If you want to install the entire `Arch Linux` on a portable USB driver, please 
         # /dev/sdX2   (ignore the sector numbers there) 512M EFI System
         # /dev/sdX3   (ignore the sector numbers there) XXXG Linux filesystem
         ```
+
+        ![13.png](./images/virtual-box-installation/13.png)
 
     - The last step is press `w` to write all changes into the disk!!!
         ```bash

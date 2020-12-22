@@ -24,6 +24,8 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
     #
     # Save and exit.
     ```
+    
+    ![39.png](./images/virtual-box-installation/39.png)
 
 </br>
 

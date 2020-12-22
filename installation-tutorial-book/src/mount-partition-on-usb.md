@@ -18,3 +18,7 @@ df -Th | grep \/mnt
 /dev/sdX3   ext4    /mnt
 /dev/sdX2   vfat    /mnt/boot
 ```
+
+</br>
+
+![15.png](./images/virtual-box-installation/15.png)

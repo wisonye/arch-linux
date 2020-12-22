@@ -14,6 +14,12 @@ Now, use the `pacstrap(8)` script to install the base package, Linux kernel and 
 pacstrap /mnt base linux linux-firmware
 ```
 
+![16.png](./images/virtual-box-installation/16.png)
+
+![17.png](./images/virtual-box-installation/17.png)
+
+</br>
+
 After that, generate the `fstab` file, the `-U` flag means use **UUID** to identify the device. 
 
 As if you're installing to the USB, then the USB will be plugged into a different machine which causes different `/dev/XXX` labels.
@@ -21,3 +27,5 @@ As if you're installing to the USB, then the USB will be plugged into a differen
 ```bash
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
+
+![18.png](./images/virtual-box-installation/18.png)

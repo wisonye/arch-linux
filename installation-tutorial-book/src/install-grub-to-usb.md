@@ -7,22 +7,25 @@ To enable booting the USB in both modes (**`BIOS`**, **`UEFI`**), two bootloader
 - Install the following packages:
 
     ```bash
-    # Go inside the installed Arch
-    arch-chroot /mnt
-
-    # `intel-ucode` is for the bootloader to know Intel CPU architecture, 
-    # you need to change to your CPU one.
+    # `intel-ucode` and ` amd-ucode ` is for the bootloader to know Intel CPU
+    # architecture, you need to change to your CPU one.
+    #
+    # As we install to USB, then  we needs to have `microcode` for both 
+    # manufacturer processors
     #
     # Optionally, you can install `os-prober` if you want `grub` to detect exists OS.
     # For example, you want `grub` to handle multi OS boot situation.
-    pacman -S grub efibootmgr intel-ucode 
+    pacman -S grub efibootmgr intel-ucode amd-ucode
     ```
 
-- Setup bootloader:
+    ![30.png](./images/virtual-box-installation/30.png)
 
+</br>
+
+- Setup **`bootloader`**:
 
     -  View the current block devices to determine the target USB device:
-   
+
         ```bash
         lsblk
         ```
@@ -36,11 +39,17 @@ To enable booting the USB in both modes (**`BIOS`**, **`UEFI`**), two bootloader
         # `/dev/sdXn` is NOT correct
         ```
 
+    </br>
+
     - Setup **`GRUB`** for **`MBR/BIOS`** booting mode (replace the `X` to your real device letter)
         
         ```bash
         grub-install --target=i386-pc --boot-directory /boot /dev/sdX
         ```
+
+        ![31.png](./images/virtual-box-installation/31.png)
+
+    </br>
 
     - Setup **`GRUB`** for **`UEFI`** booting mode
 
@@ -49,6 +58,10 @@ To enable booting the USB in both modes (**`BIOS`**, **`UEFI`**), two bootloader
         # Install `x86_64` architecture and `EFI`.
         grub-install --target=x86_64-efi --efi-directory /boot --boot-directory /boot --removable
         ```
+
+        ![32.png](./images/virtual-box-installation/32.png)
+
+    </br>
 
     - Generate a **`GRUB`** configuration:
 
@@ -60,3 +73,9 @@ To enable booting the USB in both modes (**`BIOS`**, **`UEFI`**), two bootloader
         # /boot/grub/x86_64-efi/
         # /boot/grub/i386-pc/
         ```
+
+        ![33.png](./images/virtual-box-installation/33.png)
+
+        ![34.png](./images/virtual-box-installation/34.png)
+
+        ![35.png](./images/virtual-box-installation/35.png)

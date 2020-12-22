@@ -38,38 +38,74 @@ After running `arch-chroot` command, you will be inside the newly installed `Arc
 
 </br>
 
-- Localization
+- Sync **`pacman`** and install `vim`
 
-    Edit `/etc/locale.gen` and uncomment `en_US.UTF-8 UTF-8` line  and other needed `locales`.
+    Before we continue, we need to install `vim` for the newer installed `Arch Linux`, then we can edit any configuration file.
 
-    But the current linux doesn't have the `vim` yet, then we need to `exit` current Arch and back to `Live Arch` to edit it.
+    In the newer installed `Arch Linux`, the `/etc/pacman.d/mirrorlist` should be copied from the `Live Arch`, we can confirm that by running:
 
     ```bash
-    # Exit current Arch root.
-    exit
+    cat /etc/pacman.d/mirrorlist
+    ```
 
-    # Now, we're in `Live Arch` and edit the file. 
-    # Enable `en_US.UTF-8 UTF-8` line, save and exit.
-    vim /mnt/etc/locale.gen
+    ![20.png](./images/virtual-box-installation/20.png)
 
-    # Then, change root back to new Arch Linux to genereate the locale 
-    # settings.
-    arch-chroot /mnt
+    </br>
+
+    Then sync the `pacman` database and make sure it's up-to-date:
+
+
+    ![21.png](./images/virtual-box-installation/21.png)
+
+    </br>
+
+    Then, let's do `pacman -S vim`:
+
+    ![22.png](./images/virtual-box-installation/22.png)
+
+    </br>
+
+    Enable the `color`:
+
+    ```
+    vim /etc/pacman.conf
+
+    # Search and enable `Color` line, save and exit
+    ```
+
+</br>
+
+- Localization
+
+    `vim /etc/locale.gen` and uncomment `en_US.UTF-8 UTF-8` line  and other needed `locales`.
+
+    ![23.png](./images/virtual-box-installation/23.png)
+
+    </br>
+
+    Then, genereate the locale settings:
+
+    ```bash
     locale-gen
+    ```
 
-    # Exit current Arch root.
-    exit
+    ![24.png](./images/virtual-box-installation/24.png)
 
-    # Then edit LANG settings. 
-    # Add `LANG=en_US.UTF-8`.
-    # save and exit.
-    vim /mnt/etc/locale.conf
+    </br>
 
-    # Then edit the keyboard settings
-    vim /mnt/etc/vconsole.conf
 
+    `echo "LANG=en_US.UTF-8" > /etc/locale.conf`:
+
+    ![25.png](./images/virtual-box-installation/25.png)
+
+    </br>
+    
+
+    `vim /etc/vconsole.conf` and add your custom keybinding (if needed):
+
+    ```bash
     # Add my custom settings below (`Caps_Lock` works like `Escape`) to
-    # `/mnt/etc/vconsole.conf`.
+    # `/etc/vconsole.conf`.
     # Save and exit.
     KEYMAP=us
     keycode 9 = Escape
@@ -79,9 +115,9 @@ After running `arch-chroot` command, you will be inside the newly installed `Arc
 </br>
 
 - Hostname and host settings
-    - `vim /mnt/etc/hostname`, set to your hostname.
+    - `vim /etc/hostname`, set to your hostname.
     
-    - `vim /mnt/etc/hosts` with the base settings like below:
+    - `vim /etc/hosts` with the base settings like below:
 
         ```
         127.0.0.1	localhost
@@ -91,10 +127,9 @@ After running `arch-chroot` command, you will be inside the newly installed `Arc
 
 </br>
 
-- Change back into the new `Arch Linux` and set root password
+- Set root password
 
     ```bash
-    arch-chroot /mnt
     passwd
     ```
 

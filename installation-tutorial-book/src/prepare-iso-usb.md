@@ -5,3 +5,5 @@ Plug your USB into computer and boot the live ISO, it will automatic login to in
 install your own `Arch Linux`.
 
 ![flash-live-iso-to-usb.png](./images/flash-live-iso-to-usb.png)
+
+After that, reboot into your live ISO USB to continue the installation.

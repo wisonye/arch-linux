@@ -1,6 +1,7 @@
 # Summary
 
 - [Prepare your live ISO USB](./prepare-iso-usb.md)
+- [Use `VirtualBox` to boot live ISO](./use-vb-to-boo-iso.md)
 - [Connect to WIFI](./connect-to-wifi.md)
 - [Partitions]()
     - [Install Arch to hard drive]()

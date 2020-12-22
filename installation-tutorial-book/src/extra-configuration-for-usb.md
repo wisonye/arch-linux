@@ -12,11 +12,8 @@
     So we need to make some changes to `/etc/mkinitcpio.conf`:
 
     ```bash
-    # Back to `Live Arch`
-    exit
-
     # Editr the config
-    vim /mnt/etc/mkinitcpio.conf
+    vim /etc/mkinitcpio.conf
 
     # And ensure the `block` hook comes before the `filesystems` hook
     # and directly after the `udev` hook like the following:
@@ -25,14 +22,17 @@
     # Save it and exit.
     ```
 
+    ![26.png](./images/virtual-box-installation/26.png)
 
-    Now go back to new `Arch Linux` and regenerate the initial RAM disk image with the changes made:
+    </br>
+
+    Now, regenerate the initial RAM disk image with the changes made:
 
     ```bash
-    arch-chroot /mnt
-
     mkinitcpio -p linux
     ```
+
+    ![27.png](./images/virtual-box-installation/27.png)
 
 </br>
 
@@ -46,7 +46,6 @@
     and **`wlan0`**, revert the Arch Linux USB back to traditional device naming:
 
     ```bash
-    # We're inside installed Arch
     ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
     ````
 
@@ -61,11 +60,8 @@
     journal data is stored.
 
     ```bash
-    # Back to `Live Arch`
-    exit
-
     # Editr the config
-    vim /mnt/etc/systemd/journald.conf
+    vim /etc/systemd/journald.conf
 
     # To switch journal data storage to RAM, set the storage variable to 
     # `volatile` by ensuring the following line is uncommented:
@@ -77,6 +73,8 @@
 
     # Save it and exit
     ```
+
+    ![28.png](./images/virtual-box-installation/28.png)
 
 </br>
 
@@ -93,10 +91,12 @@
     To disable record keeping of file access times for the bootable USB:
 
     ```bash
-    vim /mnt/etc/fstab
+    vim /etc/fstab
 
 
     # Replace all mount options from `relatime` to `noatime`. 
     # Save it and exit
     ```
+
+    ![29.png](./images/virtual-box-installation/29.png)
 
