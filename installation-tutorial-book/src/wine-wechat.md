@@ -28,8 +28,8 @@ penalties of other methods and allowing you to cleanly integrate Windows applica
     ```
     
     Run `winecfg` to create a default `C:/` in `$HOME/.wine/drive_c`.
-    It will ask you to install `wine-mono` and `wine-gecko`, click `cancel`. 
-    It doesn't matter to run `wecaht`.
+    It will ask you to install some extra stuff, just click `cancel` for all of them,
+    as it doesn't matter to run `wecaht`.
 
     ```bash
     winecfg
@@ -53,7 +53,7 @@ penalties of other methods and allowing you to cleanly integrate Windows applica
     later, make sure NOT save into a `hidden` folder, as the `winecfg` program
     won't be able to see your `hidden` folder!!!
     
-    For example, save to `~/.zh.reg`:
+    For example, save to `~/zh.reg`:
     
     ```bash
     $ vim ~/zh.reg
@@ -80,7 +80,7 @@ penalties of other methods and allowing you to cleanly integrate Windows applica
     Run the command below to import `zh.reg`:
     
     ```bash
-    $ wine regedit
+    wine regedit
     ```
     
     Then click `Import Registry File` and choose your `zh.reg`:
@@ -92,7 +92,7 @@ penalties of other methods and allowing you to cleanly integrate Windows applica
 - Download `DLLs` by running `winetricks`
 
     ```bash
-    $ winetricks riched20
+    winetricks riched20
     ```
 
     It will download the dependencies into `$HOME/.cache/winetricks` 
