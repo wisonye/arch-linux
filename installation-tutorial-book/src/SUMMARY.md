@@ -28,7 +28,7 @@
     - [Make your boot faster](./make-your-boot-faster.md)
     - [Install `yay` to enable `AUR`](./install-yay-to-enable-aur.md)
     - [Install `X` implementation](./install-x-implementation.md)
-    - [Install `ligthDM`](./install-lightdm.md)
+    - [Install `lightdm`](./install-lightdm.md)
     - [Fix resolution issue](./fix-resolution-issue.md)
     - [Install `GTK` themes](./install-gtk-themes.md)
     - [Install `Google Chrome`](./install-google-chrome.md)

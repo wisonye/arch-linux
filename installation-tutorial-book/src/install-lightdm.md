@@ -104,3 +104,34 @@
     ```
 
     Save it and logout to take effect.
+
+</br>
+
+- Troubleshooting
+
+    If you can't start the `lightdm` or `lightdm-webkit2-greeter` (which includes can't see the webkit2
+    themes), plz double check all configurations
+    to see whether you put the wrong spelling there, as around 90% chance is that:)
+
+    If yes, then switch another **`tty`** to fix it and restart **`lightdm`** again:
+
+    ```bash
+    sudo systemctl restart lightdm.service
+    ```
+
+    </br>
+
+    If you make sure NO wrong spelling in the configuration file, then switch to another **`tty`** and 
+    run the command below to see whether some helpful error to figure out what's happening there:
+
+    ```bash
+    /usr/bin/lightdm-webkit2-greeter --help
+    ```
+
+    </br>
+
+    My personal very bad luck experience, it causes by missing the correct version of `icu` package
+    to be installed. I think that's because I installed `lightdm-webkit-theme-aether` via `yay` which
+    always use the latest package, but my `Arch Linux` use another older package. That's why no matter
+    what I had tried, it still doesn't work. After I run `sudo pacmac -Syc` to upgrade all installed 
+    package. It works...:)

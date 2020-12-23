@@ -32,7 +32,7 @@
 
     ```
     # Check the OpenGL version
-    glxinfo | grep "OpenGL version"""
+    glxinfo | grep "OpenGL version"
 
     # Test the OpenGL render framerate
     glxgears
