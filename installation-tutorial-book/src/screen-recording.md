@@ -5,7 +5,7 @@
     - Install
 
         ```bash
-        sudo pacmac -S screenkey
+        sudo pacman -S screenkey
         ```
     </br>
 
@@ -68,5 +68,5 @@
 - Simple screen recorder
 
     ```bash
-    sudo pacman -S simplescreenrecord
+    sudo pacman -S simplescreenrecorder
     ```
