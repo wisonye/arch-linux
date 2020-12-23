@@ -35,7 +35,13 @@ For safety reason, you can use `apfs-fuse` to mount your MacOS drive within the 
     # Mount with `allow_other` (can access) option
     # Plz replace the `sdXX` to your real device
     sudo apfs-fuse -o allow_other /dev/sdXX /mnt
+    ```
 
+    ![access-mac-fs.png](./images/access-mac-fs.png)
+
+    </br>
+
+    ```bash
     # Unmount
     sudo umount /mnt
     ```
