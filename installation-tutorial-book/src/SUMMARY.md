@@ -53,6 +53,7 @@
     - [Use Wechat in Wine](./wine-wechat.md)
     - [About cleaning cache](./about-cleaning-cache.md)
     - [Backup and restore](./backup-and-restore.md)
+    - [Firewall](./firewall.md)
     - [Mac extra configuration]()
         - [Change `DPI` by script](./mac-change-dpi.md)
         - [brightness control](./mac-brightness-control.md)
