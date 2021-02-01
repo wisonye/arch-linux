@@ -92,6 +92,60 @@ Let's do it.
 
 </br>
 
+- **`Apple keybaord` for `colemak` keyboard layout**
+
+    - Set to `colemak` layout before you continue:
+
+        ```bash
+        setxkbmap us colemak
+        ```
+
+        Right now, your keyboard key mapping should be load as `colemak`.
+
+    - Create `~/scripts/Xmodmap-colemak-for-apple-keyboard` from current keybinding:
+
+        ```bash
+        xmodmap -pke > ~/scripts/Xmodmap-colemak-for-apple-keyboard
+        ```
+    - Open `~/scripts/Xmodmap-for-apple-keyboard` and add some settings below:
+
+        - Add to the beginning of the file:
+
+            ```bash
+            clear lock
+            clear mod1
+            clear mod4
+            ```
+
+        - Add to the bottom of the file:
+
+            ```bash
+            add mod1 = Alt_L
+            add mod4 = Super_L
+            ```
+
+        - Edit the setting like below:
+
+            ```bash
+            keycode  66 = Escape NoSymbol Escape
+            ```
+
+    - Create `~/scripts/change-keybinding-for-apple-keyboard-colemak.sh` with the following settings:
+
+        ```bash
+        #!/bin/bash
+        cp -rvf ~/scripts/Xmodmap-colemak-for-apple-keyboard ~/.Xmodmap
+        i3-msg restart
+        ```
+
+    - Make it executable
+
+        ```bash
+        chmod +x ~/scripts/change-keybinding-for-apple-keyboard-colemak.sh
+        ```
+
+</br>
+
 - **`Varmilo mechanical keybaord`**
 
     - Create `~/scripts/Xmodmap-for-varmilo-keyboard` from current keybinding:
@@ -145,6 +199,9 @@ After that, you can switch to any keyboard at anytime you want in real-time.
 ```bash
 # For Apple keybaord
 ~/scripts/change-keybinding-for-apple-keyboard.sh
+
+# For Apple keybaord colemak
+~/scripts/change-keybinding-for-apple-keyboard-colemak.sh
 
 # For Varmilo keyboard
 ~/scripts/change-keybinding-for-varmilo-keyboard.sh

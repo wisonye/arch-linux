@@ -111,6 +111,8 @@ After running `arch-chroot` command, you will be inside the newly installed `Arc
     keycode 9 = Escape
     keycode 66 = Escape
     ```
+    
+    Change to `KEYMAP=colemak` if you use `colemak` keyboard layout!!!
 
 </br>
 
