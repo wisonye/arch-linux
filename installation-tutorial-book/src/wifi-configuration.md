@@ -35,6 +35,16 @@ Right now, the newer `Arch Linux` can connect via **`ethernet`** NIC, but how ab
     # Then save and exit
     ```
 
+    Pay attention:
+
+    _For connecting to the `5G` network, you need to match 2 conditions below:_
+
+    - _You have to use unencrypted (plaintext) password to fill the `Key` field._
+
+    - _The `5G` network needs to pick the `channel` to `40`._
+
+    _**Otherwise, it won't work!!!**_
+
 </br>
 
 - Start connecting to WIFI
@@ -66,20 +76,88 @@ Right now, the newer `Arch Linux` can connect via **`ethernet`** NIC, but how ab
     be added to **`lightdm`**, that will be perfect.
 
 
-Pay attention:
+</br>
 
-In this tutorial, I still can't connect to **5G**, I think should be the driver
-issue, as the result below doesn't include **5G** channel
+- Run the script to list all available networks
 
-```bash
-iw dev
+    - Install `node` if you don't have it yet:
 
-# phy#0
-#   Interface wlan0
-#       ifindex 2 
-#       wdev 0x1
-#       addr xx:xx:xx:xx:xx (mac address)
-#       type managed
-#       channel 1 (2412 MHz), width: 20 MHz, center1: 2312 MHz
-```
+        ```bash
+        sudo pacman --sync --refresh nodejs-lts-erbium
+        ```
+
+        </br>
+
+    - Create the `~/scripts/scan-ssid.js` with the following content:
+
+        ```js
+        const {execSync} = require('child_process')
+        
+        // Run the `iw` command to do a WIFI scan
+        const cmd = `iw dev wlan0 scan | grep -e "freq:" -e "SSID:"`
+        let cmdResult = ``
+        try {
+            cmdResult = execSync(cmd)
+                .toString()
+                .replace(/\t/g, '')
+            // console.log(`cmdResult: ${cmdResult}`)
+        }
+        catch (error) {
+            if (error.message && error.message.indexOf('Network is down') !== -1) {
+                console.log(`Your WIFI inferace is down, plz run the command the below and try again: \n\nsudo ip link set wlan0 up\n`)
+            }
+        
+            console.error(error)
+            return;
+        }
+        
+        
+        // Format the result
+        const resultList = []
+        
+        let lastWifiInfo = {freq: '', ssid: ''}
+        const tempArr = cmdResult.split(`\n`)
+            .forEach((tempString, index, arrRef) => {
+                const isSsid = index % 2 == 1
+        
+                if (isSsid) {
+                    let fixedSsid = tempString.replace(`SSID: `, ``).trim()
+                    lastWifiInfo.ssid = Boolean(fixedSsid == ``) ? `Unknown` : fixedSsid
+                    resultList.push(lastWifiInfo)
+                } else {
+                    let freqStr = tempString.replace(`freq: `, ``).trim()
+                    let is5G = Boolean(parseInt(freqStr, 10) > 5100)
+                    // console.log(`freqStr: ${freqStr}, is5G: ${is5G}`)
+        
+                    lastWifiInfo = {freq: '', ssid: ''}
+                    lastWifiInfo.freq = is5G ? `5G` : `2.4G`
+                }
+            })
+        
+        let resultTable = `\n[ Available WIFI networks ]` +
+            `\n--------------------------------------------\n` +
+            resultList.map(wifiInfo => `${wifiInfo.ssid} - ${wifiInfo.freq}`)
+                .join(`\n`) + `\n`
+        
+        console.log(resultTable)
+        ```
+
+        </br>
+
+    - Run the script like below:
+
+        ```bash
+        sudo node --harmony ~/scripts/scan-ssid.js
+        ```
+
+        If you didn't up the `wlan0` interface, it will print out the error 
+        like below:
+
+        ![scan-wifi-fail](./images/wifi-scan-fail.png) 
+
+        Then just run `sudo ip link set wlan0 up`, wait for a few seconds,
+        then re-run the script command again. And it should print out like
+        below:
+
+        ![scan-wifi-success](./images/wifi-scan-success.png) 
 
