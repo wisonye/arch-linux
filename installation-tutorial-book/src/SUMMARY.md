@@ -48,6 +48,7 @@
         - [Advanced keybinding](./advanced-keybinding.md)
         - [Switching keyboard](./switching-keyboard.md)
     - [Install `Ranger`](./install-ranger.md)
+    - [`neovim`](./neovim.md)
     - [About GPU](./about-gpu.md)
     - [Fix sound issue](./fix-sound-issue.md)
     - [Fix webcam issues](./fix-webcam-issue.md)
