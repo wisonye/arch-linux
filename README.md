@@ -34,6 +34,10 @@ Thta's pretty easy, in the browser, click on the print icon on the right-top to 
 
 [Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-4.png)
 
+![preview-tron-1.png](./installation-tutorial-book/src/images/preview-tron-1.png)
+
+[Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-tron-1.png)
+
 ![preview-5.png](./installation-tutorial-book/src/images/preview-5.png)
 
 [Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-5.png)
