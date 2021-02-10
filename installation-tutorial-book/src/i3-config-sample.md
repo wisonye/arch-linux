@@ -2,7 +2,7 @@
 
 Here is the fully comment **`i3`** configuration sample file:
 
-```
+```bash
 # ===========================================================================
 # Set `$mod` to `Mod4`(WinKey or CmdKey)
 # ===========================================================================
@@ -14,32 +14,42 @@ set $alt Mod1
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 # font pango:DejaVu Sans Mono 8
 # ===========================================================================
-font pango:SourceCodePro 11
+font pango:SauceCodePro Nerd Font 11
 
 # ===========================================================================
 # Start up programs
 # ===========================================================================
 
+# Set keyboard repeast rate: 200ms for the first delay, 40Hz for repeat rate
+exec --no-startup-id xset r rate 200 40
+
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
 
 # Load my custom keymapping
 exec_always sleep 1; xmodmap ~/.Xmodmap
 
-# Load compton renderer
-exec_always compton
+# Load compton renderer. After `compton` runs, `xsetroot -solid 'color'`
+# won't work!!!
+exec_always compton --active-opacity 0.99 --inactive-opacity 0.9
+
+# Load polybar
+# exec_always --no-startup-id ~/scripts/restart-polybar.sh &
 
 # Load chinese input method
-exec_always fcitx
+# exec_always fcitx
+
+# Enable notification server
+exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
 # Load wallpaper
-exec_always feh --bg-fill ~/Photos/wallpaper/6.png
-# exec_always feh --bg-fill ~/Photos/wallpaper/8.png
+exec_always feh --bg-scale ~/Photos/wallpaper/tron-2.png
+# exec_always feh --bg-scale ~/Photos/wallpaper/arch-2.png
 
 # ===========================================================================
 # Audio and volume control
@@ -66,19 +76,19 @@ bindsym XF86KbdBrightnessDown exec --no-startup-id ~/scripts/mac-light-controlle
 # ===========================================================================
 
 # `cmd+c` -> `ctrl+c` (Copy)
-bindsym --release $mod+c exec --no-startup-id xdotool key --clearmodifiers ctrl+c
+# bindsym --release $mod+c exec --no-startup-id xdotool key --clearmodifiers ctrl+c
 
 # `cmd+v` -> `ctrl+v` (Paste)
-bindsym --release $mod+v exec --no-startup-id xdotool key --clearmodifiers ctrl+v
+# bindsym --release $mod+v exec --no-startup-id xdotool key --clearmodifiers ctrl+v
 
 # `cmd+f` -> `ctrl+f` (Find)
-bindsym --release $mod+f exec --no-startup-id xdotool key --clearmodifiers ctrl+f
+# bindsym --release $mod+f exec --no-startup-id xdotool key --clearmodifiers ctrl+f
 
 # `cmd+t` -> `ctrl+t` (Open new tab)
-bindsym --release $mod+t exec --no-startup-id xdotool key --clearmodifiers ctrl+t
+# bindsym --release $mod+t exec --no-startup-id xdotool key --clearmodifiers ctrl+t
 
 # `cmd+w` -> `ctrl+w` (Close current tab)
-bindsym --release $mod+w exec --no-startup-id xdotool key --clearmodifiers ctrl+w
+# bindsym --release $mod+w exec --no-startup-id xdotool key --clearmodifiers ctrl+w
 
 
 # ===========================================================================
@@ -113,12 +123,6 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-# bindsym $mod+h split h
-
-# split in vertical orientation
-# bindsym $mod+v split v
-
 # kill focused window 
 bindsym $mod+q kill
 
@@ -152,7 +156,8 @@ bindsym Shift+$mod+r mode "resize"
 # ===========================================================================
 
 # Toggle fullscreen on current focused window
-bindsym Control+$mod+f fullscreen toggle
+# bindsym Control+$mod+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -166,6 +171,30 @@ bindsym $mod+Shift+space floating toggle
 # bindsym $mod+e layout toggle split
 bindsym $mod+e layout toggle tabbed split
 
+# split in horizontal orientation
+# bindsym $mod+h split h
+
+# split toggle between splitv and splith
+bindsym $mod+v split toggle
+
+# Open window Mode: Open specified layout of windows based on the number
+mode "Open multiple windows in the specific layout" {
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        # bindsym $left       resize shrink width $resize_unit px or $resize_unit ppt
+        # bindsym $down       resize grow height $resize_unit px or $resize_unit ppt 
+        # bindsym $up         resize shrink height $resize_unit px or $resize_unit ppt
+        # bindsym $right      resize grow width $resize_unit px or $resize_unit ppt
+        bindsym 2  exec ~/scripts/2w.sh; mode "default"
+        bindsym 3  exec ~/scripts/3w.sh; mode "default"
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym Shift+$mod+o mode "Open multiple windows in the specific layout"
 
 
 # ===========================================================================
@@ -225,7 +254,7 @@ bindsym $mod+b exec $browser
 # bindsym $mod+f exec "pcmanfm --new-win $(pwd) &"
 
 # Open ranger
-bindsym $mod+r exec alacritty --command ranger
+bindsym $mod+r exec "alacritty --command ranger"
 
 # Take screenshot
 bindsym --release $alt+$mod+p exec "scrot -s ~/Screenshots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
@@ -254,6 +283,8 @@ bindsym $mod+s exec --no-startup-id ~/scripts/toggle-screenkey.sh
 # Launch WxWork
 bindsym $mod+w exec --no-startup-id ~/scripts/wechat_work.sh
 
+# Zoom
+bindsym $mod+z exec --no-startup-id ~/scripts/startzoom.sh
 
 # ===========================================================================
 # Force some launch programs open in floating mode or control window open style
@@ -264,8 +295,16 @@ floating_maximum_size 1920 x 1080
 
 for_window [class="(?i)google-chrome"] border pixel 1
 for_window [class="(?i)vlc"] border pixel 1
+# for_window [class="(?i)4kvideodownloader-bin"] floating enable border pixel 1
+for_window [class="(?i)VirtualBox Machine"] floating enable
+for_window [class="(?i)VirtualBox Manager"] floating enable
+for_window [title="^4K Video Downloader"] floating enable
 for_window [title="SimpleScreenRecord"] floating enable border pixel 1
-for_window [class="wxwork.exe"] floating enable border pixel 1
+for_window [class="(?i)wxwork.exe"] floating enable border pixel 1
+for_window [class="(?i)slack"] floating enable border pixel 1
+for_window [title="^Firewall Configuration"] floating enable
+for_window [title="^glxgears"] floating enable
+for_window [class="(?i)zoom"] floating enable
 
 # for_window [window_type="dialog"] floating enbale border pixel 1
 # for_window [class="Skype"] floating enable border normal
@@ -277,27 +316,21 @@ for_window [class="wxwork.exe"] floating enable border pixel 1
 # ===========================================================================
 
 # Thin border
-# for_window [class="^.*"] border 1pixel
-# new_window 1pixel
+for_window [class="^.*"] border 1pixel
+new_window 1pixel
 
 # With gaps
 gaps inner 10
 
 # Window colors
 
-# Orange and red theme
-# set $bg_color           #E66B17
-# set $ibg_color          #551E22
+# Light blue
+set $bg_color           #ACE6FE
+set $ibg_color          #014775
 
-# Green theme
-# set $bg_color           #5DAC81
-# set $ibg_color          #6A8372
-
-set $bg_color           #5DAC81
-set $ibg_color          #6A8372
-set $border_color       #5DAC81
+set $border_color       #ACE6FE
 set $text_color         #1C1C1C
-set $itext_color        #000000
+set $itext_color        #FFFFFF
 set $ubg_color          #000000
 
 #                       border          background          text            indicator
@@ -316,10 +349,11 @@ client.urgent           $ubg_color      $ubg_color          $text_color     $ubg
 # ===========================================================================
 set $bar_bg_color           #1C1C1CD9
 set $bar_text_color         #FFFFFFCC
-set $bar_itext_color        #616161
-set $bar_ws_bg_color        #6A8372
-set $bar_ws_bg_color_2      #5DAC81
-set $bar_separator_color    #5DAC81
+set $bar_itext_color        #000000CC
+set $bar_ws_text_color      #1C1C1CD9
+set $bar_ws_bg_color        #274650
+set $bar_ws_bg_color_2      #7ab4cb
+set $bar_separator_color    #7ab4cb
 
 bar {
     # Run the `i3block` command and get back the standard output as the bar content
@@ -344,12 +378,13 @@ bar {
     tray_output primary
 
     #
-    font pango:SourceCodePro 10
+    font pango:SauceCodePro Nerd Font 10
     # font pango:monospace 10
 
     # The separator
     # separator_symbol    "|"
-    separator_symbol    "  "
+    separator_symbol    "  "
+    # separator_symbol    "  "
 
     # Workspace
     workspace_buttons   yes
@@ -361,7 +396,7 @@ bar {
         statusline  $bar_text_color
         separator   $bar_separator_color
 
-        focused_workspace  $bar_ws_bg_color_2   $bar_ws_bg_color_2  $bar_text_color     $bar_ws_bg_color_2
+        focused_workspace  $bar_ws_bg_color_2   $bar_ws_bg_color_2  $bar_ws_text_color  $bar_ws_bg_color_2
         active_workspace   $bar_ws_bg_color_2   $bar_ws_bg_color_2  $bar_itext_color    $bar_ws_bg_color_2
         inactive_workspace $bar_ws_bg_color     $bar_ws_bg_color    $bar_itext_color    $bar_ws_bg_color
         urgent_workspace   $bar_ws_bg_color     $bar_ws_bg_color    $bar_text_color     $bar_ws_bg_color

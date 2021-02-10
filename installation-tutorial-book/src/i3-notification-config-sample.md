@@ -91,7 +91,7 @@ Here is the fully comment **`notification`** configuration sample file:
 
     ### Text ###
 
-    font = SourceCodePro 10
+    font = SauceCodePro Nerd Font 10
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -131,7 +131,8 @@ Here is the fully comment **`notification`** configuration sample file:
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    # format = "<b>%s</b>\n%b"
+    format = "<i>%a</i>\n\n<b>%s</b>\n%b"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
