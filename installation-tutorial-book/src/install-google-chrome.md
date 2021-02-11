@@ -37,10 +37,3 @@ Tips: All installed GUI application links located in `/usr/share/applications/`.
 
 </br>
 
-- Optional choice: `vimium` extension if you're `vim` user:)
-
-    Open `Chrome web store` and search `vimium` and install it, enjoy the super convenience.
-
-    ![chrome-vimium-extension](./images/chrome-vimium-extension)
-
-    ![chrome-vimium-extension-vim-keybinds.png](./images/chrome-vimium-extension-vim-keybinds.png)
