@@ -1,5 +1,10 @@
 # Install Google Chrome
 
+If you want to keep the original `Google Chrome` user experience, then
+keep reading.
+
+</br>
+
 - Install via `yay`
     ```bash
     pacman -S --needed git base-devel

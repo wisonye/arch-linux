@@ -9,6 +9,13 @@
 
     ![chrome-vimium-extension-vim-keybinds.png](./images/chrome-vimium-extension-vim-keybinds.png)
 
+    And you can change your own kep mapping like this:
+
+    ```bash
+    map h previousTab
+    map l nextTab
+    ```
+
 </br>
 
 - **`firenvim`**
