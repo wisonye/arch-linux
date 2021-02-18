@@ -65,6 +65,7 @@
     - [Use Wechat in Wine](./wine-wechat.md)
     - [Install communication tools]()
         - [Install `zoom`](./install-zoom.md)
+        - [Install `slack`](./install-slack.md)
     - [About cleaning cache](./about-cleaning-cache.md)
     - [Backup and restore](./backup-and-restore.md)
     - [Firewall](./firewall.md)
