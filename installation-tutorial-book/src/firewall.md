@@ -152,29 +152,46 @@
 
     Here is how to setup:
 
-    ```bash
-    # Change default zone to `drop`
-    sudo firewall-cmd --permament --set-default-zone=drop
-    
-    # Bind the WIFI interface to `drop` zone
-    # Change the `wlp3s0` to your active WIFI interface!!!
-    sudo firewall-cmd --permanent --change-zone=wlp3s0 --zone=drop
-    
-    # Reload `firewalld.service`
-    sudo firewall-cmd --reload
-    ```
+    - Change default zone to `drop`:
 
-    Because you use the `--permament` option, it will write the change to
-    **`/etc/firewalld/zones/drop.xml`** with the following settings:
+        ```bash
+        sudo firewall-cmd --permament --set-default-zone=drop
+        ```
+    - Bind the WIFI interface to `drop` zone
+
+        ```bash
+        # Change the `wlp3s0` to your active WIFI interface!!!
+        sudo firewall-cmd --permanent --change-zone=wlp3s0 --zone=drop
+        ```
+    - Reload `firewalld.service`
+
+        ```bash
+        sudo firewall-cmd --reload
+        ```
+        
+        </br>
+
+    How to prove the `--permament` option take effect?
+
+    - File **`/etc/firewalld/firewalld.conf`** has the following settings:
+
+        ```bash
+        # default zone
+        # The default zone used if an empty zone string is used.
+        # Default: public
+        DefaultZone=drop
+        ```
+
+    - File **`/etc/firewalld/zones/drop.xml`** has been added with the following settings:
     
-    ```bash
-    <?xml version="1.0" encoding="utf-8"?>
-    <zone target="DROP">
-      <short>Drop</short>
-      <description>Unsolicited incoming network packets are dropped. Incoming packets that are related to outgoing network connections are accepted. Outgoing network connections are allowed.</description>
-      <interface name="wlp3s0"/>
-    </zone>
-    ```
+        ```bash
+        <?xml version="1.0" encoding="utf-8"?>
+        <zone target="DROP">
+          <short>Drop</short>
+          <description>Unsolicited incoming network packets are dropped. Incoming packets that are related to outgoing network connections are accepted. Outgoing network connections are allowed.</description>
+          <interface name="wlp3s0"/>
+        </zone>
+        ```
 
     Then you can confirm that the `drop` zone already applied to the particular
     (WIFI) network interface. Reboot and run the following commands to confirm
