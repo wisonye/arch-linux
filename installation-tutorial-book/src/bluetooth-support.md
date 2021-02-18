@@ -3,7 +3,7 @@
 - Install
 
     ```bash
-    sudo pacman bluez bluez-utils blueman
+    sudo pacman --sync --refresh bluez bluez-utils blueman
     ```
 
 </br>
