@@ -7,12 +7,10 @@ information, then you can install `Ungoogled Chromium`!!!
 
 - Install via `yay`
     ```bash
-    yay -S ungoogled-chromium
+    yay -S ungoogled-chromium-appimage
 
-    # It will show you around 4 options. If you don't want to compile 
-    # from source code (around 4x,xxx source files) which takes a few
-    # hours, then you can choose the `ungoogled-chromium-appimage (chromium)`
-    # one!!!
+    # If you don't want to compile from source code (around 4x,xxx source files)
+    # which takes a few hours, then you can choose this package to install. 
     ```
 
     You can run the command below to see the install location:
