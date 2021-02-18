@@ -58,7 +58,7 @@
     If you need 仓颉、五笔等输入法
 
     ```bash
-    sudo pacman S fcitx-table-extra
+    sudo pacman -S fcitx-table-extra
     ```
 
     </br>

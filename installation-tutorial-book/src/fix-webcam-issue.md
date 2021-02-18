@@ -99,8 +99,8 @@
     `sudo vim /etc/modprobe.d/blacklist.conf` with the following settings:
 
     ```bash
-    backlist bdc_pci
-    install bdc_pci /bin/fals
+    blacklist bdc_pci
+    install bdc_pci /bin/false
     ```
 
     Then next reboot, it will load the correct module to serve your webcam.
@@ -113,7 +113,7 @@
     modprobe -r bdc_pci
 
     # Then load the new module
-    modprobe facetimehd
+    sudo modprobe facetimehd
     ```
 
     Right now, it should work:
