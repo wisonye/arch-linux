@@ -120,3 +120,30 @@
 
         </br>
 
+        Of course, you can change the window's height and width at any given time by
+        running the commands below inside the `firenvim`:
+
+        ```js
+        # `yyy` is the column count
+        :set columns=yyy
+
+        # `xxx` is the line count
+        :set lines=xxx
+
+        # Query the current settings
+        :set lines?
+        :set columns?
+        ```
+
+        </br>
+
+        After finishing write in `firenvim` and before you do the preview, make sure to run 
+        `:w` or `:wq`. Otherwise, all your content will not save to the `<TextArea>` dom.
+
+        </br>
+
+        
+
+
+        
+
