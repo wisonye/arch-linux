@@ -107,6 +107,24 @@
 
 </br>
 
+- How to replace the default login screen user icon
+
+    Be default, there is a file named `/var/lib/AccountsService/users/YOUR_USER_NAME`
+    with your current user name. Open it and replace the `Icon` line like below:
+
+    ```bash
+    [User]
+    Session=default
+    XSession=i3
+    Icon=/var/lib/AccountsService/icons/XXXX.png
+    SystemAccount=false
+    ```
+
+    `XXXX.png` is your login user icon image file, just copy the file to there and restart
+    `lightdm` service, it will work. If not work, then restart, it should show up there.
+
+</br>
+
 - Troubleshooting
 
     If you can't start the `lightdm` or `lightdm-webkit2-greeter` (which includes can't see the webkit2
@@ -120,6 +138,9 @@
     ```
 
     </br>
+
+    Or you can try to install the `i3` and see what happen, as sometimes it works after installing
+    `i3`. I think the reason should be `i3` installs something that theme needes, not very sure:)
 
     If you make sure NO wrong spelling in the configuration file, then switch to another **`tty`** and 
     run the command below to see whether some helpful error to figure out what's happening there:
