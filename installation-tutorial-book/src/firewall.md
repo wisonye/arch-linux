@@ -5,6 +5,13 @@
     ```bash
     sudo pacman -Sy firewalld ipset
     ```
+
+    Enable the service and start it right now:
+
+    ```bash
+    sudo systemctl enable --now firewalld.service
+    ```
+
 </br>
 
 - About the **`zone`** and **`service`**
@@ -116,3 +123,82 @@
     ```bash
     sudo firewall-config
     ```
+
+</br>
+
+- How to set `drop` as default zone and bind to the particular interface
+
+    If you're **NOT** using `NetworkManager` to manger your `NIC`, then you should
+    use `firewall-cmd` to change zone and bind to the particular `NIC`, otherwise
+    NO firewall rules will applied to your network interface at all!!!
+
+    How confirm that? If you run `sudo firewall-config` then you see this:
+
+    ![firewall-not-under-network-manager.png](./images/firewall-not-under-network-manager.png) 
+
+    Then all of your `NICs` aren NOT understand `NetworkManager` controll. Also, you can run
+    the commands below to confirm as well:
+
+    ```bash
+    # If you got `public` that means you didn't setup
+    firewall-cmd --get-default-zone
+
+    # If you got nothing, that means no firewall zone apply to any inteface
+    firewall-cmd --get-active-zone
+    sudo firewall-cmd --list-interfaces
+    ```
+
+    </br>
+
+    Here is how to setup:
+
+    ```bash
+    # Change default zone to `drop`
+    sudo firewall-cmd --permament --set-default-zone=drop
+    
+    # Bind the WIFI interface to `drop` zone
+    # Change the `wlp3s0` to your active WIFI interface!!!
+    sudo firewall-cmd --permanent --change-zone=wlp3s0 --zone=drop
+    
+    # Reload `firewalld.service`
+    sudo firewall-cmd --reload
+    ```
+
+    Because you use the `--permament` option, it will write the change to
+    **`/etc/firewalld/zones/drop.xml`** with the following settings:
+    
+    ```bash
+    <?xml version="1.0" encoding="utf-8"?>
+    <zone target="DROP">
+      <short>Drop</short>
+      <description>Unsolicited incoming network packets are dropped. Incoming packets that are related to outgoing network connections are accepted. Outgoing network connections are allowed.</description>
+      <interface name="wlp3s0"/>
+    </zone>
+    ```
+
+    Then you can confirm that the `drop` zone already applied to the particular
+    (WIFI) network interface. Reboot and run the following commands to confirm
+    it still works:
+
+    ```bash
+    firewall-cmd --get-default-zone
+    # drop
+
+    firewall-cmd --get-active-zone
+    # drop
+    #   interfaces: wlp3s0
+
+    sudo firewall-cmd --list-interfaces
+    # wlp3s0
+
+    sudo firewall-cmd --list-services
+    # Should show nothing, as `drop` zone has no open service port by default.
+    ```
+
+    Or run `sudo firewall-config` again, you should see the interface name
+    already shown in the sidebar and highlighted the active zone name:
+
+    ![firewall-applied-drop-zone-to-interface.png](./images/firewall-applied-drop-zone-to-interface.png) 
+
+</br>
+
