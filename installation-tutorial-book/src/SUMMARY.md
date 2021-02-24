@@ -44,6 +44,7 @@
         - [Bar customization](./bar-customization.md)
         - [Bar customization with `i3blocks`](./bar-customization-with-i3blocks.md)
         - [Bar customization with `polybar`](./bar-customization-with-polybar.md)
+        - [Multiscreen lock](./multi-screen-lock.md)
         - [`i3` config sample](./i3-config-sample.md)
         - [Notification](./i3-notification.md)
         - [Notification config sample](./i3-notification-config-sample.md)
