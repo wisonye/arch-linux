@@ -142,9 +142,11 @@ When presentation is running, here is the way to do navigation:
 
 </br>
 
-### Running Screenshots
+### Some good looking `style` which match the `dark` theme
 
 Use `dark` theme and `material` style:
+
+`lookatme --live-reload --theme dark --style material vim-presentation.md`
 
 ![lookatme-material-style.png](./images/lookatme-material-style.png)
 
@@ -152,7 +154,22 @@ Use `dark` theme and `material` style:
 
 Use `dark` theme and `vim` style:
 
+`lookatme --live-reload --theme dark --style vim vim-presentation.md`
+
 ![lookatme-vim-style.png](./images/lookatme-vim-style.png)
+
+</br>
+
+Another nice `dark` matching styles are:
+
+- `native`
+- `fruity` 
+- `rrt`
+- `paraiso-dark`
+- `solarized-dark`
+- `stata-dark`
+- `inkpot`
+- `zenburn`
 
 </br>
 
