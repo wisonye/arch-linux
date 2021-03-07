@@ -37,9 +37,10 @@ Here is the chapter list content:
     - Install `lightdm`
     - Fix resolution issue
     - Install `GTK` themes
-    - `Google Chrome`
+    - Install browser
         - Install `Chrome`
         - `vim` plugins
+        - Install `ungoogled-chromium`
     - Install `i3` Window Manager
     - i3_customization
         - Change wallpaper
@@ -48,6 +49,8 @@ Here is the chapter list content:
         - Bar customization
         - Bar customization with `i3blocks`
         - Bar customization with `polybar`
+        - Multiscreen lock
+        - Change unlock timeout
         - `i3` config sample
         - Notification
         - Notification config sample
@@ -59,6 +62,7 @@ Here is the chapter list content:
     - Install `NerdFont`
     - Install `Ranger`
     - `neovim`
+    - `lookatme`
     - About GPU
     - Fix sound issue
     - Fix webcam issues
@@ -69,6 +73,7 @@ Here is the chapter list content:
     - Use Wechat in Wine
     - Install communication tools
         - Install `zoom`
+        - Install `slack`
     - About cleaning cache
     - Backup and restore
     - Firewall
