@@ -122,6 +122,10 @@ That's pretty easy, in the browser, click on the print icon on the right-top to 
 
 ### `i3` customization UI preview:
 
+![i3-preview-7.png](./installation-tutorial-book/src/images/preview-7.png)
+
+[Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-7.png)
+
 ![i3-preview-6.png](./installation-tutorial-book/src/images/preview-6.png)
 
 [Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-6.png)
