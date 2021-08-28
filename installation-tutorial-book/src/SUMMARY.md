@@ -77,4 +77,5 @@
         - [brightness control](./mac-brightness-control.md)
         - [Trackpad support](./trackpad-support.md)
         - [Bluetooth support](./bluetooth-support.md)
+        - [Bluetooth AirPods](./bluetooth-airpod.md)
         - [Access `Apple File System`](./access-apple-file-system.md)
