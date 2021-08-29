@@ -118,38 +118,38 @@ xrandr \
 
     ```bash
     #!/usr/bin/fish
-    
+
     set action $argv
     set builtin "eDP"
     set external "DisplayPort-1"
-    
-    
+
+
     switch $action
         case "turnoff"
             xrandr \
                 --output "$builtin" --auto \
                 --output "$external" --off
             printf "Turn off external monitor.\n\n"
-    
+
         case "mirror"
             xrandr \
                 --output "$builtin" --auto \
                 --output "$external" --auto --same-as "$builtin"
-    
+
             printf "Toggle external monitor to on the right side in mirror mode.\n\n"
-    
+
         case "extra"
             xrandr \
                 --output "$builtin" --auto \
                 --output "$external" --auto --left-of "$builtin"
             printf "Toggle external monitor to on the right side in extra.\n\n"
-    
+
         case "extra-rotate"
             xrandr \
                 --output "$builtin" --auto \
                 --output "$external" --auto --right-of "$builtin" --rotate left
             printf "Toggle external monitor to on the right side in extra vertical.\n\n"
-    
+
         case "*"
             printf "Doesn't support the action: $action\n\n"
     end
@@ -169,6 +169,18 @@ xrandr \
     dmenu -i -p "Pick the monitor action: " | \
     xargs -I % monitors.sh "%"
     ```
+
+</br>
+
+
+#### 4. Audio via **USB-C** or **HDMI**
+
+If the external monitor supports audio output, then you need to make sure switch
+to the `HDMI` audio output in the `pavucontrol` like below:
+
+![monitor-aduio-1](./images/monitor-audio-1.png)
+
+![monitor-aduio-2](./images/monitor-audio-2.png)
 
 </br>
 
