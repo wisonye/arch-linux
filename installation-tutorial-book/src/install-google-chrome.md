@@ -7,14 +7,14 @@ keep reading.
 
 - Install via `yay`
     ```bash
-    pacman -S --needed git base-devel
+    sudo pacman -S --needed git base-devel
     mkdir ~/temp && cd ~/temp
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
     makepkg -si
-    cd ~/temp && rm -rf yay
+    cd ~/temp && rm -rf paru
 
-    yay -S google-chrome
+    paru -S google-chrome
     ```
 
 </br>

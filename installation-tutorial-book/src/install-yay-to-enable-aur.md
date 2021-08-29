@@ -1,4 +1,4 @@
-# Install **`yay`** to enable AUR
+# Install **`Paru`** to enable AUR
 
 What is AUR?
 
@@ -6,17 +6,20 @@ What is AUR?
 It contains package descriptions named **PKGBUILDs** that allow you to compile a package from source with `makepkg` and
 then install it via `pacman` (package manager in Arch Linux).
 
+What is `Paru`?
+
+`Paru` is the help of **AUR** that written by `Rust` based on `yay`.
+
 How to enable **AUR** installation:
 
 ```bash
 mkdir ~/temp && cd ~/temp
 
-pacman -S --needed git base-devel
-git clone https://aur.archlinux.org/yay.git
-cd yay
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
 makepkg -si
-
-cd ~/temp && rm -rf yay
+cd ~/temp && rm -rf paru
 ```
 
 If you want to change or add any mirror server to `/etc/pacman.d/mirrorlist`, you can go to [here](https://www.archlinux.org/mirrorlist/)
