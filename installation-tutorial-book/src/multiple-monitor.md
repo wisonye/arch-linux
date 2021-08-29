@@ -117,6 +117,42 @@ xrandr \
 - Create `~/scripts/monitors.sh` with the following content:
 
     ```bash
+    #!/usr/bin/fish
+    
+    set action $argv
+    set builtin "eDP"
+    set external "DisplayPort-1"
+    
+    
+    switch $action
+        case "turnoff"
+            xrandr \
+                --output "$builtin" --auto \
+                --output "$external" --off
+            printf "Turn off external monitor.\n\n"
+    
+        case "mirror"
+            xrandr \
+                --output "$builtin" --auto \
+                --output "$external" --auto --same-as "$builtin"
+    
+            printf "Toggle external monitor to on the right side in mirror mode.\n\n"
+    
+        case "extra"
+            xrandr \
+                --output "$builtin" --auto \
+                --output "$external" --auto --left-of "$builtin"
+            printf "Toggle external monitor to on the right side in extra.\n\n"
+    
+        case "extra-rotate"
+            xrandr \
+                --output "$builtin" --auto \
+                --output "$external" --auto --right-of "$builtin" --rotate left
+            printf "Toggle external monitor to on the right side in extra vertical.\n\n"
+    
+        case "*"
+            printf "Doesn't support the action: $action\n\n"
+    end
     ```
 
     </br>
