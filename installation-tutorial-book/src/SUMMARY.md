@@ -52,6 +52,7 @@
         - [Notification config sample](./i3-notification-config-sample.md)
         - [Low-battery notification](./setup-low-battery-notification.md)
         - [Fast open windows](./i3-fast-layout-setup.md)
+    - [Start `i3` without `Display Manger`](./start-i3-without-dm.md)
     - [Special keybinding](./special-keybinding.md)
         - [Advanced keybinding](./advanced-keybinding.md)
         - [Switching keyboard](./switching-keyboard.md)
