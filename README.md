@@ -32,8 +32,10 @@ Here is the chapter list content:
     - WIFI Configuration
     - Make your boot faster
     - Install or update kernel
-    - Install `yay` to enable `AUR`
+    - Install `paru` to enable `AUR`
     - Install `X` implementation
+    - Install `bspwm`
+    - Config `Xorg`
     - Install `lightdm`
     - Fix resolution issue
     - Install `GTK` themes
@@ -56,6 +58,7 @@ Here is the chapter list content:
         - Notification config sample
         - Low-battery notification
         - Fast open windows
+    - Start `i3` without `Display Manger`
     - Special keybinding
         - Advanced keybinding
         - Switching keyboard
