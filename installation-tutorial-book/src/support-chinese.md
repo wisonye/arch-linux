@@ -41,7 +41,7 @@
 - Install chinese fonts
 
     ```bash
-    yay -S wqy-bitmapfont wqy-microhei \
+    paru -S wqy-bitmapfont wqy-microhei \
         wqy-microhei-lite \
         wqy-zenhei \
         adobe-source-han-mono-cn-fonts \
@@ -67,7 +67,7 @@
 
     ```bash
     # SouGou PinYin (it inclues WuBi)
-    yay -S fcitx-sogoupinyin
+    paru -S fcitx-sogoupinyin
     ```
 
     ![chinese-sougoupinyin-installation.png](./images/chinese-sougoupinyin-installation.png)

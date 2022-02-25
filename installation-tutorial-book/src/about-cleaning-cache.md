@@ -8,9 +8,9 @@ clean your cache. Usually, it will save over **`GB`** disk space:)
 # Show how much your cache hold the disk space
 dust -d1 ~/.cache
 
-# Clean yay cache and unneeded dependencies
-yay -Sc
-yay -Yc
+# Clean paru cache and unneeded dependencies
+paru -Sc
+paru -Yc
 
 # Clean pacman cache (it locates `/var/cache/pacman/pkg/`)
 sudo pacman -Scc

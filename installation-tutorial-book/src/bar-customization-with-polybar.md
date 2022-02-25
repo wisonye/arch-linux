@@ -3,7 +3,7 @@
 - Install
 
     ```bash
-    yay -S polybar
+    paru -S polybar
     ```
 
 </br>

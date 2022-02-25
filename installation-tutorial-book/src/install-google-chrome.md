@@ -5,7 +5,7 @@ keep reading.
 
 </br>
 
-- Install via `yay`
+- Install via `paru`
     ```bash
     sudo pacman -S --needed git base-devel
     mkdir ~/temp && cd ~/temp

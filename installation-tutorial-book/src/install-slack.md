@@ -3,7 +3,7 @@
 - Install
 
     ```bash
-    yay -S slack-desktop
+    paru -S slack-desktop
     ```
 
 </br>

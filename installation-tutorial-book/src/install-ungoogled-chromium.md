@@ -5,9 +5,9 @@ information, then you can install `Ungoogled Chromium`!!!
 
 </br>
 
-- Install via `yay`
+- Install via `paru`
     ```bash
-    yay -S ungoogled-chromium-appimage
+    paru -S ungoogled-chromium-appimage
 
     # If you don't want to compile from source code (around 4x,xxx source files)
     # which takes a few hours, then you can choose this package to install. 
@@ -16,7 +16,7 @@ information, then you can install `Ungoogled Chromium`!!!
     You can run the command below to see the install location:
 
     ```bash
-    yay --query --list ungoogled-chromium-appimage
+    paru --query --list ungoogled-chromium-appimage
 
     # ungoogled-chromium-appimage /opt/
     # ungoogled-chromium-appimage /opt/appimages/

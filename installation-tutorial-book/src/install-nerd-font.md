@@ -14,13 +14,13 @@ It has 7 optional ways to install **`Nerd Fonts`**. But for `Arch`, you can
 install via `AUR`. Let's take the `Source Code Pro` at an example:
 
 ```bash
-yay -S nerd-fonts-source-code-pro
+paru -S nerd-fonts-source-code-pro
 ```
 
 After installing, you can run the command below to show the installed location:
 
 ```bash
-yay --query --list nerd-fonts-source-code-pro
+paru --query --list nerd-fonts-source-code-pro
 
 # /usr/share/fonts/TTF/Sauce Code Pro Black Italic Nerd Font Complete Mono.ttf
 # /usr/share/fonts/TTF/Sauce Code Pro Black Italic Nerd Font Complete.ttf

@@ -14,7 +14,7 @@ two parts:
     **`dunst`** is a customizable and lightweight notification-daemon.
 
     ```bash
-    sudo pacman --sync --refresh dunst
+    sudo pacman --sync --refresh dunst libnotify
     ```
 
 - Notifcation client (program)

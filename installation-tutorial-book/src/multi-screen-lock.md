@@ -3,7 +3,7 @@
 ### Install
 
 ```bash
-yay -S multilockscreen
+paru -S multilockscreen
 ```
 
 </br>

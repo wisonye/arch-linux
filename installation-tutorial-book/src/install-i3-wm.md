@@ -20,7 +20,7 @@ We will install a **`Tiling`** window manager which calls **`i3`**.
 
     Then we need on more comopnent from **`AUR`**`:
     ```bash
-    yay -Sy i3exit
+    paru -Sy i3exit
     ```
     
 | Component | Description|

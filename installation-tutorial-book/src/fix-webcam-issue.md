@@ -90,7 +90,7 @@
     For my case, I will install the `bcwc-pcie-git` driver via `AUR`. 
 
     ```bash
-    yay -S bcwc-pcie-git
+    paru -S bcwc-pcie-git
     ```
 
     After that, the new module `facetimehd` will be installed and it conflicts with the

@@ -86,7 +86,7 @@
     It's super easy to add a different theme based on `lightdm-webkit2-greeter`, for example, install this one:
 
     ```bash
-    yay -Sy lightdm-webkit-theme-aether
+    paru -Sy lightdm-webkit-theme-aether
     ```
 
     After a theme be installed, it saves in `/usr/share/lightdm/themes`
@@ -152,7 +152,7 @@
     </br>
 
     My personal very bad luck experience, it causes by missing the correct version of `icu` package
-    to be installed. I think that's because I installed `lightdm-webkit-theme-aether` via `yay` which
+    to be installed. I think that's because I installed `lightdm-webkit-theme-aether` via `paru` which
     always use the latest package, but my `Arch Linux` use another older package. That's why no matter
     what I had tried, it still doesn't work. After I run `sudo pacmac -Syc` to upgrade all installed 
     package. It works...:)
