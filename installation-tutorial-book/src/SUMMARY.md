@@ -30,7 +30,6 @@
     - [Install `paru` to enable `AUR`](./install-yay-to-enable-aur.md)
     - [Install `X` implementation](./install-x-implementation.md)
     - [Install `bspwm`](./install_bspwm.md)
-    - [Config `Xorg`](./config_xorg.md)
     - [Install `lightdm`](./install-lightdm.md)
     - [Fix resolution issue](./fix-resolution-issue.md)
     - [Install `GTK` themes](./install-gtk-themes.md)

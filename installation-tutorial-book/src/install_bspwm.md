@@ -3,20 +3,8 @@
 - Install
 
     ```bash
-    doas pkg_add bspwm sxhkd alacritty feh polybar dmenu
-    ```
-
-    After the user logs in from `xenodm`, the `/etc/X11/xenodm/Xsession`
-    script checks whether there is a `$HOME/.xsession` script and call it
-    if it exists. That's the file that we can place all personal X
-    window settings and start the `bspwm` window manager:
-
-    ```bash
-    # Localization
-    echo "export LC_CTYPE=\"en_US.UTF-8\"" >> ~/.xsession
-
-    # Start bspwm
-    echo "bspwm" >> ~/.xsession
+    sudo pacman --refresh --sync bspwm sxhkd alacritty feh dmenu
+    paru -S polybar
     ```
 
     </br>
@@ -37,85 +25,78 @@
     </br>
 
 
-- Let `xsession` run `bspwm`
+- How to start `bspwm` without installing any `DM (Dispaly Manager)`
 
-    After restoring your `bspwm` and `sxhkd` configuration file, add the
-    following content to `~/.xsession`:
+    The **xinit** program allows a user to manually start and **Xorg** display
+    server. The **startx** script is a front-end for **xinit**.
 
-    ```bash
-    export SXHKD_SHELL='/bin/sh'
-    export LC_CTYPE="en_US.UTF-8"
+    - Install `xinit` and `startx`
 
+        ```bash
+        sudo pacman --sync --refresh xorg-xinit
+        ```
 
-    # ------------------------------------------------------------------
-    # Open keyboard symbol output for debugging purpose if your hotkey
-    # not correctly.
-    # ------------------------------------------------------------------
-    # xev > ~/temp/xev.log &
+    - Customize your `.xinitrc`
 
+        ```bash
+        cp -rvf /etc/X11/xinit/xinitrc  ~/.xinitrc
+        ```
 
-    # ------------------------------------------------------------------
-    # Open the default terminal for debugging purpose if you can't
-    # run your window manager correctly.
-    # ------------------------------------------------------------------
-    # alacritty &
+        Then open it and let is start `bspwm` at the end:
 
-    # ------------------------------------------------------------------
-    # Start window manager
-    # ------------------------------------------------------------------
-    bspwm -c ~/.config/bspwm/bspwmrc 2>~/.bspwm.err >~/.bspwm.out
-    ```
+        ```bash
+        #!/bin/sh
 
-    Check the `~/.bspwm.err` if it doesn't run correctly.
+        userresources=$HOME/.Xresources
+        usermodmap=$HOME/.Xmodmap
+        sysresources=/etc/X11/xinit/.Xresources
+        sysmodmap=/etc/X11/xinit/.Xmodmap
 
-    </br>
+        # merge in defaults and keymaps
 
+        if [ -f $sysresources ]; then
+            xrdb -merge $sysresources
+        fi
 
-    Restart `xendo` display manager to take effect
-    ```bash
-    doas rcctl restart xenodm
-    ```
+        if [ -f $sysmodmap ]; then
+            xmodmap $sysmodmap
+        fi
 
-    </br>
+        if [ -f "$userresources" ]; then
+            xrdb -merge "$userresources"
+        fi
 
-- How to debug if window manger doesn't run correctly
+        if [ -f "$usermodmap" ]; then
+            xmodmap "$usermodmap"
+        fi
 
-    After user loing success, `xenodm` will run `/etc/X11/xenodm/Xsession`
-    and it will run your `$HOME/.xsession` (if exists).
+        # start some nice programs
 
-    If error happen or you can't login, for example, the window
-    manager you set in `$HOME/.xsession` can't run correctly,
-    you can checkout the `$HOME/.xsession-errors` to figure out
-    what's happening:)
+        if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+         for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+          [ -x "$f" ] && . "$f"
+         done
+         unset f
+        fi
 
-    </br>
+        # ------------------------------------------------------------------
+        # Start window manager
+        # ------------------------------------------------------------------
+        bspwm -c ~/.config/bspwm/bspwmrc 2>~/.bspwm.err >~/.bspwm.out
+        ```
 
-    **Important tips:**
+        The script is very simple, it does the following things:
 
-    _**If you can't login into X and it said `forbidden`, then you need to
-    double-check that whether your default shell is in the `/etc/shells` or
-    not!!!**_
+        - Run your `~/.Xresources` if exists. Mine is for setting the `Xft.dpi` for
+        my monitor.
 
-    </br>
+        - Run your `~/.Xmodmap` if exists. Mine is for setting the keyboard.
 
+        - Then run your window manager (the `bspwm`` in this case)
 
-- Copy custom font to `~/.fonts`
+        </br>
 
-    You need to copy the custom font to `~/.fonts` folder and run
-    the following commands:
+        Check the `~/.bspwm.err` if it doesn't run correctly.
 
-    ```bash
-    mkdir ~/.fonts
-    cp -rvf /home/wison/my-shell/backup/nerd-font-patched-sauce-code-pro/* ~/.fonts/
+        </br>
 
-    # Update font cache
-    doas fc-cache
-
-    # Restart xendo display manager to take effect
-    doas rcctl restart xenodm
-    ```
-
-    For more details, run `man fonts` and read the `INSTALLING FONTS`
-    section.
-
-    </br>

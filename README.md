@@ -35,7 +35,6 @@ Here is the chapter list content:
     - Install `paru` to enable `AUR`
     - Install `X` implementation
     - Install `bspwm`
-    - Config `Xorg`
     - Install `lightdm`
     - Fix resolution issue
     - Install `GTK` themes
