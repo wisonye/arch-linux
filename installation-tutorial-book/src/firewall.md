@@ -155,7 +155,7 @@
     - Change default zone to `drop`:
 
         ```bash
-        sudo firewall-cmd --permament --set-default-zone=drop
+        sudo firewall-cmd --set-default-zone=drop
         ```
     - Bind the WIFI interface to `drop` zone
 
