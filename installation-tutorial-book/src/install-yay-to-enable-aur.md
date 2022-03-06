@@ -18,7 +18,10 @@ mkdir ~/temp && cd ~/temp
 sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/paru.git
 cd paru
+
+# Choose '2', install `cargo` via `rustup` for a small download size!!!
 makepkg -si
+
 cd ~/temp && rm -rf paru
 ```
 
