@@ -89,10 +89,17 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
 
     </br>
 
-- Build tools if you needed
+- Build tools and `git` if you needed
 
     ```bash
     pacman -S base-devel man
+    ```
+
+    Set git global config
+
+    ```bash
+    git config --global user.name "YOUR_FULL_NAME_HERE"
+    git config --global user.email "YOUR_EMAIL_HERE"
     ```
 
     </br>
