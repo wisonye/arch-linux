@@ -61,7 +61,6 @@
         - [Switching keyboard](./switching-keyboard.md)
     - [Install `NerdFont`](./install-nerd-font.md)
     - [Install `Ranger`](./install-ranger.md)
-    - [`neovim`](./neovim.md)
     - [`lookatme`](./lookatme.md)
     - [About GPU](./about-gpu.md)
     - [Fix sound issue](./fix-sound-issue.md)
