@@ -33,6 +33,7 @@
     - [Install `X` implementation](./install-x-implementation.md)
     - [Install `bspwm`](./install_bspwm.md)
     - [Fix resolution issue](./fix-resolution-issue.md)
+    - [Troubleshooting of X can't start](./troubleshooting-x-cant-start.md)
     - [Install `GTK` themes](./install-gtk-themes.md)
     - [Install `NodeJS`](./install-nodejs.md)
     - [Install browser]()
