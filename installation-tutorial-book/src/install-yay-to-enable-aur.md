@@ -33,6 +33,16 @@ rustup update
 cd ~/temp && rm -rf paru
 ```
 
-If you want to change or add any mirror server to `/etc/pacman.d/mirrorlist`, you can go to [here](https://www.archlinux.org/mirrorlist/)
 
+</br>
+
+Install `lf` (list files)
+
+```bash
+paru -S lf
+
+# Choose 2 `lf-bin`!!!
+```
+
+</br>
 
