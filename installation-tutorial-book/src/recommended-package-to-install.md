@@ -153,6 +153,14 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
 
     </br>
 
+- `xlock` for the screen lock
+
+    ```bash
+    pacman --sync --refresh xlockmore
+    ```
+
+    </br>
+
 - `procs` is a replacement for `ps` written in `Rust`.
 
     ```bash
