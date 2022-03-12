@@ -22,8 +22,11 @@ cd paru
 # Choose '2', install `cargo` via `rustup` for a small download size!!!
 makepkg -si
 
-# If you see any error, make sure first update `rust` to the latest version by
-# running the command below then try again
+
+# If exit with error, then plz make sure to added the latest stable toolchain
+rustup toolchain add stable
+
+# Or if you've already install the stable toolchain, then update it
 rustup update
 
 

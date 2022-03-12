@@ -1,6 +1,8 @@
 # Summary
 
-- [Prepare your live ISO USB](./prepare-iso-usb.md)
+- [Before Install]()
+    - [Erase install media partition](./erase_install_media_partition.md)
+    - [Prepare your live ISO USB](./prepare-iso-usb.md)
 - [Use `VirtualBox` to boot live ISO](./use-vb-to-boo-iso.md)
 - [Connect to WIFI](./connect-to-wifi.md)
 - [Partitions]()
