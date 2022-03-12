@@ -34,6 +34,7 @@
     - [Install `bspwm`](./install_bspwm.md)
     - [Fix resolution issue](./fix-resolution-issue.md)
     - [Install `GTK` themes](./install-gtk-themes.md)
+    - [Install `NodeJS`](./install-nodejs.md)
     - [Install browser]()
         - [Install `Chrome`](./install-google-chrome.md)
         - [`vim` plugins](./chrome-vim-plugins.md)
