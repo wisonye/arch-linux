@@ -11,6 +11,7 @@ dust -d1 ~/.cache
 # Clean paru cache and unneeded dependencies
 paru -Sc
 paru -Yc
+rm -rf ~/.cache/paru/clone/*
 
 # Clean pacman cache (it locates `/var/cache/pacman/pkg/`)
 sudo pacman -Scc
@@ -23,4 +24,10 @@ rm -rf ~/.cache/google-chrome/Default
 
 # After that, calculate again, it should get big improved.
 dust -d1 ~/.cache
+
+#
+# Clean cargo install stuff
+#
+cargo install cargo-cache
+cargo cache --autoclean
 ```
