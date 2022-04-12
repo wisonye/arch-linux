@@ -122,7 +122,11 @@ That's pretty easy, in the browser, click on the print icon on the right-top to 
 
 </br>
 
-### `i3` customization UI preview:
+### `i3/bspwm` customization UI preview:
+
+![preivew-tron-new.png](./installation-tutorial-book/src/images/preview-tron-new.png)
+
+[Full size preview](https://github.com/wisonye/arch-linux/blob/master/installation-tutorial-book/src/images/preview-tron-new.png)
 
 ![i3-preview-7.png](./installation-tutorial-book/src/images/preview-7.png)
 
