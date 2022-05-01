@@ -5,7 +5,7 @@
     - Install
 
         ```bash
-        sudo pacman -S screenkey
+        sudo pacman -S screenkey python-dbus
         ```
     </br>
 
