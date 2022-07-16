@@ -27,6 +27,7 @@
     - [You should know about `Getty`](./you-should-know-about-getty.md)
     - [Prepare your preferred editor Configuration](./prepare-your-preferred-editor.md)
     - [WIFI Configuration](./wifi-configuration.md)
+    - [WIFI Configuration 2](./wifi-configuration-2.md)
     - [Make your boot faster](./make-your-boot-faster.md)
     - [Install or update kernel](./install-or-update-kernel.md)
     - [Install `paru` to enable `AUR`](./install-yay-to-enable-aur.md)
