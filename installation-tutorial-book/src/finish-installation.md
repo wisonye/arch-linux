@@ -4,7 +4,7 @@ Below are the final steps to finish the `Arch Linux` installation.
 
 Make sure you're in the `New Arch Linux` root environment. If not, please run `arch-chroot /mnt` to go inside it.
 
-- Add a new user and assign it to the `sudo` group
+- Add a new user
 
     ```bash
     # Add new user
@@ -12,22 +12,42 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
 
     # Set password
     passwd YOUR_USER_NAME
-
-    # Install `sudo`
-    pacman -S sudo
-
-    # Enable `wheel` group for `sudo` command
-    visudo
-
-    # Enable the below line:
-    # %wheel ALL=(ALL) ALL
-    #
-    # Save and exit.
     ```
-    
-    ![39.png](./images/virtual-box-installation/39.png)
 
-</br>
+    </br>
+
+- Install and configure `doas`
+
+    ```bash
+    pacman --sync --refresh opendoas
+    ```
+
+    </br>
+
+    Then create `/etc/doas.conf` with the following settings:
+
+    ```bash
+    # nopass   The user is not required to enter a password.
+    # keepenv  Environment variables other than those listed in doas(1) are
+    #          retained when creating the environment for the new process.
+    #
+    # Read `man doas.conf` for more details
+    permit nopass keepenv YOUR_USER_NAME as root
+    ```
+
+    </br>
+
+    Make sure to change the file permission:
+
+    ```bash
+    chown -c root:root /etc/doas.conf
+    chmod -c 0400 /etc/doas.conf
+    ```
+
+    From now on, you can replace all `sudo xxx` to `doas xxx`.
+
+    </br>
+
 
 - Exit and shutdown
 
