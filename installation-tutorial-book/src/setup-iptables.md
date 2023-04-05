@@ -216,12 +216,15 @@ iptables --append INPUT --protocol TCP --dport 22 --source $trusted_node --jump 
 # iptables --append INPUT --protocol TCP --match multiport --dports 9099,8080 --jump ACCEPT
 
 
-#
 # Log everything that doesn't match any rules above
 #
 # 1. You have to enable the `klogd` service
 #
-# 2. After that, run `tail -f /var/log/messages` to see the realtime log
+# 2. After that, run the `journalctl` to query the log by the given conditions
+#
+#   - Try into my computer (ip): journalctl -k --grep="DST=192.168.1.165"
+#
+#   - Try into my computer (ip) with ssh: journalctl -k | rg "DST=192.168.1.165" | rg "DPT=22"-
 #
 iptables --append INPUT --jump LOG
 iptables --append OUTPUT --jump LOG
