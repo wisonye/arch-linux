@@ -15,12 +15,18 @@ install via `AUR`. Let's take the `Source Code Pro` at an example:
 
 ```bash
 paru -S nerd-fonts-source-code-pro
+
+# If you use new version Arch Linux, use this as a replcement
+paru -S ttf-sourcecodepro-nerd
 ```
 
 After installing, you can run the command below to show the installed location:
 
 ```bash
 paru --query --list nerd-fonts-source-code-pro
+
+# If you use new version Arch Linux, use this as a replcement
+paru --query --list ttf-sourcecodepro-nerd
 
 # /usr/share/fonts/TTF/Sauce Code Pro Black Italic Nerd Font Complete Mono.ttf
 # /usr/share/fonts/TTF/Sauce Code Pro Black Italic Nerd Font Complete.ttf
