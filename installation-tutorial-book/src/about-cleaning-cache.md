@@ -9,8 +9,8 @@ clean your cache. Usually, it will save over **`GB`** disk space:)
 dust -d1 ~/.cache
 
 # Clean paru cache and unneeded dependencies
-paru -Sc
-paru -Yc
+pacman -Scc
+paru -Scc
 rm -rf ~/.cache/paru/clone/*
 
 # Clean pacman cache (it locates `/var/cache/pacman/pkg/`)
