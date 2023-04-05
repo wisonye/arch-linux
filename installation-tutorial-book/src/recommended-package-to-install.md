@@ -160,6 +160,25 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
 
     </br>
 
+- `lfs` is a replacement for `df`
+
+    ```bash
+    pacman --sync --refresh lfs
+    ```
+
+    </br>
+
+- `lf` and `cptv`
+
+    ```bash
+    # Terminal file browser
+    pacman --sync --refresh lf
+    ```
+
+    Then copen `~/.config/lf/lfrc` and read the comment to install dependencies
+
+    </br>
+
 - `xlock` for the screen lock
 
     ```bash
