@@ -12,6 +12,24 @@ What is `Paru`?
 
 How to enable **AUR** installation:
 
+If you use `doas`, then you HAVE TO install `sudo`, otherwise, you can't install
+`paru`!!!
+
+```bash
+# Switch to root
+su
+
+# Install sudo
+pacman --sync --refresh sudo
+
+# Allow `wheel` group to use `sudo`
+visudo
+```
+
+</br>
+
+Install `paru`:
+
 ```bash
 mkdir ~/temp && cd ~/temp
 
