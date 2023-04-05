@@ -33,7 +33,7 @@ you have to install `headers`. Otherwise, you don't need that.
 sudo pacman --sync --refresh linux linux-headers
 
 # Install the latest LTS kernel and headers if you want LTS
-sudo pacman --sync --refresh linux-lts linux-headers-lts
+sudo pacman --sync --refresh linux-lts linux-lts-headers
 ```
 
 </br>
@@ -41,7 +41,7 @@ sudo pacman --sync --refresh linux-lts linux-headers-lts
 ### 3. Regernate the GRUB config to boot into LTS
 
 Optionally, you can list all installed kernels in the **`grub`** bootloader
-UI, then you can pick which one you want to boot into. 
+UI, then you can pick which one you want to boot into.
 
 _This just optaional, you don't need to do that if don't need it_
 

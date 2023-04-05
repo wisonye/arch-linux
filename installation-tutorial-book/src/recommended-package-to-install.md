@@ -11,13 +11,20 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
     - And the based WIFI support CLI.
 
     ```bash
+    # If you need WIFI support
     pacman -S netctl ifplugd iw wpa_supplicant dhcpcd
+
+    # If you don't need WIIF support, e.g. run Arch in Paralles Desktop
+    pacman -S netctl ifplugd dhcpcd
     ```
 
     Copy the example ethernet profile to `/etc/netctl/`:
 
     ```bash
-    cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/eth0-dhcp
+    # Run `ip addr` to check your etherenet NIC name!!!
+    cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/NIC_NAME_HERE-dhcp
+
+    # Also, make sure replace the NIC_NMAE inside the `NIC_NAME_HERE-dhcp` file!!!
     ```
 
     ![36.png](./images/virtual-box-installation/36.png)
@@ -25,7 +32,7 @@ Make sure you're in the `New Arch Linux` root environment. If not, please run `a
     Enable `ifplugd` to automatically connect to any available wired network:
 
     ```bash
-    systemctl enable netctl-ifplugd@eth0.service
+    systemctl enable netctl-ifplugd@NIC_NAME_HERE.service
     ```
 
     ![37.png](./images/virtual-box-installation/37.png)
