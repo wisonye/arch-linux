@@ -47,6 +47,7 @@
     - [Special keybinding](./special-keybinding.md)
         - [Advanced keybinding](./advanced-keybinding.md)
         - [Switching keyboard](./switching-keyboard.md)
+    - [Image Previewr](./image-previewer.md)
     - [Install `NerdFont`](./install-nerd-font.md)
     - [Install `Ranger`](./install-ranger.md)
     - [`lookatme`](./lookatme.md)
