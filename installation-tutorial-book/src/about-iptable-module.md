@@ -15,7 +15,7 @@ without the need to reboot the system.
     you can search the particular module names like this:
 
     ```bash
-    fd --type file -e ko.gz . /lib/modules/$(uname -r) | rg "iptable|ip_table|ip6table|ip6_table" | sort
+    fd --type file -e ko.gz -e ko.zst . /lib/modules/$(uname -r) | rg "iptable|ip_table|ip6table|ip6_table" | sort
 
     # /lib/modules/5.15.79-0-lts/kernel/net/ipv4/netfilter/ip_tables.ko.gz
     # /lib/modules/5.15.79-0-lts/kernel/net/ipv4/netfilter/iptable_filter.ko.gz
@@ -27,9 +27,25 @@ without the need to reboot the system.
     # /lib/modules/5.15.79-0-lts/kernel/net/ipv6/netfilter/ip6table_mangle.ko.gz
     # /lib/modules/5.15.79-0-lts/kernel/net/ipv6/netfilter/ip6table_nat.ko.gz
     # /lib/modules/5.15.79-0-lts/kernel/net/ipv6/netfilter/ip6table_raw.ko.gz
+
+    #
+    # 6.1 lts version has different extension name: .ko.zst
+    #
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv4/netfilter/iptable_filter.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv4/netfilter/iptable_mangle.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv4/netfilter/iptable_nat.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv4/netfilter/iptable_raw.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv4/netfilter/iptable_security.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv4/netfilter/ip_tables.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv6/netfilter/ip6table_filter.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv6/netfilter/ip6table_mangle.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv6/netfilter/ip6table_nat.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv6/netfilter/ip6table_raw.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv6/netfilter/ip6table_security.ko.zst
+    # /lib/modules/6.1.27-1-lts/kernel/net/ipv6/netfilter/ip6_tables.ko.zst
     ```
 
-    Module name is the part that without `.ko.gz`, e.g `ip_tables`, `ip6_tables`.
+    Module name is the part that without `.ko.gz/ko.zst`, e.g `ip_tables`, `ip6_tables`.
 
     </br>
 
