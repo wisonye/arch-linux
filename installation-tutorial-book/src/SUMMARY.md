@@ -31,6 +31,7 @@
     - [WIFI Configuration 2](./wifi-configuration-2.md)
     - [Make your boot faster](./make-your-boot-faster.md)
     - [Install or update kernel](./install-or-update-kernel.md)
+    - [Update all installed packages](./update-all-installed-packages.md)
     - [Install `paru` to enable `AUR`](./install-yay-to-enable-aur.md)
     - [Install `X` implementation](./install-x-implementation.md)
     - [Install `bspwm`](./install_bspwm.md)

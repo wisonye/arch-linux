@@ -96,7 +96,7 @@ sudo pacman-key --init
 sudo pacman-key --populate archlinux
 
 # This step might fail, but it doesn't affect the upcoming steps!!!
-sudo pacman-key --refresh-keys
+# sudo pacman-key --refresh-keys
 
 sudo pacman --sync --refresh gnupg archlinux-keyring
 sudo pacman --sync --clean
@@ -107,5 +107,7 @@ After that, let's do the upgrade by running:
 ```bash
 sudo pacman -Syu
 ```
+
+
 
 
