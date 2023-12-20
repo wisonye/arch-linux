@@ -23,10 +23,17 @@ su
 pacman --sync --refresh sudo
 
 # Allow `wheel` group to use `sudo`
-visudo
+doas visudo
 ```
 
 </br>
+
+You need to install `rustup` first:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
 
 Install `paru`:
 
@@ -54,13 +61,4 @@ cd ~/temp && rm -rf paru
 
 </br>
 
-Install `lf` (list files)
-
-```bash
-paru -S lf
-
-# Choose 2 `lf-bin`!!!
-```
-
-</br>
-
+Make sure to disable the `wheel` rule by re-running `doas visudo`, as I use `doas` instead of `sudo`!!!

@@ -1,5 +1,19 @@
 # Fix sound issue
 
+## Use `pipewire` instead of `alsa` and `pulseaudio`!!!
+
+- Install the following packages
+
+```bash
+doas pacman --sync --refresh pipewire pipewire-audio pipewire-alsa pipewire-pulse
+```
+
+Restart, then `polybar` (pulseaudio) plugin should work automatically, and `brave-bin` should have sound as well.
+
+</br>
+
+## The following settings are deprecated, don't use it if `pipewire` works fine!!!
+
 - Install the packages below:
 
     ```bash
