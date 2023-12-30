@@ -1,0 +1,115 @@
+* Fix sound issue
+
+** Use `pipewire` instead of `alsa` and `pulseaudio`!!!
+
+*** Install
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh pipewire pipewire-audio pipewire-alsa pipewire-pulse
+#+END_SRC
+
+Restart, then =polybar= (pulseaudio) plugin should work automatically, and =brave-bin= should have sound as well.
+
+
+*** HDMI output
+
+If you're use Intel CPU that integrated with sound card (=snd_hda_intel=), then your HDMI output is disabled by default:
+
+#+BEGIN_SRC bash
+  wpctl status
+
+  # PipeWire 'pipewire-0' [1.0.0, wison@my-arch, cookie:3108292849]
+  #  └─ Clients:
+  #         31. pipewire                            [1.0.0, wison@my-arch, pid:889]
+  #         32. polybar                             [1.0.0, wison@my-arch, pid:872]
+  #         33. wpctl                               [1.0.0, wison@my-arch, pid:5333]
+  #         34. WirePlumber                         [1.0.0, wison@my-arch, pid:888]
+  #         35. WirePlumber [export]                [1.0.0, wison@my-arch, pid:888]
+
+  # Audio
+  #  ├─ Devices:
+  #  │      42. Built-in Audio                      [alsa]
+  #  │
+  #  ├─ Sinks:
+  #  │  *   47. Built-in Audio Analog Stereo        [vol: 0.71]
+#+END_SRC
+
+As you can see that the =Built-in Audio Analog Stereo= doesn't end with =HDMI=, that means NO sound through =HDMI=.
+
+So, here is the way to solve it: Set that =42. Built-in Audio= device to profile =3= (the same dropdown item inside =pavucontrol= in configuration menu):
+
+#+BEGIN_SRC bash
+  #
+  # Make sure to change the "42" (device no) to what you see in your 'wpctl status' output!!!
+  #
+  wpctl set-profile 42 3
+#+END_SRC
+
+Then, if you run =wpctl status= again, you should =Built-in Audio Digital Stereo (HDMI)= exists:
+
+#+BEGIN_SRC bash
+  wpctl status
+
+  # PipeWire 'pipewire-0' [1.0.0, wison@my-arch, cookie:3108292849]
+  #  └─ Clients:
+  #         31. pipewire                            [1.0.0, wison@my-arch, pid:889]
+  #         32. polybar                             [1.0.0, wison@my-arch, pid:872]
+  #         33. Brave input                         [1.0.0, wison@my-arch, pid:6245]
+  #         34. WirePlumber                         [1.0.0, wison@my-arch, pid:888]
+  #         35. WirePlumber [export]                [1.0.0, wison@my-arch, pid:888]
+  #         53. wpctl                               [1.0.0, wison@my-arch, pid:8211]
+
+  # Audio
+  #  ├─ Devices:
+  #  │      42. Built-in Audio                      [alsa]
+  #  │
+  #  ├─ Sinks:
+  #  │  *   43. Built-in Audio Digital Stereo (HDMI) [vol: 0.40]
+#+END_SRC
+
+From now on, your =HDMI= audio should work with no problem.
+
+
+** The following settings are deprecated, don't use it if `pipewire` works fine!!!
+
+*** Install the packages below:
+
+#+BEGIN_SRC bash
+  sudo pacman -Sy pulseaudio alsa-utils
+
+  # Reboot
+#+END_SRC
+
+
+*** Run =alsamixer= and tune your sound setting
+
+- Press =F6= to choose your major audio playback device:
+
+- After selecting your correct audio playback device, 
+
+    press =F3= to setup the =Playback= volume. Use left/right arrow key to switch item and use Up/Down arrow key to change the volume. 
+
+- You should be able to control with your =volume up/down= key on your keyboard
+
+    If you installed =i3=, by default it has the volume keybindings like below:
+
+    #+BEGIN_SRC bash
+      # ===========================================================================
+      # Audio and volume control
+      # ===========================================================================
+      # Use pactl to adjust volume in PulseAudio.
+      set $refresh_i3status killall -SIGUSR1 i3status
+      bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+      bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+      bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+      bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+    #+END_SRC
+
+    It should work out-of-the-box.
+
+- Optionally, you can install =pavucontrol= GUI volume control app
+
+  #+BEGIN_SRC bash
+    sudo pacman -Sy pavucontrol
+  #+END_SRC
+
