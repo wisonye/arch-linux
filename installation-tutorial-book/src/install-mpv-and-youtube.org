@@ -1,0 +1,251 @@
+* Install =mpv= and =yt-dlp=
+
+** How to install
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh mpv
+#+END_SRC
+
+
+** How to add custom scripts
+
+=mpv= support =javascript= and =lua= script to extend its functionalites. Yo can download scripts from [[https://github.com/mpv-player/mpv/wiki/User-Scripts][here]] and then put them into =~/.config/mpv/scripts=.
+
+Here are the scripts I used:
+
+#+BEGIN_SRC bash
+  ls -lht ~/.config/mpv/scripts/ 
+
+  # mpv_thumbnail_script_server.lua
+  # mpv_thumbnail_script_client_osc.lua
+#+END_SRC
+
+
+** How to use
+
+Run ~mpv FILENAME_HERE~ to play, here are the shortcuts:
+
+
+| Keybindings | Description                                  |
+|-------------+----------------------------------------------|
+| Left        | Seek left                                    |
+| Right       | Seek right                                   |
+| Space       | Pause/resume                                 |
+| m           | Mute/unmute                                  |
+| c           | Cycle visualizer                             |
+| T           | Enable thumbnail if video longer than 1 hour |
+|             |                                              |
+
+
+** How to install third-part visualizer
+
+*** cava
+
+#+BEGIN_SRC bash
+  paru --sync --refresh cava
+#+END_SRC
+
+
+Then run =mpv FILENAME_HERE= to play your audio. Open a new terminal instance to run ~cava~ and make it as a floating window, it looks better in =bspwm=.
+
+Once you run ~cava~, then you don't close it, it will keep working correctly when you switch to another audio or youtube video.
+
+
+*** glava
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh glava
+
+  #
+  # Create the int config into ~/.config/glava
+  #
+  glava --copy-config
+#+END_SRC
+
+You can open =~/.config/glava/rc.glsl= to set different visualizer effects like below:
+
+#+BEGIN_SRC c
+  /* You can choose the following modules for different visualizer effects
+      #request mod bars
+      #request mod radial
+      #request mod graph
+      #request mod wave
+      #request mod circle
+  ,*/
+  #request mod radial
+#+END_SRC
+
+Then run =mpv FILENAME_HERE= to play your audio and then run ~glava > /dev/null &~ (run in background without standard output and then make it as a floating window, it looks better in =bspwm=)
+
+If you want control color, you can change the following color values in =~/.config/glava/xxx.glsl=:
+
+=xxx= means any module names from: ~bars/radial/graph/wave/circle~
+
+#+BEGIN_SRC c
+  /* Outlie color
+
+  // Original (red orange mixed)
+  #define OUTLINE #333333
+
+  // Light blue
+  #define OUTLINE #ACE6FE
+
+  // Blue
+  #define OUTLINE #6FC3DF
+
+  // Orange
+  #define OUTLINE #FF9F1C
+
+  // Yellow
+  #define OUTLINE #FFE64D
+
+  // Red
+  #define OUTLINE #F44747
+
+  // Dark
+  #define OUTLINE #23211b
+  ,*/
+  #define OUTLINE #FF9F1C
+
+
+  /* outline color */
+  #define BAR_OUTLINE OUTLINE
+
+  /* Bar color */ 
+  /* #define COLOR (OUTLINE * ((d / 40) + 1)) */
+  #define COLOR OUTLINE
+#+END_SRC
+
+
+Here is my =~/.config/glava/radial.glsl= as an example:
+
+#+BEGIN_SRC c
+  /* center radius (pixels) */
+  #define C_RADIUS 128
+  /* center line thickness (pixels) */
+  #define C_LINE 2
+  /* Outlie color
+
+  // Original (red orange mixed)
+  #define OUTLINE #333333
+
+  // Light blue
+  #define OUTLINE #ACE6FE
+
+  // Blue
+  #define OUTLINE #6FC3DF
+
+  // Orange
+  #define OUTLINE #FF9F1C
+
+  // Yellow
+  #define OUTLINE #FFE64D
+
+  // Red
+  #define OUTLINE #F44747
+
+  // Dark
+  #define OUTLINE #23211b
+  ,*/
+  #define OUTLINE #FF9F1C
+
+
+  /* number of bars (use even values for best results) */
+  #define NBARS 180
+
+  /* width (in pixels) of each bar*/
+  #define BAR_WIDTH 8.5
+
+  /* outline color */
+  #define BAR_OUTLINE OUTLINE
+
+  /* outline width (in pixels, set to 0 to disable outline drawing) */
+  #define BAR_OUTLINE_WIDTH 0
+
+  /* Amplify magnitude of the results each bar displays */
+  #define AMPLIFY 300
+
+  /* Bar color */ 
+  /* #define COLOR (OUTLINE * ((d / 40) + 1)) */
+  #define COLOR OUTLINE
+
+  /* Angle (in radians) for how much to rotate the visualizer */
+  #define ROTATE (PI / 2)
+
+  /* Whether to switch left/right audio buffers */
+  #define INVERT 0
+  /* Aliasing factors. Higher values mean more defined and jagged lines.
+     Note: aliasing does not have a notable impact on performance, but requires
+     `xroot` transparency to be enabled since it relies on alpha blending with
+     the background. */
+  #define BAR_ALIAS_FACTOR 1.2
+  #define C_ALIAS_FACTOR 1.8
+  /* Offset (Y) of the visualization */
+  #define CENTER_OFFSET_Y 0
+  /* Offset (X) of the visualization */
+  #define CENTER_OFFSET_X 0
+
+  /* Gravity step, override from `smooth_parameters.glsl` */
+  #request setgravitystep 5.0
+
+  /* Smoothing factor, override from `smooth_parameters.glsl` */
+  #request setsmoothfactor 0.02
+#+END_SRC
+
+
+
+** How to download youtube video/audio
+
+*** Installa
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh yt-dlp
+#+END_SRC
+
+
+*** Configuration
+
+You can put any config that comes from ~yt-dlp --help~ into =~/.config/yt-dlp/config=
+
+#+BEGIN_SRC bash
+  cat ~/.config/yt-dlp/config
+
+  # --ignore-errors
+  # --no-playlist
+
+  # # Save in ~/Videos
+  # -o ~/Videos/%(title)s.%(ext)s
+
+  # # Prefer 1080p or lower resolutions
+  # -f bestvideo[height<=?1080]+bestaudio/best
+#+END_SRC
+
+
+*** How to use
+
+After you have the =~/.config/yt-dlp/config=, then you can run ~yt-dlp YOUTUBE_URL~ to download video/audio.
+
+Or you can use CLI parameter to override the default config like this:
+
+#+BEGIN_SRC bash
+  #
+  # Download best audio ONLY (no video stream)
+  #
+  yt-dlp -f ba "https://www.youtube.com/watch?v=eEykKg5lGrs&list=PLlJZBob--XJMGaWh8OtgrwZJrvJ4vABS1&index=21&t=2062s"
+
+  # [youtube:tab] Extracting URL: https://www.youtube.com/watch?v=eEykKg5lGrs&list=PLlJZBob--XJMGaWh8OtgrwZJrvJ4vABS1&index=21&t=2062s
+  # [youtube:tab] Downloading just the video eEykKg5lGrs because of --no-playlist
+  # [youtube] Extracting URL: https://www.youtube.com/watch?v=eEykKg5lGrs
+  # [youtube] eEykKg5lGrs: Downloading webpage
+  # [youtube] eEykKg5lGrs: Downloading ios player API JSON
+  # [youtube] eEykKg5lGrs: Downloading android player API JSON
+  # [youtube] eEykKg5lGrs: Downloading m3u8 information
+  # [info] eEykKg5lGrs: Downloading 1 format(s): 251
+  # [download] Destination: /home/wison/Videos/200 Most Beautiful Romantic Guitar Music ｜ The Best Relaxing Love Songs - Music For Love Hearts.webm
+  # [download] 100% of  763.43MiB in 00:00:53 at 14.21MiB/s
+#+END_SRC
+
+
+** How to play youtube video
+
+If you've already installed =yt-dlp=, then you can run ~mpv YOUTUBE_URL~ directly.
