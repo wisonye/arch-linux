@@ -19,10 +19,9 @@
 
     ```bash
     # Make sure to copy your country mirror URL here
-    http://mirror.fsmg.org.nz/archlinux/
+    https://mirror.2degrees.nz/archlinux/
     https://mirror.fsmg.org.nz/archlinux/
-    http://mirror.smith.geek.nz/archlinux/
-    https://mirror.smith.geek.nz/archlinux/
+    https://archlinux.ourhome.kiwi/archlinux/
     ```
 
     Then `vim /etc/pacman.d/mirrorlist` and replace all contents with the below settings:
@@ -35,8 +34,7 @@
     # Server = YOUR_MIRROR_URL/$repo/os/$arch
 
     # New Zealand
-    Server = http://mirror.fsmg.org.nz/archlinux/$repo/os/$arch
+    Server = https://mirror.2degrees.nz/archlinux/$repo/os/$arch
     Server = https://mirror.fsmg.org.nz/archlinux/$repo/os/$arch
-    Server = http://mirror.smith.geek.nz/archlinux/$repo/os/$arch
-    Server = https://mirror.smith.geek.nz/archlinux/$repo/os/$arch
+    Server = https://archlinux.ourhome.kiwi/archlinux/$repo/os/$arch
     ```
