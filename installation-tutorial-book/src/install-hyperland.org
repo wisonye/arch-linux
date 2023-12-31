@@ -43,7 +43,9 @@ The default configuration is: =~/.config/hypr/hyprland.conf=
 #+END_SRC
 
 
-** Caplock -> Escape
+*** Caplock -> Escape
+
+You can find all supported settings in =/usr/share/X11/xkb/rules/base.lst=
 
 #+BEGIN_SRC bash
   input {
@@ -75,6 +77,7 @@ The default configuration is: =~/.config/hypr/hyprland.conf=
   # bind = $mainMod, M, exit, 
   bind = $mainMod, E, exec, emacs
   bind = $mainMod  CTRL, F, togglefloating, 
+  bind = $mainMod, F, fullscreen
 #+END_SRC
 
 
@@ -106,6 +109,30 @@ The default configuration is: =~/.config/hypr/hyprland.conf=
 
 ** =hyprctl=
 
+| Command              | Description                                                                                  |
+|----------------------+----------------------------------------------------------------------------------------------|
+| ~version~              | prints the hyprland version, meaning flags, commit and branch of build.                      |
+| ~monitors~             | lists active outputs with their properties, 'monitors all' lists active and inactive outputs |
+| ~workspaces~           | lists all workspaces with their properties                                                   |
+| ~activeworkspace~      | gets the active workspace and its properties                                                 |
+| ~workspacerules~       | gets the list of defined workspace rules                                                     |
+| ~clients~              | lists all windows with their properties                                                      |
+| ~devices~              | lists all connected keyboards and mice                                                       |
+| ~decorations [window]~ | lists all decorations and their info                                                         |
+| ~binds~                | lists all registered binds                                                                   |
+| ~activewindow~         | gets the active window name and its properties                                               |
+| ~layers~               | lists all the layers                                                                         |
+| ~splash~               | prints the current random splash                                                             |
+| ~getoption [option]~   | gets the config option status (values)                                                       |
+| ~cursorpos~            | gets the current cursor pos in global layout coordinates                                     |
+| ~animations~           | gets the current config'd info about animations and beziers                                  |
+| ~instances~            | lists all running instances of hyprland with their info                                      |
+| ~layouts~              | lists all layouts available (including plugin'd ones)                                        |
+|                      |                                                                                              |
+
+More examples from [[https://wiki.hyprland.org/Configuring/Using-hyprctl/][here]]
+
+
 *** List all monitors
 
 #+BEGIN_SRC bash
@@ -133,4 +160,54 @@ The default configuration is: =~/.config/hypr/hyprland.conf=
 
 #+BEGIN_SRC bash
   hyprctl binds
+#+END_SRC
+
+
+*** Force to reload configuration
+
+#+BEGIN_SRC bash
+ hyprctl reload 
+#+END_SRC
+
+
+*** Apply settings dynamically
+
+Use ~hyprctl keyword~ to apply settings dynamically.
+
+
+#+BEGIN_SRC bash
+  #
+  # For example, temporary set 'SUPER + U' to fullscreen
+  #
+  hyprctl keyword bind SUPER, U, fullscreen 
+
+  #
+  # For example, temporary set monitor resolution
+  #
+  hyprctl keyword monitor HDMI1,2560x2880@60,0x0,1
+#+END_SRC
+
+
+*** Send notification
+
+~hyprctl notify [ICON] [TIME_MS] [COLOR] [MESSAGE]~
+
+
+- Icon options
+
+  | Integer value | Description |
+  |---------------+-------------|
+  | ~-1~            | No ICONS    |
+  | ~0~             | WARNING     |
+  | ~1~             | INFO        |
+  | ~2~             | HINT        |
+  | ~3~             | ERROR       |
+  | ~4~             | CONFUSED    |
+  | ~5~             | OK          |
+ 
+ 
+ 
+
+#+BEGIN_SRC bash
+  hyprctl notify -1 10000 "rgb(ff1ea3)" "Hello everyone!" 
 #+END_SRC
