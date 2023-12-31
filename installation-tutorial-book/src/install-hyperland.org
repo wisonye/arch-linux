@@ -14,5 +14,113 @@
   Hyperland
 #+END_SRC
 
+One tricky thing: If you run =tmux= before =Hyperland=, then =hyprctl= command will show the following errors:
+
+#+BEGIN_SRC bash
+  HYPRLAND_INSTANCE_SIGNATURE was not set! (Is Hyprland running?)
+#+END_SRC
+
+If you see that, killall =tmux=, exit current =Hyperland= and re-run it again to solve the problem.
+
 
 ** Configuration
+
+The default configuration is: =~/.config/hypr/hyprland.conf=
+
+*** Monitor resolution
+
+#+BEGIN_SRC bash
+  #
+  # See https://wiki.hyprland.org/Configuring/Monitors/
+  #
+  # Syntax:
+  #     monitor=name,resolution,position,scale
+  #
+  # monitor=,preferred,auto,auto
+  #
+  #
+  monitor=HDMI1,2560x2880@60,0x0,1
+#+END_SRC
+
+
+*** Bindings
+
+**** Set the MOD key
+
+#+BEGIN_SRC bash
+  $mainMod = SUPER
+#+END_SRC
+
+
+**** Bind key to command
+
+#+BEGIN_SRC bash
+  #
+  # Syntax:
+  #     bind=MODS,key,dispatcher,params
+  #
+  bind = $mainMod, RETURN, exec, alacritty
+  bind = $mainMod, B, exec, GDK_DPI_SCALE=1.2 dbus-run-session brave > ~/temp/launch_brave_browser.log
+  bind = $mainMod, Q, killactive, 
+  # bind = $mainMod, M, exit, 
+  bind = $mainMod, E, exec, emacs
+  bind = $mainMod  CTRL, F, togglefloating, 
+#+END_SRC
+
+
+**** Move focus applicatiojn to different workspaces
+
+#+BEGIN_SRC bash
+  bind = $mainMod SHIFT, h, movefocus, l
+  bind = $mainMod SHIFT, l, movefocus, r
+  bind = $mainMod SHIFT, k, movefocus, u
+  bind = $mainMod SHIFT, , movefocus, d
+#+END_SRC
+
+
+**** Switch workspace
+
+#+BEGIN_SRC bash
+  bind = $mainMod, 1, workspace, 1
+  bind = $mainMod, 2, workspace, 2
+  bind = $mainMod, 3, workspace, 3
+  bind = $mainMod, 4, workspace, 4
+  bind = $mainMod, 5, workspace, 5
+  bind = $mainMod, 6, workspace, 6
+  bind = $mainMod, 7, workspace, 7
+  bind = $mainMod, 8, workspace, 8
+  bind = $mainMod, 9, workspace, 9
+  bind = $mainMod, 0, workspace, 10
+#+END_SRC
+
+
+** =hyprctl=
+
+*** List all monitors
+
+#+BEGIN_SRC bash
+  hyprctl monitors all
+
+  # Monitor HDMI-A-1 (ID 0):
+  #       3840x2160@60.00000 at 0x0
+  #       description: LG Electronics LG HDR 4K 0x0003B9F0 (HDMI-A-1)
+  #       make: LG Electronics
+  #       model: LG HDR 4K
+  #       serial: 0x0003B9F0
+  #       active workspace: 1 (1)
+  #       special workspace: 0 ()
+  #       reserved: 0 0 0 0
+  #       scale: 1.50
+  #       transform: 0
+  #       focused: yes
+  #       dpmsStatus: 1
+  #       vrr: 0
+  #       activelyTearing: false
+#+END_SRC
+
+
+*** List all bindings
+
+#+BEGIN_SRC bash
+  hyprctl binds
+#+END_SRC
