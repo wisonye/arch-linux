@@ -23,6 +23,28 @@ Then open =pavucontrol=, go to ~Configuration~ menu and select =Digital Stereo (
 
 It should works:)
 
+And you should ~Built-in Audio Digital Stereo (HDMI)~ in the =wpctl status= output (under the =Sinks= section) like this:
+
+#+BEGIN_SRC bash
+  wpctl status
+
+  # PipeWire 'pipewire-0' [1.0.0, wison@my-arch, cookie:805017985]
+  #  └─ Clients:
+  #         31. pipewire                            [1.0.0, wison@my-arch, pid:894]
+  #         32. polybar                             [1.0.0, wison@my-arch, pid:878]
+  #         34. WirePlumber                         [1.0.0, wison@my-arch, pid:893]
+  #         35. WirePlumber [export]                [1.0.0, wison@my-arch, pid:893]
+  #         43. wpctl                               [1.0.0, wison@my-arch, pid:4800]
+
+  # Audio
+  #  ├─ Devices:
+  #  │      42. Built-in Audio                      [alsa]
+  #  │
+  #  ├─ Sinks:
+  #  │  *   47. Built-in Audio Digital Stereo (HDMI) [vol: 0.25]
+  #  │ 
+#+END_SRC
+
 
 **** Use =wpctl= to set profile (it seems doesn't work without =pav)
 
