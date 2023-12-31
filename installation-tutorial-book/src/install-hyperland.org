@@ -43,6 +43,16 @@ The default configuration is: =~/.config/hypr/hyprland.conf=
 #+END_SRC
 
 
+** Caplock -> Escape
+
+#+BEGIN_SRC bash
+  input {
+      kb_layout = us
+      kb_options = caps:escape
+  }
+#+END_SRC
+
+
 *** Bindings
 
 **** Set the MOD key
