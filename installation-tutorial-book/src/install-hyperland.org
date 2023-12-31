@@ -253,3 +253,15 @@ Make sure to select =swww= (default =1=) rather than the =swww-git= (outdated) a
 #+BEGIN_SRC bash
   exec-once = swww init && swww img YOUR_WALLPAPER_FILENAME_HERE
 #+END_SRC
+
+
+*** Install GUI
+
+#+BEGIN_SRC bash
+  paru --sync --search waypaper
+
+  #
+  # Run with given backend
+  #
+  waypaper --backend swww
+#+END_SRC
