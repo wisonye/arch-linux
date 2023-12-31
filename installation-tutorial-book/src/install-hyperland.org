@@ -209,5 +209,9 @@ Use ~hyprctl keyword~ to apply settings dynamically.
  
 
 #+BEGIN_SRC bash
-  hyprctl notify -1 10000 "rgb(ff1ea3)" "Hello everyone!" 
+  # OK category
+  hyprctl notify 0 5000 "rgb(FF9F1C)" " Network is down."
+  hyprctl notify 1 5000 "rgb(ACE6FE)" " Email sent."
+  hyprctl notify 3 5000 "rgb(f44747)" " Task failed."
+  hyprctl notify 5 5000 "rgb(6fc3df)" " Email sent."
 #+END_SRC
