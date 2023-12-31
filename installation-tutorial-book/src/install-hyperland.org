@@ -137,6 +137,17 @@ You can find all supported settings in =/usr/share/X11/xkb/rules/base.lst=
 More examples from [[https://wiki.hyprland.org/Configuring/Using-hyprctl/][here]]
 
 
+*** How to exit Hyprland
+
+Make sure you exit =tmux= before doing that!!!
+Make sure you exit =tmux= before doing that!!!
+Make sure you exit =tmux= before doing that!!!
+
+#+BEGIN_SRC bash
+  hyprctl dispatch exit
+#+END_SRC
+
+
 *** List all monitors
 
 #+BEGIN_SRC bash
@@ -223,7 +234,9 @@ Use ~hyprctl keyword~ to apply settings dynamically.
 
 ** Wallpaper
 
-*** Install
+*** =swww= - wallpaper backend
+
+**** Install
 
 #+BEGIN_SRC bash
   paru --sync --refresh swww
@@ -232,7 +245,7 @@ Use ~hyprctl keyword~ to apply settings dynamically.
 Make sure to select =swww= (default =1=) rather than the =swww-git= (outdated) and choose =rustup= (option =2=)!!!
 
 
-*** How to set wallpaper
+**** How to set wallpaper
 
 #+BEGIN_SRC bash
   #
@@ -252,20 +265,65 @@ Make sure to select =swww= (default =1=) rather than the =swww-git= (outdated) a
 #+END_SRC
 
 
-*** In Hyperland configuration 
+**** In Hyperland configuration 
 
 #+BEGIN_SRC bash
   exec-once = swww init && swww img YOUR_WALLPAPER_FILENAME_HERE
 #+END_SRC
 
 
-*** Install GUI
+*** =waypaper= (GUI - frontend)
+
+**** Install
 
 #+BEGIN_SRC bash
   paru --sync --search waypaper
 
+#+END_SRC
+
+
+**** how to run
+
+#+BEGIN_SRC bash
   #
-  # Run with given backend
+  # Run with given backend, you only need to pass for the first time
+  # and then 'waypaper' will keep using it
   #
   waypaper --backend swww
 #+END_SRC
+
+You might get the following error when choosing a wallpaper : =No such file or directory: swaybg=
+
+That's you got a wrong settings in =~/.config/waypaper/config.ini=, open and fix it like below:
+
+Pay attention to the =backend= setting!!!
+
+#+BEGIN_SRC bash
+  cat ~/.config/waypaper/config.ini
+
+  # [Settings]
+  # folder = /home/wison/Photos/wallpaper
+  # fill = Fill
+  # sort = name
+  # backend = swww
+  # color = #FFFFFF
+  # language = en
+  # subfolders = False
+  # wallpaper = /home/wison/Photos/wallpaper/forest.jpg
+  # monitors = All
+#+END_SRC
+
+
+**** In Hyperland configuration 
+
+#+BEGIN_SRC bash
+  #
+  # Reset to the last chosen wallpaper
+  #
+  exec-once = waypaper --restore
+#+END_SRC
+
+
+** Waybar
+
+The default configuration is: =~/.config/waybar/config.conf=
