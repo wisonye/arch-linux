@@ -1,0 +1,18 @@
+* Hyperland
+
+** Install
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh hyprland alacritty feh tmux xclip
+  paru --sync --refresh polybar
+#+END_SRC
+
+
+** How to run
+
+#+BEGIN_SRC bash
+  Hyperland
+#+END_SRC
+
+
+** Configuration

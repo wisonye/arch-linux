@@ -1,0 +1,8 @@
+* Install Brave for wayland
+
+
+#+BEGIN_SRC bash
+  paru --sync --refresh brave-bin
+#+END_SRC
+
+Open =brave= and open URL =brave://flags=, then search for =ozone=, choose =wayland= in the dropdown menu.
