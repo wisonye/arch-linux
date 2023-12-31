@@ -231,6 +231,14 @@ Make sure to select =swww= (default =1=) rather than the =swww-git= (outdated) a
 *** How to set wallpaper
 
 #+BEGIN_SRC bash
+  #
+  # Init once
+  #
+  swww init
+
+  #
+  # Set wallpaper
+  #
   swww img YOUR_WALLPAPER_FILENAME_HERE
 
   #
@@ -243,5 +251,5 @@ Make sure to select =swww= (default =1=) rather than the =swww-git= (outdated) a
 *** In Hyperland configuration 
 
 #+BEGIN_SRC bash
-  exec-once = swww img YOUR_WALLPAPER_FILENAME_HERE
+  exec-once = swww init && swww img YOUR_WALLPAPER_FILENAME_HERE
 #+END_SRC
