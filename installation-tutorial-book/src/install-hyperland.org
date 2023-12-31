@@ -3,8 +3,12 @@
 ** Install
 
 #+BEGIN_SRC bash
-  doas pacman --sync --refresh hyprland alacritty feh tmux xclip
-  paru --sync --refresh polybar
+  doas pacman --sync --refresh hyprland dunst xdg-desktop-portal-hyprland qt6-wayland
+
+  #
+  # Optional, just for my case
+  #
+  doas pacman --sync --refresh alacritty tmux xclip
 #+END_SRC
 
 
