@@ -11,7 +11,25 @@
 Restart, then =polybar= (pulseaudio) plugin should work automatically, and =brave-bin= should have sound as well.
 
 
-*** HDMI output
+*** Fix HDMI output
+
+**** Use =pavucontrol= to select profile configuration
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh pavucontrol
+#+END_SRC
+
+Then open =pavucontrol=, go to ~Configuration~ menu and select =Digital Stereo (HDMI) Output + Analog Stereo Input.
+
+It should works:)
+
+
+**** Use =wpctl= to set profile (it seems doesn't work without =pav)
+
+But this seems doesn't work after uninstalled =pavucontrol=!!!
+
+Maybe you need this configuration file from [[https://wiki.archlinux.org/title/WirePlumber#Simultaneous_output_to_multiple_sinks_on_the_same_sound_card][here]]
+
 
 If you're use Intel CPU that integrated with sound card (=snd_hda_intel=), then your HDMI output is disabled by default:
 
