@@ -215,3 +215,33 @@ Use ~hyprctl keyword~ to apply settings dynamically.
   hyprctl notify 3 5000 "rgb(f44747)" " Task failed."
   hyprctl notify 5 5000 "rgb(6fc3df)" " Email sent."
 #+END_SRC
+
+
+** Wallpaper
+
+*** Install
+
+#+BEGIN_SRC bash
+  paru --sync --refresh swww
+#+END_SRC
+
+Make sure to select =swww= (default =1=) rather than the =swww-git= (outdated) and choose =rustup= (option =2=)!!!
+
+
+*** How to set wallpaper
+
+#+BEGIN_SRC bash
+  swww img YOUR_WALLPAPER_FILENAME_HERE
+
+  #
+  # Apply transition when changing wallpaper
+  #
+  www img --transition-type wipe --transition-angle 45 ~/Photos/wallpaper/digit-city-3.jpg
+#+END_SRC
+
+
+*** In Hyperland configuration 
+
+#+BEGIN_SRC bash
+  exec-once = swww img YOUR_WALLPAPER_FILENAME_HERE
+#+END_SRC
