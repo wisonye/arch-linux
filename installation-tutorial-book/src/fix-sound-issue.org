@@ -110,6 +110,21 @@ Then, if you run =wpctl status= again, you should =Built-in Audio Digital Stereo
 From now on, your =HDMI= audio should work with no problem.
 
 
+*** Toggle mute
+
+~wpctl set-mute {DEVICE_ID} toggle~
+
+Here is my toggle mute fish script:
+
+#+BEGIN_SRC fish
+
+  #!/usr/bin/fish
+  set --local DEVICE_ID (wpctl status | rg "HDMI" | head -n 1 | awk '{print $3}' | sed -e "s/\.//g")
+  # echo "DEVICE_ID: $DEVICE_ID"
+  wpctl set-mute $DEVICE_ID toggle
+
+#+END_SRC
+
 ** The following settings are deprecated, don't use it if `pipewire` works fine!!!
 
 *** Install the packages below:
