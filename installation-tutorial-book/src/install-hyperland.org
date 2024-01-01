@@ -362,7 +362,7 @@ DO NOT install another =xdg-desktop-portal-hyprland= version from =pacman=!!!
   #
   # Install dependencies
   #
-  doas pacman --sync --refresh libinih qt6-base qt6-wayland grim slurp
+  doas pacman --sync --refresh libinih qt6-base qt5-wayland qt6-wayland grim slurp
 
   #
   # Only install via AUR, it has extra functionality like `window sharing`
@@ -382,6 +382,11 @@ Add the following settings into =~./config/hypr/hyprland.conf=:
 This will make sure that =xdg-desktop-portal-hyprland= can get the required variables on startup.
 
 Restart =Hyprland= to take affect.
+
+
+*** Limitation
+
+You only can share window (or particular app), you can't share the entire screen!!!
 
 
 *** Troubeshooting
