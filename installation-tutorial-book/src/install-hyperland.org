@@ -327,3 +327,5 @@ Pay attention to the =backend= setting!!!
 ** Waybar
 
 The default configuration is: =~/.config/waybar/config.conf=
+
+The default style configuration is: =~/.config/waybar/style.css=
