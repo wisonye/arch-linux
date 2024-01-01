@@ -10,6 +10,35 @@
 
 Restart, then =polybar= (pulseaudio) plugin should work automatically, and =brave-bin= should have sound as well.
 
+You can confirm the (user level) service is running or not by this command:
+
+#+BEGIN_SRC bash
+  systemctl --user status pipewire wireplumber
+
+  # ● pipewire.service - PipeWire Multimedia Service
+  #      Loaded: loaded (/usr/lib/systemd/user/pipewire.service; disabled; preset: enabled)
+  #      Active: active (running) since Mon 2024-01-01 15:52:59 NZDT; 2h 59min ago
+  # TriggeredBy: ● pipewire.socket
+  #    Main PID: 1361 (pipewire)
+  #       Tasks: 3 (limit: 76830)
+  #      Memory: 17.8M (peak: 19.1M)
+  #         CPU: 37.203s
+  #      CGroup: /user.slice/user-1000.slice/user@1000.service/session.slice/pipewire.service
+  #              └─1361 /usr/bin/pipewire
+  # 
+  # Jan 01 15:52:59 my-arch systemd[716]: Started PipeWire Multimedia Service.
+  # 
+  # ● wireplumber.service - Multimedia Service Session Manager
+  #      Loaded: loaded (/usr/lib/systemd/user/wireplumber.service; enabled; preset: enabled)
+  #      Active: active (running) since Mon 2024-01-01 15:52:59 NZDT; 2h 59min ago
+  #    Main PID: 1363 (wireplumber)
+  #       Tasks: 7 (limit: 76830)
+  #      Memory: 15.7M (peak: 16.6M)
+  #         CPU: 819ms
+  #      CGroup: /user.slice/user-1000.slice/user@1000.service/session.slice/wireplumber.service
+  #              └─1363 /usr/bin/wireplumber
+#+END_SRC
+
 
 *** Fix HDMI output
 

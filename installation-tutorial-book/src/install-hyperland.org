@@ -3,7 +3,7 @@
 ** Install
 
 #+BEGIN_SRC bash
-  doas pacman --sync --refresh hyprland dunst xdg-desktop-portal-hyprland qt6-wayland
+  doas pacman --sync --refresh hyprland dunst qt6-wayland
 
   #
   # Optional, just for my case
@@ -326,6 +326,69 @@ Pay attention to the =backend= setting!!!
 
 ** Waybar
 
+*** Install
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh waybar
+#+END_SRC
+
+
+*** Configuration
+
 The default configuration is: =~/.config/waybar/config.conf=
 
 The default style configuration is: =~/.config/waybar/style.css=
+
+
+*** In Hyperland configuration 
+
+#+BEGIN_SRC bash
+  exec-once = waybar
+#+END_SRC
+
+
+** Screen sharing
+
+Install guide is [[https://gist.github.com/PowerBall253/2dea6ddf6974ba4e5d26c3139ffb7580][here]].
+
+
+*** Install
+
+DO NOT install another =xdg-desktop-portal-hyprland= version from =pacman=!!!
+DO NOT install another =xdg-desktop-portal-hyprland= version from =pacman=!!!
+DO NOT install another =xdg-desktop-portal-hyprland= version from =pacman=!!!
+
+#+BEGIN_SRC bash
+  #
+  # Install dependencies
+  #
+  doas pacman --sync --refresh libinih qt6-base qt6-wayland grim slurp
+
+  #
+  # Only install via AUR, it has extra functionality like `window sharing`
+  #
+  paru --sync --refresh xdg-desktop-portal-hyprland-git
+#+END_SRC
+
+
+*** Configuration
+
+Add the following settings into =~./config/hypr/hyprland.conf=:
+
+#+BEGIN_SRC bash
+  exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+#+END_SRC
+
+This will make sure that =xdg-desktop-portal-hyprland= can get the required variables on startup.
+
+Restart =Hyprland= to take affect.
+
+
+*** Troubeshooting
+
+**** Make sure the following services are running
+
+#+BEGIN_SRC bash
+  systemctl --user status pipewire wireplumber 
+  systemctl --user status xdg-desktop-portal-hyprland
+#+END_SRC
