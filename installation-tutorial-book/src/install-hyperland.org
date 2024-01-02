@@ -347,6 +347,30 @@ The default style configuration is: =~/.config/waybar/style.css=
 #+END_SRC
 
 
+** Screenshot
+
+*** Install
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh grim slurp
+#+END_SRC
+
+
+*** In Hyperland configuration 
+
+#+BEGIN_SRC bash
+  #
+  # Set the default screenshot folder
+  #
+  env = GRIM_DEFAULT_DIR,$HOME/Photos
+
+  #
+  # Add a keybinding to take a screenshot
+  #
+  bind = $mainMod CTRL, P, exec, grim -g "$(slurp)"
+#+END_SRC
+
+
 ** Screen sharing
 
 Install guide is [[https://gist.github.com/PowerBall253/2dea6ddf6974ba4e5d26c3139ffb7580][here]].
