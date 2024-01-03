@@ -84,3 +84,5 @@
     - [C/C++](./c-cpp.md)
     - [Debugging C/C++](./debugging-c-cpp.md)
     - [CMake](./cmake.md)
+- [Gaming]
+	- [Steam](gaming-with-steam.org)

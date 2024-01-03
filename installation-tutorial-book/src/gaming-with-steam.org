@@ -1,0 +1,70 @@
+* Gaming
+
+** Enable =multilib= for =pacman=
+
+#+BEGIN_SRC emacs-lisp
+  
+#+END_SRC
+
+
+** Install =steam=
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh steam
+
+  #
+  # Make sure to choose the correct GPU option!!!
+  # For my TH80 case, I choose all `intel` version
+  #
+#+END_SRC
+
+
+** Install =Proton=
+
+Download release from [[https://github.com/GloriousEggroll/proton-ge-custom/releases][here]]
+
+*** 1. Uncompress by running ~tar xvf GE-Proton8-25.tar.gz~ (replace to your downloaded filename)
+
+
+*** 2. Locate the =steam= folder:
+
+#+BEGIN_SRC bash
+    ls -lht ~/.steam/steam
+
+    # lrwxrwxrwx 1 wison wison 30 Jan  3 19:32 /home/wison/.steam/steam -> /home/wison/.local/share/Steam/ 
+#+END_SRC
+
+
+*** 3. Create =compatibilitytools.d= folder if not exists
+
+#+BEGIN_SRC bash
+    #
+    # Replace to your actual folder!!!
+    #
+    mkdir -p /home/wison/.local/share/Steam/compatibilitytools.d
+#+END_SRC
+
+
+*** 4. Move the uncompressed folder into =compatibilitytools.d= folder
+
+#+BEGIN_SRC bash
+    #
+    # Replace `GE-Proton8-25` to your uncompressed folder
+    # Repalce `~/.local/share/Steam/compatibilitytools.d/` to your actual folder
+    #
+    mv ~/Downloads/GE-Proton8-25 ~/.local/share/Steam/compatibilitytools.d/ 
+#+END_SRC
+
+
+*** 5. Open =steam= to do some settings:
+
+- Go to menu =Steam -> Settings -> Compatibility=
+
+- Make sure to check =Enable Steam Play for all other titles=
+
+- On the =Run other titles with=, select the added =GE-Proton= version
+
+- Restart =steam= to take affect.
+
+   
+   
