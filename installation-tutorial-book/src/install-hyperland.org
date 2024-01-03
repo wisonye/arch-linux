@@ -3,7 +3,7 @@
 ** Install
 
 #+BEGIN_SRC bash
-  doas pacman --sync --refresh hyprland dunst qt6-wayland
+  doas pacman --sync --refresh hyprland dunst qt6-wayland wl-clipboard
 
   #
   # Optional, just for my case
