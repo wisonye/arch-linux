@@ -1,0 +1,304 @@
+* Setup iptables service
+
+** 1. Install iptables and related packages:
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh core/iptables
+#+END_SRC
+
+
+** 2. Enable =iptables= serivce to start in =boot= level
+
+#+BEGIN_SRC bash
+  
+  # Enable boot service
+  doas systemctl enable iptables.service
+
+  # Restart service
+  doas systemctl restart iptables.service
+
+  # Check status
+  systemctl status iptables.service
+  # ● iptables.service - IPv4 Packet Filtering Framework
+  #      Loaded: loaded (/usr/lib/systemd/system/iptables.service; enabled; preset: disabled)
+  #      Active: active (exited) since Wed 2023-04-05 18:39:19 NZST; 3s ago
+  #     Process: 64350 ExecStart=/usr/bin/iptables-restore /etc/iptables/iptables.rules (code=exited, status=0/SUCCESS)
+  #    Main PID: 64350 (code=exited, status=0/SUCCESS)
+  #         CPU: 2ms
+  # 
+  # Apr 05 18:39:19 my-arch systemd[1]: Starting IPv4 Packet Filtering Framework...
+  # Apr 05 18:39:19 my-arch systemd[1]: Finished IPv4 Packet Filtering Framework.
+#+END_SRC
+
+
+** 3. Run script and save rules
+
+Script attached at the bottom
+
+#+BEGIN_SRC bash
+  # Run script to reset all filter table rules
+  doas ~/.config/iptables/basic.fish
+
+  # Save loaded iptable rules to `/etc/iptables/iptables.rules`
+  doas iptables-save -f /etc/iptables/iptables.rules
+
+  # Reboot now, `iptables` service should reload from `/etc/iptables/iptables.rules`
+  doas reboot
+#+END_SRC
+
+
+After reboot, print out =filter= table rules to confirm:
+
+#+BEGIN_SRC bash
+  doas iptables -t filter --list
+
+ # Chain INPUT (policy DROP 7 packets, 745 bytes)
+ #  pkts bytes target     prot opt in     out     source               destination
+ #    94 31876 ACCEPT     all  --  lo     any     anywhere             anywhere
+ #  1782 2129K ACCEPT     all  --  any    any     anywhere             anywhere             state RELATED,ESTABLISHED
+ #     0     0 ACCEPT     icmp --  any    any     192.168.1.xxx        anywhere             icmp echo-request
+ #     0     0 ACCEPT     tcp  --  any    any     192.168.1.xxx        anywhere             tcp dpt:ssh
+ #     7   745 LOG        all  --  any    any     anywhere             anywhere             LOG level warn
+ # 
+ # Chain FORWARD (policy DROP 0 packets, 0 bytes)
+ #  pkts bytes target     prot opt in     out     source               destination
+ # 
+ # Chain OUTPUT (policy DROP 0 packets, 0 bytes)
+ #  pkts bytes target     prot opt in     out     source               destination
+ #  1881  392K ACCEPT     all  --  any    any     anywhere             anywhere             state NEW,RELATED,ESTABLISHED
+ #     0     0 LOG        all  --  any    any     anywhere             anywhere             LOG level warn
+#+END_SRC
+
+
+** 4. Useful iptalbes commands
+
+*** List rules with packets info
+
+#+BEGIN_SRC bash
+  doas iptables -t filter --list -v
+
+  # Chain INPUT (policy DROP 7 packets, 745 bytes)
+  #  pkts bytes target     prot opt in     out     source               destination
+  #    94 31876 ACCEPT     all  --  lo     any     anywhere             anywhere
+  #  1782 2129K ACCEPT     all  --  any    any     anywhere             anywhere             state RELATED,ESTABLISHED
+  #     0     0 ACCEPT     icmp --  any    any     192.168.1.xxx        anywhere             icmp echo-request
+  #     0     0 ACCEPT     tcp  --  any    any     192.168.1.xxx        anywhere             tcp dpt:ssh
+  #     7   745 LOG        all  --  any    any     anywhere             anywhere             LOG level warn
+
+  # Chain FORWARD (policy DROP 0 packets, 0 bytes)
+  #  pkts bytes target     prot opt in     out     source               destination
+
+  # Chain OUTPUT (policy DROP 0 packets, 0 bytes)
+  #  pkts bytes target     prot opt in     out     source               destination
+  #  1881  392K ACCEPT     all  --  any    any     anywhere             anywhere             state NEW,RELATED,ESTABLISHED
+  #     0     0 LOG        all  --  any    any     anywhere             anywhere             LOG level warn
+#+END_SRC
+
+
+*** List rules in command format
+
+#+BEGIN_SRC bash
+  doas iptables -t filter --list-rules
+
+  # -P INPUT DROP
+  # -P FORWARD DROP
+  # -P OUTPUT DROP
+  # -A INPUT -i lo -j ACCEPT
+  # -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+  # -A INPUT -s 192.168.1.188/32 -p icmp -m icmp --icmp-type 8 -j ACCEPT
+  # -A INPUT -s 192.168.1.188/32 -p tcp -m tcp --dport 22 -j ACCEPT
+  # -A INPUT -j LOG
+  # -A OUTPUT -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
+  # -A OUTPUT -j LOG
+#+END_SRC
+
+
+For each row of the output, you can just add ~iptables~ at the beginning to use it as a setting command!!!
+
+
+*** Save loaded iptable rules to =/etc/iptables/iptables.rules=
+
+#+BEGIN_SRC bash
+  doas iptables-save -f /etc/iptables/iptables.rules
+#+END_SRC  
+
+It loads the current iptalbes rules and save it into =/etc/iptables/iptables.rules=, =iptables.service= will load all rules from that file!!!
+
+
+*** View the log
+
+#+BEGIN_SRC bash
+  journalctl -k --grep=\"IN=.*OUT=.*\""
+#+END_SRC
+
+
+** 5. =Basic= iptables script
+
+Make sure to change the IP of =trusted_node= before saving as a shell script file!!!
+
+#+BEGIN_SRC bash
+  #!/usr/bin/fish
+
+  # ---------------------------------------------------------------------------
+  # Author: Wison Ye
+  #
+  # Desciption:
+  #
+  # Setup firewall and save all rules to `/etc/iptables/`
+  #
+  # For the better man page, visit: https://man.archlinux.org/man/iptables.8.en
+  #
+  # 1. Install iptables and related packages:
+  #   ```bash
+  #   doas pacman --sync --refresh core/iptables
+  #   ```
+  #
+  # 2. Set `iptables` serivce to start in `boot` level
+  #
+  #   ```bash
+  #   # Enable boot service
+  #   doas systemctl enable iptables.service
+  #
+  #   # Restart service
+  #   doas systemctl restart iptables.service
+  #
+  #   # Check status
+  #   systemctl status iptables.service
+  #   # ● iptables.service - IPv4 Packet Filtering Framework
+  #   #      Loaded: loaded (/usr/lib/systemd/system/iptables.service; enabled; preset: disabled)
+  #   #      Active: active (exited) since Wed 2023-04-05 18:39:19 NZST; 3s ago
+  #   #     Process: 64350 ExecStart=/usr/bin/iptables-restore /etc/iptables/iptables.rules (code=exited, status=0/SUCCESS)
+  #   #    Main PID: 64350 (code=exited, status=0/SUCCESS)
+  #   #         CPU: 2ms
+  #   #
+  #   # Apr 05 18:39:19 my-arch systemd[1]: Starting IPv4 Packet Filtering Framework...
+  #   # Apr 05 18:39:19 my-arch systemd[1]: Finished IPv4 Packet Filtering Framework.
+  #   ```
+  #
+  # 3. Run script and save rules
+  #
+  #   Script attached at the bottom
+  #
+  #   ```bash
+  #   # Run script to reset all filter table rules
+  #   doas ~/.config/iptables/basic.fish
+  #
+  #   # Save loaded iptable rules to `/etc/iptables/iptables.rules`
+  #   doas iptables-save -f /etc/iptables/iptables.rules
+  #
+  #   # Reboot now, `iptables` service should reload from `/etc/iptables/iptables.rules`
+  #   doas reboot
+  #   ```
+  #
+  #   After reboot, print out `filter` table rules to confirm:
+  #
+  #   ```bash
+  #   doas iptables -t filter --list
+  #   ```
+  # ---------------------------------------------------------------------------
+
+
+  #=============================================================================
+  # Flush all chains in default `filter` table
+  #=============================================================================
+  iptables --flush
+  iptables --zero
+
+
+  #=============================================================================
+  # Default policies: DROP
+  #=============================================================================
+  iptables --policy INPUT DROP
+  iptables --policy FORWARD DROP
+  iptables --policy OUTPUT DROP
+
+
+  #=============================================================================
+  # Allow the following packets into computer
+  #
+  # - Available protocol names are located in `/etc/protocols`
+  #
+  # - For more protocol match options, run `iptables -p PROTOCOL_NAME --help | bat`
+  #
+  # - `-j/--jump` target value
+  #
+  # `INVALID`:
+  #     the packet could not be identified for some reason which includes running
+  #     out of memory and ICMP errors which don't correspond to any known connection.
+  #
+  # `NEW`:
+  #     the packet has started a new connection, or otherwise associated with a
+  #     connection which has not seen packets in both directions.
+  #
+  # `ESTABLISHED`:
+  #     the packet is associated with a connection which has seen packets in both
+  #     directions.
+  #
+  # `RELATED`:
+  #     the packet is starting a new connection, but is associated with an existing
+  #     connection, such as an FTP data transfer, or an ICMP error.
+  #
+  # `UNTRACKED`:
+  #     the packet is not tracked at all, which happens if you use the `NOTRACK`
+  #     target in raw table.
+  #=============================================================================
+
+  #
+  # Vars
+  #
+  #
+  set local_interface "lo"
+  set local_network "192.168.1.0/24"
+  set trusted_node "192.168.1.xxx"
+
+
+  #
+  # Allow all incoming packets via `lo` NIC
+  #
+  iptables --append INPUT --in-interface $local_interface --jump ACCEPT
+
+
+
+  # Special rules:
+  #
+  # > Allow all outgoing packets for all protocols and ports
+  # > Allow all incoming packets on top of established connections
+  #
+  iptables --append INPUT  --match state --state ESTABLISHED,RELATED     --jump ACCEPT
+  iptables --append OUTPUT --match state --state NEW,ESTABLISHED,RELATED --jump ACCEPT
+
+
+
+  #
+  # ICMP outgoing (echo-request) and incoming (echo-reply) already `ACCEPT` by
+  # the above `Special rules`. So we only need to set the ICMP incoming (echo-request)
+  # when needed
+  #
+  # Where to get the supported `icmp-type`:
+  #
+  # - iptables -p icmp --help | bat
+  # - https://www.inetdoc.net/guides/iptables-tutorial/icmptypes.html
+  #
+  # iptables --append INPUT --protocol ICMP --icmp-type echo-request --source $local_network --jump ACCEPT
+  iptables --append INPUT --protocol ICMP --icmp-type echo-request --source $trusted_node --jump ACCEPT
+
+
+  #
+  # SSH
+  #
+  iptables --append INPUT --protocol TCP --dport 22 --source $trusted_node --jump ACCEPT
+
+
+  #
+  # Log everything that doesn't match any rules above
+  #
+  # 1. You have to enable and restart the `systemd-journald.service` service
+  #
+  ##   systemctl enable systemd-journald.service
+  ##   systemctl restart systemd-journald.service
+  #
+  # 2. After that, run `journalctl -k --grep="IN=.*OUT=.*` to see the realtime log
+  #
+  iptables --append INPUT --jump LOG
+  iptables --append OUTPUT --jump LOG
+#+END_SRC
