@@ -168,3 +168,6 @@ Save and then update the grub configuration by running:
 #+BEGIN_SRC bash
   doas grub-mkconfig -o /boot/grub/grub.cfg
 #+END_SRC
+
+
+Here is the detailed [[https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF][wiki]]
