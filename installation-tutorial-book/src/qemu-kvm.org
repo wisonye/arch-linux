@@ -1,0 +1,167 @@
+* QEMU/KVM virtualization
+
+=QEMU= is a generic and open source machine emulator and virtualizer. For more details, read this [[https://wiki.archlinux.org/title/QEMU][wiki page]].
+
+=KVM=, Kernel-based Virtual Machine, is a hypervisor built into the Linux kernel. It is similar to =Xen= in purpose but much simpler to get running. Unlike native =QEMU=, which uses emulation, =KVM= is a special operating mode of =QEMU= that uses CPU extensions (=HVM=) for virtualization via a kernel module.
+
+=Libvirt= is a collection of software that provides a convenient way to manage virtual machines and other virtualization functionality, such as storage and network interface management.
+
+=Virt-Manager= is a graphical user front end for the =Libvirt= library which provides virtual machine management services. =Virt-manager= interface makes it easy for the user to create, delete and manipulate virtual machines without going through the terminal.
+
+=Virt-manager= mainly supports =KVM= but it can work with other hypervisors, such as =Xen= and =LXC.=
+
+
+** Install
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh qemu-base libvirt virt-manager dnsmasq
+#+END_SRC
+
+
+*** Enable and restart =libvirt= service:
+
+#+BEGIN_SRC bash
+  doas systemctl enable libvirtd.service
+  doas systemctl restart libvirtd.service
+#+END_SRC
+
+
+***  Create default virtual network
+
+#+BEGIN_SRC bash
+  #
+  # Create default network
+  #
+  doas virsh net-start default
+
+  #
+  # Make it auto start
+  #
+  doas virsh net-autostart default
+
+  #
+  # Check
+  #
+  doas virsh net-list --all
+  
+  #  Name      State    Autostart   Persistent
+  # --------------------------------------------
+  #  default   active   yes         yes
+#+END_SRC
+
+
+** Permissions
+
+*** Change unix socket to =libvirt= group (=root= only by default)
+
+#+BEGIN_SRC bash
+  doas nvim /etc/libvirt/libvirtd.conf
+
+  #
+  # Make sure to enable this
+  #
+  unix_sock_group = "libvirt"
+  unix_sock_rw_perms = "0770"
+#+END_SRC
+
+
+*** Add your user to =libvirt= user group
+
+#+BEGIN_SRC bash
+  doas usermod -aG libvirt YOUR_USER_ID_HERE
+#+END_SRC
+
+
+*** Add your user to =/etc/libvirt/qemu.conf=
+
+#+BEGIN_SRC bash
+  doas nvim /etc/libvirt/qemu.conf
+#+END_SRC
+
+Search for =user = "libvirt-qemu"= or =group = "libvirt-qemu"=, uncomment both entries and change =libvirt-qemu= to your user name or ID. Once edited it should look something like below:
+
+#+BEGIN_SRC text
+  user = "YOUR_USER_ID_HERE"
+  group = "YOUR_USER_ID_HERE"
+#+END_SRC
+
+Upon opening =Virt-Manager=, it will default to the system variant (root) of the =QEMU= connection.
+
+This can be changed to the user connection by going to: =File > Add Connection=.
+
+Now select =QEMU/KVM= User session as the Hypervisor and click OK. This will now auto-connect to the user session. You can now disconnect and remove the system connection if desired.
+
+
+*** Change your VM folder permissions
+
+Make sure Change =~/.local/share/libvirt/images/= to your VM folder:
+
+#+BEGIN_SRC bash
+  doas chown $USER:libvirt-qemu ~/.local/share/libvirt/images/
+#+END_SRC
+
+** Install =Windows 11=
+
+Watch this [[https://www.youtube.com/watch?v=WmFpwpW6Xko][video]]
+
+** How to passthrough GPU to window guest
+
+*** List the GPU PCI ID
+
+For example, my mini PC use Intetl CPU which integrated with a =Intel TigerLake-H GT1 [UHD Graphics]= GPU:
+
+#+BEGIN_SRC bash
+   neofetch
+
+   #                   -`                    wison@my-arch
+   #                  .o+`                   -------------
+   #                 `ooo/                   OS: Arch Linux x86_64
+   #                `+oooo:                  Host: TH80
+   #               `+oooooo:                 Kernel: 6.1.69-1-lts
+   #               -+oooooo+:                Uptime: 2 hours, 33 mins
+   #             `/:-:++oooo+:               Packages: 825 (pacman)
+   #            `/++++/+++++++:              Shell: fish 3.6.4
+   #           `/++++++++++++++:             Resolution: 3840x2160
+   #          `/+++ooooooooooooo/`           DE: Hyprland
+   #         ./ooosssso++osssssso+`          Theme: Materia-dark [GTK2/3]
+   #        .oossssso-````/ossssss+`         Icons: Adwaita [GTK2/3]
+   #       -osssssso.      :ssssssso.        Terminal: tmux
+   #      :osssssss/        osssso+++.       CPU: 11th Gen Intel i7-11800H (16) @ 4.600GHz
+   #     /ossssssss/        +ssssooo/-       GPU: Intel TigerLake-H GT1 [UHD Graphics]
+   #   `/ossssso+/:-        -:/+osssso+-     Memory: 38319MiB / 64052MiB
+   #  `+sso+:-`                 `.-/+oso:
+   # `++:.                           `-/+/
+   # .`                                 `/
+#+END_SRC
+
+
+Then you can query the GPU PCI ID by running ~lspci -nn | rg "YOUR_GPU_NAME_HERE"~ like this:
+
+#+BEGIN_SRC bash
+  loads   lspci -nn | rg "TigerLake-H GT1 \[UHD Graphics\]"
+
+  # 00:02.0 VGA compatible controller [0300]: Intel Corporation TigerLake-H GT1 [UHD Graphics] [8086:9a60] (rev 01)
+#+END_SRC
+
+That =8086:9a60= is the GPU PCI ID, write it down.
+
+
+*** Enable the =iommu= kernel flag
+
+Watch this [[https://www.youtube.com/watch?v=g--fe8_kEcw&t=10s][video]] 
+
+~doas nvim /etc/default/grub~, search for the =GRUB_CMDLINE_LINUX_DEFAULT= and then add the following flags (separate by space):
+
+- ~intel_iommu=on~ (if AMD, then add ~amd_iommu=on~)
+- ~iommu=pt~
+- ~vfio-pci.ids=YOUR_PCI_ID_HERE~, PCI IDs separate by =,=
+
+#+BEGIN_SRC txt
+  GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet intel_iommu=on iommu=pt vfio-pci.ids=8086:9a60"
+#+END_SRC
+
+Save and then update the grub configuration by running:
+
+#+BEGIN_SRC bash
+  doas grub-mkconfig -o /boot/grub/grub.cfg
+#+END_SRC

@@ -86,3 +86,4 @@
     - [CMake](./cmake.md)
 - [Gaming]
 	- [Steam](gaming-with-steam.org)
+	- [QEMU and GPU](qemu-kvm.org)
