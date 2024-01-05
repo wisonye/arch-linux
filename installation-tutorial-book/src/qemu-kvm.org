@@ -104,6 +104,9 @@ Make sure Change =~/.local/share/libvirt/images/= to your VM folder:
 
 Watch this [[https://www.youtube.com/watch?v=WmFpwpW6Xko][video]]
 
+After open Windows 11, you need run the =virtio-win-guest-tool= in the CDROM to install all drivers!!!
+
+
 ** How to passthrough GPU to window guest
 
 *** List the GPU PCI ID
