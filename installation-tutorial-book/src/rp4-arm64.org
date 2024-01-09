@@ -4,6 +4,8 @@
 
 Follow this [[https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4][installation guide]] to install
 
+Keep that in mind, you can't use =New Zealand= mirrorlist, as it doens't support =aarch64= or =armv7h= architecture!!!
+
 
 ** Fix the font too small issue
 
@@ -77,7 +79,7 @@ You can create a =systemd= service to connect to WIFI automatic when computer bo
 #+END_SRC
 
 
-** Fix the time issue
+** Fix the time issue before ugprading system and install =paru=
 
 If you only use WIFI via =wlan0=, somehow the datetime didn't get synced!!!
 
@@ -139,3 +141,59 @@ Only do this after syncing the time!!!
 #+BEGIN_SRC bash
   pacman -Syu
 #+END_SRC
+
+
+** Install =rustup= before installing =paru=
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh rustup
+
+  #
+  # Install default toolchain
+  #
+  rustup toolchain install stable
+#+END_SRC
+
+
+** Install =paru=
+
+#+BEGIN_SRC bash
+  mkdir ~/temp && cd ~/temp
+
+  sudo pacman -S --needed git base-devel
+  git clone https://aur.archlinux.org/paru.git
+  cd paru
+
+  # If it asks you to choose, thne choose '2', install `cargo`
+  # via `rustup` for a small download size!!!
+  makepkg -si
+
+
+  # If exit with error, then plz make sure to added the latest stable toolchain
+  rustup toolchain add stable
+
+  # Or if you've already install the stable toolchain, then update it
+  rustup update
+
+
+  cd ~/temp && rm -rf paru
+#+END_SRC
+
+
+** Install necessary packages
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh git base-devel man procs bat ripgrep fd neovim python-pynvim fish alacritty
+#+END_SRC
+
+
+Change default shell to =fish=:
+
+#+BEGIN_SRC bash
+  chsh -s /usr/bin/fish
+#+END_SRC
+
+Then usr =ssh= copy backup and restore them
+
+
+
