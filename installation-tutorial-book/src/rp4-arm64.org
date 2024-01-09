@@ -1,0 +1,141 @@
+* Raspberry Pi 4
+
+** Installation
+
+Follow this [[https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4][installation guide]] to install
+
+
+** Fix the font too small issue
+
+After login, run ~setfont -d~ (double the font size) to solve this problem.
+
+
+** Fix WIFI issue
+
+By default, ARMv8 arch has already installed =netctl=, so you need to do the following steps (as =root=) to enable WIFI:
+
+*** Copy example configuration
+
+#+BEGIN_SRC bash
+  cd /etc/netctl
+  cp -rvf examples/wireless-wpa ./wlan0-dhcp
+#+END_SRC
+
+
+*** Change the default settings
+
+#+BEGIN_SRC bash
+  vim wlan0-dhcp
+
+  # Change the =ESSID= to your WIFI =SSID=
+
+  # Go to the bottom, run the command below to read the 
+  # =wpa_passphrase= result into current file.
+  :r !wpa_passphrase YOUR_SSID_HERE YOUR_WIFI_PASSWORD_TEXT_HERE | grep psk
+
+  # After that, you should get something like below:
+  # #psk="xxxxx"
+  # psk="XXXXXX" // That's encrypted WIFI PASS in HEX string
+  # 
+  # So you need to copy that "XXXX" hex string and make it looks like below
+  # to set the =Key= value.
+  # Make sure the value start with =\"= and then follow your HEX string
+  Key=\jXXXXXX
+
+  # Finally, enable the =Hidden=yes= line if your SSID is hidden.
+  # Then save and exit
+#+END_SRC
+
+Pay attention:
+
+_For connecting to the =5G= network, you need to match 2 conditions below:_
+
+- _You have to use unencrypted (plaintext) password to fill the =Key= field._
+
+- _The =5G= network needs to pick the =channel= to =40=._
+
+Otherwise, it won't work!!!
+
+
+*** Start connecting to WIFI
+
+Any file located at =/etc/netctl= folder is call =profile=, you can run the =netctl start PROFILE_NAME= to start any profile-based network configuration:
+
+#+BEGIN_SRC bash
+  netctl start wlan0-dhcp
+#+END_SRC
+
+If start fail, then run =netctl status wlan0-dhcp= to read the detail error.
+
+
+*** Connect to WIFI when computer boots
+
+You can create a =systemd= service to connect to WIFI automatic when computer boots
+
+#+BEGIN_SRC bash
+  netctl reenable wlan0-dhcp
+#+END_SRC
+
+
+** Fix the time issue
+
+If you only use WIFI via =wlan0=, somehow the datetime didn't get synced!!!
+
+*** Edit =/etc/systemd/timesyncd.conf=
+
+#+BEGIN_SRC bash
+  [Time]
+  NTP=
+  FallbackNTP=
+#+END_SRC
+
+Enable those 2 lines and copy value from =FallbackNTP='s value and paste it to =NTP=.
+
+Save and restart the service:
+
+#+BEGIN_SRC bash
+  doas systemctl restart systemd-networkd.service 
+  doas systemctl restart systemd-timesyncd.service
+#+END_SRC
+
+And make sure those services are running.
+
+
+*** Install =ntp=
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh ntp
+#+END_SRC
+
+Enable ntp:
+
+#+BEGIN_SRC bash
+  timedatectl set-ntp true
+
+  timedatectl status
+  timedatectl timesync-status --all
+#+END_SRC
+
+
+*** Sync time manually
+
+I keep seeing =System clock synchronized: no= when running =timedatectl status= and I have no idea.
+
+So, the last step is sync time manually:
+
+#+BEGIN_SRC bash
+  ntpdate 0.arch.pool.ntp.org
+#+END_SRC
+
+Run it everytime after reboot!!!
+Run it everytime after reboot!!!
+Run it everytime after reboot!!!
+
+
+** Upgrade installed packages to latest
+
+Only do this after syncing the time!!!
+
+#+BEGIN_SRC bash
+  pacman -Syu
+#+END_SRC
