@@ -1,0 +1,57 @@
+* Connect to WIFI
+
+If you prefer to use =WIFI= during the installation, then please keep reading.
+
+First thing first, please make sure your WIFI doesn't hide the **SSID**. Otherwise, it won't work!!!
+
+Also, the steps below seems not works with the =5G= WIFI if you use encrypted password, use =2.4G= instead.
+
+For the =5G= network and hidden SSID, it works after you install =netctl=, plz read the details in =WIFI Configuration= chapter.
+
+** Enable your WIFI NIC (Network Interface Card)
+
+Please change =wlan0= to yours if your NIC doesn't =wlan0=, you can use =ip add= to show which WIFI NIC you're using.
+
+#+BEGIN_SRC bash
+    ip link set wlan0 up
+#+END_SRC
+
+
+** Scan your WIFI SSID
+
+If you don't know the =SSID= or not sure your =SSID= is scannable or not, then run it to confirm
+
+#+BEGIN_SRC bash
+    iwlist wlan0 scan | grep SSID
+#+END_SRC
+
+
+** Save your WIFI password into a temporary config file
+
+#+BEGIN_SRC bash
+  wpa_passphrase YOUR_SSID_HERE YOUR_WIFI_PASSWORD_HERE > interent.conf
+#+END_SRC
+
+
+** Connet to WIFI
+
+#+BEGIN_SRC bash
+  wpa_supplicant -c interent.conf -i wlan0 &
+#+END_SRC
+
+
+After you see the log looks like connected, then check your IP
+
+#+BEGIN_SRC bash
+  ip add
+#+END_SRC
+
+
+Maybe you need to run =dhcpcd &= to grab a new IP if your router doesn't do that for u.
+
+
+After you can access to internet, enable =NTP= to sync your clock
+
+#+BEGIN_SRC bash
+  timedatectl set-ntp true
+#+END_SRC
