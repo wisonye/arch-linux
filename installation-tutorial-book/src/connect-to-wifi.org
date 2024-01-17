@@ -2,18 +2,34 @@
 
 If you prefer to use =WIFI= during the installation, then please keep reading.
 
-First thing first, please make sure your WIFI doesn't hide the **SSID**. Otherwise, it won't work!!!
-
-Also, the steps below seems not works with the =5G= WIFI if you use encrypted password, use =2.4G= instead.
-
-For the =5G= network and hidden SSID, it works after you install =netctl=, plz read the details in =WIFI Configuration= chapter.
+You can use [[https://wiki.archlinux.org/title/iwd][iwctl]] to do the job.
 
 ** Enable your WIFI NIC (Network Interface Card)
 
-Please change =wlan0= to yours if your NIC doesn't =wlan0=, you can use =ip add= to show which WIFI NIC you're using.
+Make sure to change the =wlan0= to yours if your NIC doesn't =wlan0=, print the NIC name by running ~ip add~
 
 #+BEGIN_SRC bash
-    ip link set wlan0 up
+  ip link set wlan0 up
+#+END_SRC
+
+
+You can list all WIFI devices like this:
+
+#+BEGIN_SRC bash
+  iwctl device list
+#+END_SRC
+
+Show its status:
+
+#+BEGIN_SRC bash
+  iwctl device wlan0 show
+#+END_SRC
+
+If the device or its corresponding adapter is turned off, turn it on before the next step:
+
+#+BEGIN_SRC bash
+  iwctl device wlan0 set-property Powered on
+  iwctl adapter wlan0 set-property Powered on
 #+END_SRC
 
 
@@ -22,33 +38,30 @@ Please change =wlan0= to yours if your NIC doesn't =wlan0=, you can use =ip add=
 If you don't know the =SSID= or not sure your =SSID= is scannable or not, then run it to confirm
 
 #+BEGIN_SRC bash
-    iwlist wlan0 scan | grep SSID
-#+END_SRC
-
-
-** Save your WIFI password into a temporary config file
-
-#+BEGIN_SRC bash
-  wpa_passphrase YOUR_SSID_HERE YOUR_WIFI_PASSWORD_HERE > interent.conf
+  iwlist station wlan0 scan | grep SSID
 #+END_SRC
 
 
 ** Connet to WIFI
 
 #+BEGIN_SRC bash
-  wpa_supplicant -c interent.conf -i wlan0 &
-#+END_SRC
+  #
+  # Connect to public SSID
+  #
+  iwctl station wlan0 connect SSID
 
+  #
+  # Or connect to hidden SSID
+  #
+  iwctl station wlan0 connect-hidden SSID
 
-After you see the log looks like connected, then check your IP
-
-#+BEGIN_SRC bash
+  #
+  # After that, check your IP address
+  #
   ip add
 #+END_SRC
 
-
-Maybe you need to run =dhcpcd &= to grab a new IP if your router doesn't do that for u.
-
+Maybe you need to run =dhcpcd &= to grab a new IP if your router doesn't do that for you.
 
 After you can access to internet, enable =NTP= to sync your clock
 
