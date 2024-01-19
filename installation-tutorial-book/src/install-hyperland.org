@@ -277,8 +277,7 @@ Make sure to select =swww= (default =1=) rather than the =swww-git= (outdated) a
 **** Install
 
 #+BEGIN_SRC bash
-  paru --sync --search waypaper
-
+  paru --sync --refresh waypaper
 #+END_SRC
 
 

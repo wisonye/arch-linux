@@ -1,0 +1,241 @@
+* Raspberry Pi 4
+
+** Installation
+
+Follow this [[https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4][installation guide]] to install
+
+Keep that in mind, you can't use =New Zealand= mirrorlist, as it doens't support =aarch64= or =armv7h= architecture!!!
+
+
+** Enable audio and GPU
+
+Add the following settings to =/boot/config.txt=
+
+#+BEGIN_SRC bash
+
+  # Enable audio (loads snd_bcm2835) and HDMI audio output
+  dtparam=audio=on
+  hdmi_drive=2
+
+  # Automatically load overlays for detected cameras
+  # camera_auto_detect=1
+
+  # Automatically load overlays for detected DSI displays
+  # display_auto_detect=1
+
+  # Enable DRM VC4 V3D driver
+  dtoverlay=vc4-kms-v3d
+#+END_SRC
+
+
+After that, run the following command to confirm:
+
+#+BEGIN_SRC bash
+  doas dmesg | rg "v3d""
+#+END_SRC
+
+
+** Overclock if needed
+
+Add the following settings to =/boot/config.txt=
+
+#+BEGIN_SRC bash
+  #
+  # Default is 700 MHz, you can up to 2 GHz (2000)
+  #
+  arm_freq=1800
+  over_voltage=6
+  gpu_freq=750
+#+END_SRC
+
+
+** Fix the font too small issue
+
+After login, run ~setfont -d~ (double the font size) to solve this problem.
+
+
+** Fix WIFI issue
+
+By default, ARMv8 arch has already installed =netctl=, so you need to do the following steps (as =root=) to enable WIFI:
+
+*** Copy example configuration
+
+#+BEGIN_SRC bash
+  cd /etc/netctl
+  cp -rvf examples/wireless-wpa ./wlan0-dhcp
+#+END_SRC
+
+
+*** Change the default settings
+
+#+BEGIN_SRC bash
+  vim wlan0-dhcp
+
+  # Change the =ESSID= to your WIFI =SSID=
+
+  # Go to the bottom, run the command below to read the 
+  # =wpa_passphrase= result into current file.
+  :r !wpa_passphrase YOUR_SSID_HERE YOUR_WIFI_PASSWORD_TEXT_HERE | grep psk
+
+  # After that, you should get something like below:
+  # #psk="xxxxx"
+  # psk="XXXXXX" // That's encrypted WIFI PASS in HEX string
+  # 
+  # So you need to copy that "XXXX" hex string and make it looks like below
+  # to set the =Key= value.
+  # Make sure the value start with =\"= and then follow your HEX string
+  Key=\jXXXXXX
+
+  # Finally, enable the =Hidden=yes= line if your SSID is hidden.
+  # Then save and exit
+#+END_SRC
+
+Pay attention:
+
+_For connecting to the =5G= network, you need to match 2 conditions below:_
+
+- _You have to use unencrypted (plaintext) password to fill the =Key= field._
+
+- _The =5G= network needs to pick the =channel= to =40=._
+
+Otherwise, it won't work!!!
+
+
+*** Start connecting to WIFI
+
+Any file located at =/etc/netctl= folder is call =profile=, you can run the =netctl start PROFILE_NAME= to start any profile-based network configuration:
+
+#+BEGIN_SRC bash
+  netctl start wlan0-dhcp
+#+END_SRC
+
+If start fail, then run =netctl status wlan0-dhcp= to read the detail error.
+
+
+*** Connect to WIFI when computer boots
+
+You can create a =systemd= service to connect to WIFI automatic when computer boots
+
+#+BEGIN_SRC bash
+  netctl reenable wlan0-dhcp
+#+END_SRC
+
+
+** Fix the time issue before ugprading system and install =paru=
+
+If you only use WIFI via =wlan0=, somehow the datetime didn't get synced!!!
+
+*** Edit =/etc/systemd/timesyncd.conf=
+
+#+BEGIN_SRC bash
+  [Time]
+  NTP=
+  FallbackNTP=
+#+END_SRC
+
+Enable those 2 lines and copy value from =FallbackNTP='s value and paste it to =NTP=.
+
+Save and restart the service:
+
+#+BEGIN_SRC bash
+  doas systemctl restart systemd-networkd.service 
+  doas systemctl restart systemd-timesyncd.service
+#+END_SRC
+
+And make sure those services are running.
+
+
+*** Install =ntp=
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh ntp
+#+END_SRC
+
+Enable ntp:
+
+#+BEGIN_SRC bash
+  timedatectl set-ntp true
+
+  timedatectl status
+  timedatectl timesync-status --all
+#+END_SRC
+
+
+*** Sync time manually
+
+I keep seeing =System clock synchronized: no= when running =timedatectl status= and I have no idea.
+
+So, the last step is sync time manually:
+
+#+BEGIN_SRC bash
+  ntpdate 0.arch.pool.ntp.org
+#+END_SRC
+
+Run it everytime after reboot!!!
+Run it everytime after reboot!!!
+Run it everytime after reboot!!!
+
+
+** Upgrade installed packages to latest
+
+Only do this after syncing the time!!!
+
+#+BEGIN_SRC bash
+  pacman -Syu
+#+END_SRC
+
+
+** Install =rustup= before installing =paru=
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh rustup
+
+  #
+  # Install default toolchain
+  #
+  rustup toolchain install stable
+#+END_SRC
+
+
+** Install =paru=
+
+#+BEGIN_SRC bash
+  mkdir ~/temp && cd ~/temp
+
+  sudo pacman -S --needed git base-devel
+  git clone https://aur.archlinux.org/paru.git
+  cd paru
+
+  # If it asks you to choose, thne choose '2', install `cargo`
+  # via `rustup` for a small download size!!!
+  makepkg -si
+
+
+  # If exit with error, then plz make sure to added the latest stable toolchain
+  rustup toolchain add stable
+
+  # Or if you've already install the stable toolchain, then update it
+  rustup update
+
+
+  cd ~/temp && rm -rf paru
+#+END_SRC
+
+
+** Install necessary packages
+
+#+BEGIN_SRC bash
+  doas pacman --sync --refresh git base-devel man procs bat ripgrep fd neovim python-pynvim fish alacritty
+#+END_SRC
+
+
+Change default shell to =fish=:
+
+#+BEGIN_SRC bash
+  chsh -s /usr/bin/fish
+#+END_SRC
+
+Then usr =ssh= copy backup and restore them
+
+
+
