@@ -1,15 +1,16 @@
-# Use Paralles Desktop to boot live ISO
+* Use Paralles Desktop to boot live ISO
 
-Actually, you can run the installation process inside `Paralles Desktop` if
-you're in `MacOS`. Here is the step-by-step walk through:
+Actually, you can run the installation process inside =Paralles Desktop= if
+you're in =MacOS=. Here is the step-by-step walk through:
 
-![1.png](./images/paralles-desktop-installation/paralles-arch-linux-1.png)
 
-</br>
+#+ATTR_HTML: :width 50%
+[[./images/paralles-desktop-installation/paralles-arch-linux-1.png]]
 
-![2.png](./images/paralles-desktop-installation/paralles-arch-linux-2.png)
 
-</br>
+#+ATTR_HTML: :width 50%
+[[file:./images/paralles-desktop-installation/paralles-arch-linux-2.png]]
+
 
 ![3.png](./images/paralles-desktop-installation/paralles-arch-linux-3.png)
 
@@ -59,7 +60,7 @@ you're in `MacOS`. Here is the step-by-step walk through:
 
 </br>
 
-**This is very very very important, otherwise, you CAN'T boot from `EFI`!!!**
+**This is very very very important, otherwise, you CAN'T boot from =EFI=!!!**
 
 ![11-1.png](./images/paralles-desktop-installation/paralles-arch-linux-11-1.png)
 
